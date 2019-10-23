@@ -3,7 +3,7 @@ import getThumb from 'video-thumbnail-url';
 import styled from "styled-components";
 import {Link} from "react-router-dom";
 
-function VideoCard(props) {
+function VideoLinkCard(props) {
     const [thumbNail, setThumbNail] = useState("/img/empty_img.png");
     const {id, name, url} = props.video;
 
@@ -50,4 +50,4 @@ function VideoCard(props) {
     );
 }
 
-export default VideoCard;
+export default VideoLinkCard;

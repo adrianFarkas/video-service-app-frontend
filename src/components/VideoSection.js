@@ -1,5 +1,5 @@
 import React, {useContext} from 'react';
-import VideoCard from "./VideoCard";
+import VideoLinkCard from "./VideoLinkCard";
 import styled from "styled-components";
 
 import {RootContext} from "../contexts/RootContext";
@@ -8,7 +8,7 @@ function VideoSection(props) {
     const {state} = useContext(RootContext);
     const {videos} = state;
 
-    const videoCards = videos.map((video, i) => <VideoCard key={i} video={video}/>);
+    const videoCards = videos.map((video, i) => <VideoLinkCard key={i} video={video}/>);
 
     const Section = styled.div`
         width: 1400px;
