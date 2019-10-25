@@ -1,14 +1,14 @@
 import React, {useContext} from 'react';
 import VideoLinkCard from "./VideoLinkCard";
 import styled from "styled-components";
+import {light, dark} from "../theme";
 
 import {RootContext} from "../contexts/RootContext";
 
-function VideoSection(props) {
+function VideoLinkSection(props) {
     const {state} = useContext(RootContext);
-    const {videos} = state;
-
-    const videoCards = videos.map((video, i) => <VideoLinkCard key={i} video={video}/>);
+    const {videos, isLightTheme} = state;
+    const theme = isLightTheme ? light : dark;
 
     const Section = styled.div`
         width: 1400px;
@@ -20,11 +20,13 @@ function VideoSection(props) {
     const Wrapper = styled.div`
         margin: 20px auto;
         width: 1500px;
-        border-top: 1px solid #ffffff;
-        border-bottom: 1px solid #ffffff;
+        border-top: 1px solid ${theme.syntax};
+        border-bottom: 1px solid ${theme.syntax};
         padding: 20px;
 
     `;
+
+    const videoCards = videos.map((video, i) => <VideoLinkCard key={i} video={video}/>);
 
     return (
         <Wrapper>
@@ -35,4 +37,4 @@ function VideoSection(props) {
     );
 }
 
-export default VideoSection;
+export default VideoLinkSection;

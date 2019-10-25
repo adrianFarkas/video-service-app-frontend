@@ -4,19 +4,22 @@ import Video from "../components/Video";
 import VideoLoading from "../components/VideoLoading";
 import styled from "styled-components";
 import CommentForm from "../components/CommentForm";
+import CommentSection from "../components/CommentSection";
+import {dark, light} from "../theme";
 
 
 function Details(props) {
     const videoId = props.match.params.id;
 
     const {state, fetchVideoById} = useContext(RootContext);
+    const {isLightTheme} = state;
+    const theme = isLightTheme ? light : dark;
     const actVideoId = state.selectedVideo.id;
+    document.body.style.backgroundColor = theme.background;
 
     useEffect(() => {
         fetchVideoById(videoId);
     }, [videoId]);
-
-    const video = parseInt(videoId) === actVideoId ? <Video/> : <VideoLoading/>;
 
     const Page = styled.div`
         width: 95%;
@@ -27,6 +30,8 @@ function Details(props) {
         width: 1100px;
         margin: 40px 30px;
     `;
+
+    const video = parseInt(videoId) === actVideoId ? <Video/> : <VideoLoading/>;
 
     return (
         <Page>

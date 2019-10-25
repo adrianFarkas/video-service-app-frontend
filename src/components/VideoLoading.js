@@ -1,19 +1,20 @@
 import React from 'react';
 import {CircularProgress} from "@material-ui/core";
 import styled from "styled-components";
+import {colors} from "../theme";
 
 function VideoLoading(props) {
 
     const LoadingWrapper = styled.div`
         width: 1100px;
         height: 620px;
-        border: 1px solid white;
+        background-color: ${colors.lightGrey2};
     `;
 
     return (
         <LoadingWrapper>
-            <div style={{width: "50px", margin: "25% auto"}}>
-            <CircularProgress style={{color: "#630400"}}/>
+            <div style={{width: "50px", margin: "0 auto"}}>
+                <CircularProgress style={{color: colors.claret, margin: "280px auto"}}/>
             </div>
         </LoadingWrapper>
     );

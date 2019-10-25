@@ -2,10 +2,13 @@ import React, {useContext} from 'react';
 import ReactPlayer from "react-player";
 import {RootContext} from "../contexts/RootContext";
 import styled from "styled-components";
+import {dark, light} from "../theme";
 
 function Video(props) {
 
     const {state} = useContext(RootContext);
+    const {isLightTheme} = state;
+    const theme = isLightTheme ? light : dark;
     const {name, url} = state.selectedVideo;
 
     const Card = styled.div`
@@ -16,10 +19,11 @@ function Video(props) {
 
     const VideoName = styled.div`
         width: 1100px;
-        color: #ffffff;
+        color: ${theme.syntax};
         font-size: 30px;
         text-align: left;
         padding: 20px 0;
+        overflow-wrap: break-word;
     `;
 
     return (

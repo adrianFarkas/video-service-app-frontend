@@ -6,9 +6,10 @@ export const RootContext = createContext();
 
 function RootContextProvider(props) {
     const initialState = {
-        videos: [],
-        selectedVideo: {},
-    };
+            videos: [],
+            selectedVideo: {},
+            isLightTheme: false,
+        };
 
     const baseUrl = "http://localhost:8762/video-service/video/";
 
@@ -30,8 +31,16 @@ function RootContextProvider(props) {
             });
     };
 
+    const sendRecommendation = (id, recommendation) => {
+        axios.post(baseUrl + id + "/recommendation", recommendation)
+            .then(res => {
+                const data = res.data;
+                dispatch({type: "CHANGE_RECOMMENDATIONS", data})
+            });
+    };
+
     return (
-        <RootContext.Provider value={{state, dispatch, fetchVideoById}}>
+        <RootContext.Provider value={{state, dispatch, fetchVideoById, sendRecommendation}}>
             {props.children}
         </RootContext.Provider>
     );
