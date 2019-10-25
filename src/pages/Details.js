@@ -38,6 +38,7 @@ function Details(props) {
             <Wrapper>
                 {video}
                 <CommentForm/>
+                <CommentSection/>
             </Wrapper>
         </Page>
     );

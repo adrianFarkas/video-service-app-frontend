@@ -10,6 +10,11 @@ const rootReducer = (state, action) => {
                 ...state,
                 selectedVideo: action.data
             };
+        case "CHANGE_RECOMMENDATIONS":
+            return {
+                ...state,
+                selectedVideo: {...state.selectedVideo, recommendations: action.data}
+            };
         default:
             return state;
 
