@@ -7,13 +7,14 @@ import {colors, dark, light} from "../theme";
 import {makeStyles} from "@material-ui/core";
 
 function CommentForm(props) {
-    const {state, sendRecommendation} = useContext(RootContext);
+    const {state, sendRecommendation, updateRecommendation} = useContext(RootContext);
     const {isLightTheme} = state;
     const theme = isLightTheme ? light : dark;
+    const {rate, comment, commentId, buttonText} = props;
 
     const [hover, setHover] = useState(0);
-    const [value, setValue] = useState(0);
-    const [text, setText] = useState("");
+    const [value, setValue] = useState(rate);
+    const [text, setText] = useState(comment);
 
     const btnStyle = {
         backgroundColor: theme.button,
@@ -33,7 +34,7 @@ function CommentForm(props) {
 
     const useStyles = makeStyles(() => ({
         root: {
-            width: 1100,
+            width: "100%",
             "& label": {
                 color: theme.syntax,
             },
@@ -68,20 +69,21 @@ function CommentForm(props) {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        if( text !== "" && value > 0) {
+        if(text !== "" && value > 0) {
             const videoId = state.selectedVideo.id;
             const recommendation = {
                 comment: text,
                 rating: value
             };
-            sendRecommendation(videoId, recommendation);
+            if (commentId) updateRecommendation(commentId, recommendation);
+            else sendRecommendation(videoId, recommendation);
             setText("")
         }
     };
     const classes = useStyles();
 
     return (
-        <div style={{width: "1100px", position: "relative"}}>
+        <div style={{width: "100%", position: "relative"}}>
             <form onSubmit={handleSubmit}>
             <TextField
                 className={classes.root}
@@ -98,7 +100,7 @@ function CommentForm(props) {
             />
             <div style={btnPosition}>
                 <Button variant="contained" style={btnStyle} type="submit">
-                    Send
+                    {buttonText ? buttonText : "Send"}
                 </Button>
             </div>
             </form>
