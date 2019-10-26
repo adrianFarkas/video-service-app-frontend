@@ -13,13 +13,15 @@ function CommentForm(props) {
     const {rate, comment, commentId, buttonText} = props;
 
     const [hover, setHover] = useState(0);
-    const [value, setValue] = useState(rate);
-    const [text, setText] = useState(comment);
+    const [value, setValue] = useState(rate ? rate : 0);
+    const [text, setText] = useState(comment ? comment : "");
+
+    const isBtnDisabled = text === "" || value < 1;
 
     const btnStyle = {
-        backgroundColor: theme.button,
+        backgroundColor: isBtnDisabled ? theme.disabledBtn : theme.button,
+        color: isBtnDisabled ? theme.disabledBtnTxt : theme.buttonTxt,
         fontWeight: "bold",
-        color: theme.buttonTxt,
         width: "100px",
     };
 
@@ -69,16 +71,14 @@ function CommentForm(props) {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        if(text !== "" && value > 0) {
-            const videoId = state.selectedVideo.id;
-            const recommendation = {
-                comment: text,
-                rating: value
-            };
-            if (commentId) updateRecommendation(commentId, recommendation);
-            else sendRecommendation(videoId, recommendation);
-            setText("")
-        }
+        const videoId = state.selectedVideo.id;
+        const recommendation = {
+            comment: text,
+            rating: value
+        };
+        if (commentId) updateRecommendation(commentId, recommendation);
+        else sendRecommendation(videoId, recommendation);
+        setText("")
     };
     const classes = useStyles();
 
@@ -99,7 +99,7 @@ function CommentForm(props) {
                 style={{padding: "20px 0"}}
             />
             <div style={btnPosition}>
-                <Button variant="contained" style={btnStyle} type="submit">
+                <Button variant="contained" style={btnStyle} type="submit" disabled={isBtnDisabled}>
                     {buttonText ? buttonText : "Send"}
                 </Button>
             </div>

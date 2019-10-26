@@ -16,6 +16,8 @@ export const light = {
     syntax: "#484848",
     button: "#630400",
     buttonTxt: "#ffffff",
+    disabledBtn: "#9e9a9d",
+    disabledBtnTxt: "#ffffff",
     // navBg: "#989596",
     // navTxt: "#dcdbd4",
 };
@@ -26,6 +28,8 @@ export const dark = {
     syntax: "#dcdbd4",
     button: "#ffffff",
     buttonTxt: "#630400",
+    disabledBtn: "#9e9a9d",
+    disabledBtnTxt: "#ffffff",
     // navBg: "#f0f0f0",
     // navTxt: "#484848",
 };
