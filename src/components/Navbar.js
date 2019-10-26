@@ -61,6 +61,7 @@ export default function Navbar() {
                     </IconButton>
                 </Toolbar>
             </AppBar>
+            <SlideMenu open={open} toggleDrawer={toggleDrawer}/>
         </div>
     );
 }
