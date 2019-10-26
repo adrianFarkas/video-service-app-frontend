@@ -3,6 +3,10 @@ import Rate from "./Rate";
 import styled from "styled-components";
 import {dark, light} from "../theme";
 import {RootContext} from "../contexts/RootContext";
+import MoreButton from "./MoreButton";
+import MenuItem from "@material-ui/core/MenuItem";
+import EditIcon from '@material-ui/icons/Edit';
+import DeleteIcon from '@material-ui/icons/Delete';
 import CommentForm from "./CommentForm";
 
 
@@ -60,6 +64,14 @@ function Comment(props) {
                 <div style={{paddingBottom: "15px"}}>Unknown</div>
                 {recommendation}
             </CommentCard>
+            <MoreButton
+                color={theme.syntax}
+                style={moreStyle}
+                comment={comment}
+            >
+                <MenuItem onClick={() => setEdiMode(!editMode)}><EditIcon fontSize={"small"}/>Edit</MenuItem>
+                <MenuItem ><DeleteIcon fontSize={"small"}/>Delete</MenuItem>
+            </MoreButton>
         </Wrapper>
     );
 }
