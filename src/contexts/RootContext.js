@@ -39,8 +39,16 @@ function RootContextProvider(props) {
             });
     };
 
+    const updateRecommendation = (id, recommendation) => {
+        axios.put(baseUrl + "recommendation/" + id , recommendation)
+            .then(res => {
+                const data = res.data;
+                dispatch({type: "UPDATE_RECOMMENDATION", data})
+            });
+    };
+
     return (
-        <RootContext.Provider value={{state, dispatch, fetchVideoById, sendRecommendation}}>
+        <RootContext.Provider value={{state, dispatch, fetchVideoById, sendRecommendation, updateRecommendation}}>
             {props.children}
         </RootContext.Provider>
     );
