@@ -15,6 +15,11 @@ const rootReducer = (state, action) => {
                 ...state,
                 selectedVideo: {...state.selectedVideo, recommendations: action.data}
             };
+        case "SWITCH_THEME":
+            return {
+                ...state,
+                isLightTheme: action.checked
+            };
         default:
             return state;
 
