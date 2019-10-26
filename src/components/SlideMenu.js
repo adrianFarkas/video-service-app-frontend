@@ -8,6 +8,8 @@ import makeStyles from "@material-ui/core/styles/makeStyles";
 import List from "@material-ui/core/List";
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
+import ThemeSwitcher from "./ThemeSwitcher";
+import SettingsBrightnessIcon from '@material-ui/icons/SettingsBrightness';
 
 const useStyles = makeStyles({
     list: {
@@ -27,7 +29,6 @@ function SlideMenu(props) {
             className={classes.fullList}
             role="presentation"
             onClick={toggleDrawer(false)}
-            onKeyDown={toggleDrawer(false)}
         >
             <List>
                 <ListItem button>
@@ -37,6 +38,10 @@ function SlideMenu(props) {
             </List>
             <Divider />
             <List>
+                <ListItem>
+                    <ListItemIcon><SettingsBrightnessIcon/></ListItemIcon>
+                    <ThemeSwitcher/>
+                </ListItem>
                 <ListItem button>
                     <ListItemIcon><ExitToAppIcon /></ListItemIcon>
                     <ListItemText primary={"Sign In"} />
