@@ -6,6 +6,7 @@ import styled from "styled-components";
 import CommentForm from "../components/CommentForm";
 import CommentSection from "../components/CommentSection";
 import {dark, light} from "../theme";
+import Navbar from "../components/Navbar";
 
 
 function Details(props) {
@@ -22,19 +23,23 @@ function Details(props) {
     }, [videoId]);
 
     const Page = styled.div`
-        width: 95%;
         margin: 0 auto;
     `;
 
     const Wrapper = styled.div`
         width: 1100px;
         margin: 40px 30px;
+        @media (max-width: 1200px) {
+            margin: 0 auto;
+            padding: 10px
+        };        
     `;
 
     const video = parseInt(videoId) === actVideoId ? <Video/> : <VideoLoading/>;
 
     return (
         <Page>
+            <Navbar/>
             <Wrapper>
                 {video}
                 <CommentForm/>

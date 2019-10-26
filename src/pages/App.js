@@ -13,7 +13,6 @@ function App() {
     return (
         <div className="App">
             <Navbar/>
-            <h1 className="title">Netflix--</h1>
             <VideoLinkSection/>
         </div>
     );
