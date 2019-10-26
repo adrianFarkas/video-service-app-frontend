@@ -20,6 +20,16 @@ const rootReducer = (state, action) => {
                 ...state,
                 isLightTheme: action.checked
             };
+        case "UPDATE_RECOMMENDATION":
+            const recommendations = state.selectedVideo.recommendations.filter(r => r.id !== action.data.id);
+
+            return {
+                ...state,
+                selectedVideo: {
+                    ...state.selectedVideo,
+                    recommendations: [...recommendations, action.data]
+                }
+            };
         default:
             return state;
 
