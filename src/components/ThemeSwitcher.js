@@ -3,7 +3,7 @@ import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Switch from "@material-ui/core/Switch";
 import {RootContext} from "../contexts/RootContext";
 
-function Switcher(props) {
+function ThemeSwitcher(props) {
     const {state, dispatch} = useContext(RootContext);
     const [checked, setChecked] = useState(state.isLightTheme);
 
@@ -29,4 +29,4 @@ function Switcher(props) {
     );
 }
 
-export default Switcher;
+export default ThemeSwitcher;
