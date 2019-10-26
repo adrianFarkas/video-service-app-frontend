@@ -1,5 +1,6 @@
 export const colors = {
     white: "#ffffff",
+    white2: "#f6f6f6",
     black: "#000000",
     darkerGrey: "#484848",
     claret: "#630400",
@@ -15,6 +16,8 @@ export const light = {
     syntax: "#484848",
     button: "#630400",
     buttonTxt: "#ffffff",
+    // navBg: "#989596",
+    // navTxt: "#dcdbd4",
 };
 
 export const dark = {
@@ -23,4 +26,6 @@ export const dark = {
     syntax: "#dcdbd4",
     button: "#ffffff",
     buttonTxt: "#630400",
+    // navBg: "#f0f0f0",
+    // navTxt: "#484848",
 };
