@@ -54,6 +54,7 @@ export default function Navbar() {
                     <Link to={"/"} className={classes.title}>
                         <img src="/img/logo.png" alt="logo" className={classes.logo}/>
                     </Link>
+                    <Switcher/>
                     <Button color="inherit">Login</Button>
                     <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu"
                                 onClick={toggleDrawer(true)}>
