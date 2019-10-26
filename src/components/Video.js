@@ -12,7 +12,6 @@ function Video(props) {
     const {name, url} = state.selectedVideo;
 
     const Card = styled.div`
-        width: 1100px;
         height: 750px;
         margin: ${props.style ? props.style.margin : "0"};
     `;
@@ -31,7 +30,7 @@ function Video(props) {
             <ReactPlayer
                 url={url}
                 controls={true}
-                width={1100}
+                width={"100%"}
                 height={620}
             />
             <VideoName>{name}</VideoName>
