@@ -1,20 +1,18 @@
 import React, {useContext, useState} from 'react';
 import Rate from "./Rate";
 import styled from "styled-components";
-import {dark, light} from "../theme";
-import {RootContext} from "../contexts/RootContext";
 import MoreButton from "./MoreButton";
 import MenuItem from "@material-ui/core/MenuItem";
 import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
 import CommentForm from "./CommentForm";
+import {ThemeContext} from "../contexts/ThemeContext";
 
 
 function Comment(props) {
     const {id, rating, comment} = props.comment;
     const [editMode, setEdiMode] = useState(false);
-    const {state: {isLightTheme}} = useContext(RootContext);
-    const theme = isLightTheme ? light : dark;
+    const {theme} = useContext(ThemeContext);
 
     const Wrapper = styled.div`
         padding: 10px 0;

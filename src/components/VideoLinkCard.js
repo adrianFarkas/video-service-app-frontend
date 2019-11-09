@@ -2,14 +2,11 @@ import React, {useContext, useState} from 'react';
 import getThumb from 'video-thumbnail-url';
 import styled from "styled-components";
 import {Link} from "react-router-dom"
-import {light, dark} from "../theme";
-import {RootContext} from "../contexts/RootContext";
+import {ThemeContext} from "../contexts/ThemeContext";
 
 
 function VideoLinkCard(props) {
-    const {state} = useContext(RootContext);
-    const {isLightTheme} = state;
-    const theme = isLightTheme ? light : dark;
+    const {theme} = useContext(ThemeContext);
 
     const [thumbNail, setThumbNail] = useState("/img/empty_img.png");
     const {id, name, url} = props.video;

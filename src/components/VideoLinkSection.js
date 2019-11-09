@@ -1,14 +1,13 @@
 import React, {useContext} from 'react';
 import VideoLinkCard from "./VideoLinkCard";
 import styled from "styled-components";
-import {light, dark} from "../theme";
-
 import {RootContext} from "../contexts/RootContext";
+import {ThemeContext} from "../contexts/ThemeContext";
 
 function VideoLinkSection(props) {
     const {state} = useContext(RootContext);
-    const {videos, isLightTheme} = state;
-    const theme = isLightTheme ? light : dark;
+    const {videos} = state;
+    const {theme} = useContext(ThemeContext);
 
     const Section = styled.div`
         width: 1400px;

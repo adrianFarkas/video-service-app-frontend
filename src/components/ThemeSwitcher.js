@@ -1,16 +1,17 @@
 import React, {useContext, useState} from 'react';
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Switch from "@material-ui/core/Switch";
-import {RootContext} from "../contexts/RootContext";
+import {ThemeContext} from "../contexts/ThemeContext";
+import {light} from "../theme";
 
-function ThemeSwitcher(props) {
-    const {state, dispatch} = useContext(RootContext);
-    const [checked, setChecked] = useState(state.isLightTheme);
+function ThemeSwitcher() {
+    const {theme, changeTheme} = useContext(ThemeContext);
+    const [checked, setChecked] = useState(theme === light);
 
     const handleChange = event => {
         const checked = event.target.checked;
         setChecked(checked);
-        dispatch({type: "SWITCH_THEME", checked});
+        changeTheme();
     };
 
     return (

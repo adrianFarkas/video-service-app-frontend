@@ -3,14 +3,14 @@ import TextField from "@material-ui/core/TextField";
 import Rate from "./Rate";
 import Button from "@material-ui/core/Button";
 import {RootContext} from "../contexts/RootContext";
-import {colors, dark, light} from "../theme";
+import {colors} from "../theme";
 import {makeStyles} from "@material-ui/core";
+import {ThemeContext} from "../contexts/ThemeContext";
 
 function CommentForm(props) {
     const {state, sendRecommendation, updateRecommendation} = useContext(RootContext);
-    const {isLightTheme} = state;
-    const theme = isLightTheme ? light : dark;
     const {rate, comment, commentId, buttonText} = props;
+    const {theme} = useContext(ThemeContext);
 
     const [hover, setHover] = useState(0);
     const [value, setValue] = useState(rate ? rate : 0);

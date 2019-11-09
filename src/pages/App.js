@@ -6,9 +6,6 @@ import Navbar from "../components/Navbar";
 
 function App() {
     const {state} = useContext(RootContext);
-    const {isLightTheme} = state;
-    const theme = isLightTheme ? light : dark;
-    document.body.style.backgroundColor = theme.background;
 
     return (
         <div className="App">
