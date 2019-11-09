@@ -1,4 +1,4 @@
-import React, {createContext, useReducer, useEffect} from 'react';
+import React, {createContext, useReducer, useEffect, useCallback} from 'react';
 import rootReducer from "../reducers/rootReducer";
 import axios from "axios";
 
@@ -8,31 +8,32 @@ function RootContextProvider(props) {
     const initialState = {
             videos: [],
             selectedVideo: {},
-            isLightTheme: false,
         };
 
-    const baseUrl = "http://localhost:8762/video-service/video/";
+    const baseUrlVideo = "http://localhost:8080/videos/";
+    const baseUrlRecommendations = "http://localhost:8080/recommendations/";
 
     const [state, dispatch] = useReducer(rootReducer, initialState);
 
     useEffect(() => {
-        axios.get(baseUrl + "list")
+        axios.get(baseUrlVideo)
             .then(res => {
                 const data = res.data;
                 dispatch({type: "STORE_VIDEOS", data})
             });
     }, []);
 
-    const fetchVideoById = (id) => {
-        axios.get(baseUrl + id)
+
+    const fetchVideoById = useCallback(id => {
+        axios.get(baseUrlVideo + id)
             .then(res => {
                 const data = res.data;
                 dispatch({type: "STORE_ACT_VIDEO", data})
             });
-    };
+    }, []);
 
     const sendRecommendation = (id, recommendation) => {
-        axios.post(baseUrl + id + "/recommendation", recommendation)
+        axios.post(baseUrlRecommendations + `?videoId=${id}`, recommendation)
             .then(res => {
                 const data = res.data;
                 dispatch({type: "CHANGE_RECOMMENDATIONS", data})
@@ -40,7 +41,7 @@ function RootContextProvider(props) {
     };
 
     const updateRecommendation = (id, recommendation) => {
-        axios.put(baseUrl + "recommendation/" + id , recommendation)
+        axios.put(baseUrlRecommendations + id , recommendation)
             .then(res => {
                 const data = res.data;
                 dispatch({type: "UPDATE_RECOMMENDATION", data})
