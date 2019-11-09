@@ -1,4 +1,4 @@
-import React, {memo, useContext} from 'react';
+import React, {useContext} from 'react';
 import ReactPlayer from "react-player";
 import {RootContext} from "../contexts/RootContext";
 import styled from "styled-components";
