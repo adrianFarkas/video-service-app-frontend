@@ -33,6 +33,16 @@ function Comment(props) {
         overflow-wrap: break-word;
     `;
 
+    const Cancel = styled.div`
+        top: 0;
+        right: 0;
+        position: absolute;
+        font-size: 20px;
+        color: ${theme.syntax};
+        margin: 135px 140px 0 0
+        cursor: pointer;
+    `;
+
     const moreStyle = {
         top: 0,
         right: 0,
@@ -40,12 +50,20 @@ function Comment(props) {
         paddingTop: 10
     };
 
+    const handleEditMode = () => {
+        setEdiMode(!editMode)
+    };
+
     const recommendation = editMode ?
-        <CommentForm
-            rate={rating}
-            comment={comment}
-            commentId={id}
-            buttonText={"Edit"}/>
+        <div>
+            <CommentForm
+                rate={rating}
+                comment={comment}
+                commentId={id}
+                buttonText={"Edit"}
+            />
+            <Cancel onClick={handleEditMode}>Cancel</Cancel>
+        </div>
         :
         <div>
             <Text>{comment}</Text>
@@ -67,8 +85,8 @@ function Comment(props) {
                 style={moreStyle}
                 comment={comment}
             >
-                <MenuItem onClick={() => setEdiMode(!editMode)}><EditIcon fontSize={"small"}/>Edit</MenuItem>
-                <MenuItem ><DeleteIcon fontSize={"small"}/>Delete</MenuItem>
+                <MenuItem onClick={handleEditMode}><EditIcon fontSize={"small"}/>Edit</MenuItem>
+                <MenuItem><DeleteIcon fontSize={"small"}/>Delete</MenuItem>
             </MoreButton>
         </Wrapper>
     );
