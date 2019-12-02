@@ -18,31 +18,47 @@ function Details(props) {
         fetchVideoById(videoId);
     }, [videoId, fetchVideoById]);
 
-
-    const Page = styled.div`
+    const Container = styled.div`
+        width: 95%;
         margin: 0 auto;
+        @media (max-width: 480px) {
+           width: unset;
+           margin: 0;
+        }
     `;
 
     const Wrapper = styled.div`
-        width: 1100px;
-        margin: 40px 30px;
-        @media (max-width: 1200px) {
-            margin: 0 auto;
-            padding: 10px
-        };        
+        width: 98%;
+        max-width: 1850px;
+        margin: 0 auto;
+        display: flex;
+    `;
+
+    const VideoSection = styled.div`
+        width: 60%;
+        @media (max-width: 768px) {
+           width: 98%;
+           margin: 0 auto;
+        }
+        @media (max-width: 480px) {
+           width: 98%;
+           margin: 0 auto;
+        }
     `;
 
     const video = parseInt(videoId) === actVideoId ? <Video/> : <VideoLoading/>;
 
     return (
-        <Page>
+        <div>
             <Navbar/>
-            <Wrapper>
-                {video}
-                <CommentForm/>
-                <CommentSection/>
-            </Wrapper>
-        </Page>
+            <Container>
+                <VideoSection>
+                    {video}
+                    <CommentForm/>
+                    <CommentSection/>
+                </VideoSection>
+            </Container>
+        </div>
     );
 }
 

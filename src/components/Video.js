@@ -12,17 +12,33 @@ function Video(props) {
     const Card = styled.div`
         height: 750px;
         margin: 0;
+        @media (max-width: 1200px) {
+           height: 550px;
+        }
+        @media (max-width: 1024px) {
+           height: 450px;
+        }
+    `;
+
+    const Vid = styled.div`
+        width: 100%;
+        height: 80%;
+        @media (max-width: 480px) {
+           height: 300px;
+        }
     `;
 
     return (
         <Card>
+            <Vid>
             <ReactPlayer
                 url={url}
                 controls={true}
                 width={"100%"}
-                height={620}
-                playing={true}
+                height={"100%"}
+                playing={false}
             />
+            </Vid>
             <VideoName>{name}</VideoName>
         </Card>
     );

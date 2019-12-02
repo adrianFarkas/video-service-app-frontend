@@ -10,18 +10,12 @@ function VideoLinkSection(props) {
     const {theme} = useContext(ThemeContext);
 
     const Section = styled.div`
-        width: 1400px;
-        display: flex;
-        flex-flow: row wrap;
+        width: 100%;
+        max-width: 1750px;
+        min-width: 320px;
         margin: 0 auto;
-        border-top: 1px solid ${theme.syntax};
-        border-bottom: 1px solid ${theme.syntax};
-        padding: 20px;
-    `;
-
-    const Wrapper = styled.div`
-        margin: 20px auto;
-        width: 1400px;
+        display: flex;
+        flex-flow: wrap;
     `;
 
     const Title = styled.div`
@@ -31,15 +25,24 @@ function VideoLinkSection(props) {
         color: ${theme.syntax};
     `;
 
+    const Container = styled.div`
+        width: 90%;
+        margin: 0 auto;
+        @media (max-width: 480px) {
+           width: unset;
+           margin: 0;
+        }
+    `;
+
     const videoCards = videos.map((video, i) => <VideoLinkCard key={i} video={video}/>);
 
     return (
-        <Wrapper>
-            <Title>All Videos</Title>
+        <Container>
+            <Title>Recommended</Title>
             <Section>
                 {videoCards}
             </Section>
-        </Wrapper>
+        </Container>
     );
 }
 

@@ -29,7 +29,6 @@ function Comment(props) {
     const Text = styled.div`
         font-size: 30px;
         padding-top: 15px;
-        width: 920px;
         overflow-wrap: break-word;
     `;
 
@@ -39,7 +38,7 @@ function Comment(props) {
         position: absolute;
         font-size: 20px;
         color: ${theme.syntax};
-        margin: 135px 140px 0 0
+        margin: 135px 140px 0 0;
         cursor: pointer;
     `;
 

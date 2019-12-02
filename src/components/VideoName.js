@@ -7,7 +7,6 @@ function VideoName(props) {
     const {theme} = useContext(ThemeContext);
 
     const Name = styled.div`
-        width: 1100px;
         color: ${theme.syntax};
         font-size: 30px;
         text-align: left;
