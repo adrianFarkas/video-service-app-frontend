@@ -8,10 +8,10 @@ function VideoName(props) {
 
     const Name = styled.div`
         color: ${theme.syntax};
-        font-size: 30px;
+        font-size: 3vh;
         text-align: left;
-        padding: 20px 0;
         overflow-wrap: break-word;
+        margin: 10px 0 10px 3px;
     `;
     return (
         <Name>{props.children}</Name>

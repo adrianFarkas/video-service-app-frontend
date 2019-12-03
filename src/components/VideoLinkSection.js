@@ -5,32 +5,41 @@ import {RootContext} from "../contexts/RootContext";
 import {ThemeContext} from "../contexts/ThemeContext";
 
 function VideoLinkSection(props) {
-    const {state} = useContext(RootContext);
-    const {videos} = state;
+    const {state: {videos}} = useContext(RootContext);
     const {theme} = useContext(ThemeContext);
 
-    const Section = styled.div`
-        width: 100%;
-        max-width: 1750px;
-        min-width: 320px;
+    const VideoGrid = styled.div`
         margin: 0 auto;
-        display: flex;
-        flex-flow: wrap;
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        grid-gap: 8px;
+        @media (max-width: 1024px) {
+           grid-template-columns: repeat(3, 1fr);
+        }
+        @media (max-width: 900px) {
+            grid-template-columns: repeat(2, 1fr);
+        }
+        @media (max-width: 480px) {
+            width: unset;
+            grid-template-columns: repeat(1, 1fr);
+        }
     `;
 
     const Title = styled.div`
-        font-size: 30px;
+        font-size: 1.5em;
         font-family: Arial, Helvetica, sans-serif;
         padding: 10px 0;
         color: ${theme.syntax};
+        @media (max-width: 480px) {
+           //width: unset;
+        }
     `;
 
     const Container = styled.div`
-        width: 90%;
+        width: 80%;
         margin: 0 auto;
         @media (max-width: 480px) {
            width: unset;
-           margin: 0;
         }
     `;
 
@@ -39,9 +48,9 @@ function VideoLinkSection(props) {
     return (
         <Container>
             <Title>Recommended</Title>
-            <Section>
+            <VideoGrid>
                 {videoCards}
-            </Section>
+            </VideoGrid>
         </Container>
     );
 }

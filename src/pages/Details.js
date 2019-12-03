@@ -21,29 +21,18 @@ function Details(props) {
     const Container = styled.div`
         width: 95%;
         margin: 0 auto;
+        display: grid;
+        grid-template-columns: repeat(3, 2fr);
         @media (max-width: 480px) {
            width: unset;
-           margin: 0;
+           display: unset;
         }
-    `;
-
-    const Wrapper = styled.div`
-        width: 98%;
-        max-width: 1850px;
-        margin: 0 auto;
-        display: flex;
     `;
 
     const VideoSection = styled.div`
-        width: 60%;
-        @media (max-width: 768px) {
-           width: 98%;
-           margin: 0 auto;
-        }
-        @media (max-width: 480px) {
-           width: 98%;
-           margin: 0 auto;
-        }
+        grid-column-end: span 2;
+        height: 100%;
+        min-width: 300px;
     `;
 
     const video = parseInt(videoId) === actVideoId ? <Video/> : <VideoLoading/>;

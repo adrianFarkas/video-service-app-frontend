@@ -10,34 +10,27 @@ function Video(props) {
     const {name, url} = state.selectedVideo;
 
     const Card = styled.div`
-        height: 750px;
-        margin: 0;
-        @media (max-width: 1200px) {
-           height: 550px;
-        }
-        @media (max-width: 1024px) {
-           height: 450px;
-        }
+         display: grid;
+         grid-template-rows: repeat(4, 1fr);
+         height: 47vw;
+         min-height: 270px;
     `;
 
     const Vid = styled.div`
-        width: 100%;
-        height: 80%;
-        @media (max-width: 480px) {
-           height: 300px;
-        }
+         grid-row-end: span 3;
+         min-height: 200px;
     `;
 
     return (
         <Card>
             <Vid>
-            <ReactPlayer
-                url={url}
-                controls={true}
-                width={"100%"}
-                height={"100%"}
-                playing={false}
-            />
+                <ReactPlayer
+                    url={url}
+                    controls={true}
+                    width={"100%"}
+                    height={"100%"}
+                    playing={false}
+                />
             </Vid>
             <VideoName>{name}</VideoName>
         </Card>

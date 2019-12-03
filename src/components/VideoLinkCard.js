@@ -15,56 +15,46 @@ function VideoLinkCard(props) {
         .then(thumb_url => setThumbNail(thumb_url));
 
     const Card = styled.div`
-        width: 325px;
-        min-height: 320px;
-        margin: 8px;
-        background-color: ${theme.cardBg};
-        border-radius: 5px;
-        :hover {
-            box-shadow: 0 0 15px ${theme.syntax};
-            transform: scale(1.03);
-          }
-        @media (max-width: 1024px) {
-            width: 440px;
-        }
-        @media (max-width: 900px) {
-            width: 389px;
-        }
-        @media (max-width: 768px) {
-            width: 325px;
-        }
-         @media (max-width: 480px) {
-            width: 100%;
-            margin: 2px;
-        }
+         min-width: 0;
+         background-color: ${theme.cardBg};
+         border-radius: 5px;
+         transition: all 0.3s ease-in-out 0s;
+         :hover {
+             box-shadow: 0 0 10px ${theme.syntax};
+             transform: translateY(-6px);
+         }
+         @media (max-width: 1024px){
+             :hover {
+                 box-shadow: unset;
+                 transform: unset;
+              }
+         }
     `;
 
     const ThumbnailImg = styled.img`
-        width: 325px;
-        height: 200px;
+        width: 100%;
+        height: 10vw;
         border-top-left-radius: 5px;
         border-top-right-radius: 5px;
         @media (max-width: 1024px) {
-            width: 440px;
-        }
-        @media (max-width: 900px) {
-            width: 389px;
-        }
-        @media (max-width: 768px) {
-            width: 325px;
-        }
-        @media (max-width: 480px) {
-            width: 100%;
+            height: unset;
         }
     `;
 
     const Title = styled.div`
-        font-size: 28px;
-        margin: 20px 10px 20px;
+        font-size: 1.5em;
+        margin: 4%;
         text-align: left;
-        overflow-wrap: break-word;
-        @media (max-width: 420px) {
-            font-size: 28px;
+        overflow: hidden;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;  
+        text-overflow: ellipsis;
+        @media (max-width: 700px) {
+            font-size: 1.1em;
+        }
+        @media (max-width: 480px) {
+            font-size: 1.4em;
         }
     `;
 
@@ -74,12 +64,12 @@ function VideoLinkCard(props) {
     };
 
     return (
-            <Card>
-                <Link to={"/video/" + id} style={linkStyle}>
-                    <ThumbnailImg src={thumbNail == null ? "/img/empty_img.png" : thumbNail}/>
-                    <Title>{name}</Title>
-                </Link>
-            </Card>
+        <Card>
+            <Link to={"/video/" + id} style={linkStyle}>
+                <ThumbnailImg src={thumbNail == null ? "/img/empty_img.png" : thumbNail}/>
+                <Title>{name}</Title>
+            </Link>
+        </Card>
     );
 }
 
