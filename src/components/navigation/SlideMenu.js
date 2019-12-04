@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import Drawer from "@material-ui/core/Drawer";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
@@ -6,23 +6,34 @@ import ListItemText from "@material-ui/core/ListItemText";
 import Divider from "@material-ui/core/Divider";
 import makeStyles from "@material-ui/core/styles/makeStyles";
 import List from "@material-ui/core/List";
-import ExitToAppIcon from '@material-ui/icons/ExitToApp';
-import AccountCircleIcon from '@material-ui/icons/AccountCircle';
+import SettingsIcon from '@material-ui/icons/Settings';
 import ThemeSwitcher from "../util/ThemeSwitcher";
 import SettingsBrightnessIcon from '@material-ui/icons/SettingsBrightness';
-
-const useStyles = makeStyles({
-    list: {
-        width: 250,
-    },
-    fullList: {
-        width: 250,
-    },
-});
+import LoginButton from "../auth/LoginButton";
+import RegButton from "../auth/RegButton";
+import Avatar from "@material-ui/core/Avatar";
+import {ThemeContext} from "../../contexts/ThemeContext";
 
 function SlideMenu(props) {
-    const classes = useStyles();
     const {open, toggleDrawer} = props;
+    const {theme} = useContext(ThemeContext);
+
+    const useStyles = makeStyles({
+        root: {
+            "& .MuiDrawer-paperAnchorRight": {
+                backgroundColor: theme.background,
+                color: theme.syntax,
+            }
+        },
+        icon: {
+            color: theme.syntax,
+        },
+        fullList: {
+            width: 270,
+        },
+    });
+
+    const classes = useStyles();
 
     const fullList = (
         <div
@@ -32,23 +43,27 @@ function SlideMenu(props) {
         >
             <List>
                 <ListItem button>
-                    <ListItemIcon><AccountCircleIcon/></ListItemIcon>
+                    <ListItemIcon><Avatar alt="Marcika" src="/img/marcika.jpg"/></ListItemIcon>
                     <ListItemText primary={"Profile"} />
                 </ListItem>
             </List>
             <Divider />
             <List>
+                <ListItem button>
+                    <ListItemIcon><SettingsIcon className={classes.icon}/></ListItemIcon>
+                    <ListItemText primary={"Settings"} />
+                </ListItem>
                 <ListItem>
-                    <ListItemIcon><SettingsBrightnessIcon/></ListItemIcon>
+                    <ListItemIcon><SettingsBrightnessIcon className={classes.icon}/></ListItemIcon>
+                    <ListItemText primary={"Dark Theme:"} />
                     <ThemeSwitcher/>
                 </ListItem>
-                <ListItem button>
-                    <ListItemIcon><ExitToAppIcon /></ListItemIcon>
-                    <ListItemText primary={"Sign In"} />
+                <Divider />
+                <ListItem>
+                    <LoginButton/>
                 </ListItem>
-                <ListItem button>
-                    <ListItemIcon><ExitToAppIcon /></ListItemIcon>
-                    <ListItemText primary={"Sign out"} />
+                <ListItem>
+                    <RegButton/>
                 </ListItem>
             </List>
         </div>
@@ -56,7 +71,7 @@ function SlideMenu(props) {
 
     return (
         <div>
-            <Drawer anchor="right" open={open} onClose={toggleDrawer(false)}>
+            <Drawer anchor="right" open={open} onClose={toggleDrawer(false)} className={classes.root}>
                 {fullList}
             </Drawer>
         </div>

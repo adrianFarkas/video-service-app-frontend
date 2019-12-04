@@ -2,11 +2,9 @@ import React, {useContext, useState} from 'react';
 import {makeStyles} from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
-import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import {colors} from "../../theme";
-import ThemeSwitcher from "../util/ThemeSwitcher";
 import SlideMenu from "./SlideMenu";
 import {Link} from "react-router-dom";
 import {ThemeContext} from "../../contexts/ThemeContext";
@@ -64,8 +62,6 @@ export default function Navbar() {
                     <Link to={"/"} className={classes.title}>
                         <img src="/img/logo.png" alt="logo" className={classes.logo}/>
                     </Link>
-                    <ThemeSwitcher/>
-                    <Button color="inherit">Login</Button>
                     <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu"
                                 onClick={toggleDrawer(true)}>
                         <MenuIcon/>
