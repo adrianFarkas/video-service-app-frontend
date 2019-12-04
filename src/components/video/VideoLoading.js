@@ -1,18 +1,14 @@
 import React from 'react';
-import {CircularProgress} from "@material-ui/core";
-import styled from "styled-components";
-import {colors} from "../../theme";
 import {VideoGrid, VidRow} from "../../styled-components/styled";
+import Skeleton from "@material-ui/lab/Skeleton";
 
 function VideoLoading(props) {
 
-    const LoadingWrapper = styled(VidRow)`
-        background-color: ${colors.lightGrey2};
-    `;
-
     return (
         <VideoGrid>
-            <LoadingWrapper/>
+            <VidRow>
+                <Skeleton variant="rect" width={"100%"} height={"100%"} />
+            </VidRow>
         </VideoGrid>
     );
 }
