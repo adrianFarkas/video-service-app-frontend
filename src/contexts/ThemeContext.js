@@ -6,10 +6,13 @@ export const ThemeContext = createContext();
 
 function ThemeContextProvider(props) {
     const cookie = new Cookies();
-    const [theme, setTheme] = useState(JSON.parse(cookie.get("theme")) ? light : dark);
+    const cookieTheme = cookie.get("theme");
+    const [theme, setTheme] = useState(cookieTheme === "true" ? light : dark);
 
     const changeTheme = () => {
-        setTheme(theme === dark ? light : dark);
+        const isDark = theme === dark;
+        cookie.set("theme", isDark, { path: '/' });
+        setTheme(isDark ? light : dark);
     };
 
     return (
