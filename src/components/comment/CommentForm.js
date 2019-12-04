@@ -1,11 +1,11 @@
 import React, {useContext, useState} from 'react';
 import TextField from "@material-ui/core/TextField";
-import Rate from "./Rate";
+import Rate from "../util/Rate";
 import Button from "@material-ui/core/Button";
-import {RootContext} from "../contexts/RootContext";
-import {colors} from "../theme";
+import {RootContext} from "../../contexts/RootContext";
+import {colors} from "../../theme";
 import {makeStyles} from "@material-ui/core";
-import {ThemeContext} from "../contexts/ThemeContext";
+import {ThemeContext} from "../../contexts/ThemeContext";
 
 function CommentForm(props) {
     const {state, sendRecommendation, updateRecommendation} = useContext(RootContext);

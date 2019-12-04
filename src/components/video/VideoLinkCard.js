@@ -2,7 +2,7 @@ import React, {useContext, useState} from 'react';
 import getThumb from 'video-thumbnail-url';
 import styled from "styled-components";
 import {Link} from "react-router-dom"
-import {ThemeContext} from "../contexts/ThemeContext";
+import {ThemeContext} from "../../contexts/ThemeContext";
 
 
 function VideoLinkCard(props) {

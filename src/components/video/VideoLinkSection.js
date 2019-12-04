@@ -1,9 +1,9 @@
 import React, {useContext} from 'react';
 import VideoLinkCard from "./VideoLinkCard";
 import styled from "styled-components";
-import {RootContext} from "../contexts/RootContext";
-import {ThemeContext} from "../contexts/ThemeContext";
-import {Container} from "../styled-components/styled";
+import {RootContext} from "../../contexts/RootContext";
+import {ThemeContext} from "../../contexts/ThemeContext";
+import {Container} from "../../styled-components/styled";
 
 function VideoLinkSection(props) {
     const {state: {videos}} = useContext(RootContext);

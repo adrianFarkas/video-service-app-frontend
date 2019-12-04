@@ -1,8 +1,8 @@
 import React, {useContext, useState} from 'react';
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Switch from "@material-ui/core/Switch";
-import {ThemeContext} from "../contexts/ThemeContext";
-import {light} from "../theme";
+import {ThemeContext} from "../../contexts/ThemeContext";
+import {light} from "../../theme";
 
 function ThemeSwitcher() {
     const {theme, changeTheme} = useContext(ThemeContext);

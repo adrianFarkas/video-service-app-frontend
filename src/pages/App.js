@@ -1,6 +1,6 @@
 import React from 'react';
-import VideoLinkSection from "../components/VideoLinkSection";
-import Navbar from "../components/Navbar";
+import VideoLinkSection from "../components/video/VideoLinkSection";
+import Navbar from "../components/navigation/Navbar";
 
 function App() {
 

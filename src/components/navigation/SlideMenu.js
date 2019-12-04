@@ -8,7 +8,7 @@ import makeStyles from "@material-ui/core/styles/makeStyles";
 import List from "@material-ui/core/List";
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
-import ThemeSwitcher from "./ThemeSwitcher";
+import ThemeSwitcher from "../util/ThemeSwitcher";
 import SettingsBrightnessIcon from '@material-ui/icons/SettingsBrightness';
 
 const useStyles = makeStyles({

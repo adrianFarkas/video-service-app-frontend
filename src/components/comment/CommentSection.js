@@ -1,5 +1,5 @@
 import React, {useContext} from 'react';
-import {RootContext} from "../contexts/RootContext";
+import {RootContext} from "../../contexts/RootContext";
 import Comment from "./Comment";
 
 function CommentSection(props) {

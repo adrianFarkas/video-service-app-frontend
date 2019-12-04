@@ -5,11 +5,11 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
-import {colors} from "../theme";
-import ThemeSwitcher from "./ThemeSwitcher";
+import {colors} from "../../theme";
+import ThemeSwitcher from "../util/ThemeSwitcher";
 import SlideMenu from "./SlideMenu";
 import {Link} from "react-router-dom";
-import {ThemeContext} from "../contexts/ThemeContext";
+import {ThemeContext} from "../../contexts/ThemeContext";
 import {createGlobalStyle} from "styled-components";
 
 const useStyles = makeStyles({

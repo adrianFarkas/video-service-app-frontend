@@ -1,8 +1,8 @@
 import React, {useContext} from 'react';
 import ReactPlayer from "react-player";
-import {RootContext} from "../contexts/RootContext";
+import {RootContext} from "../../contexts/RootContext";
 import VideoName from "./VideoName";
-import {VideoGrid, VidRow} from "../styled-components/styled";
+import {VideoGrid, VidRow} from "../../styled-components/styled";
 
 function Video(props) {
 

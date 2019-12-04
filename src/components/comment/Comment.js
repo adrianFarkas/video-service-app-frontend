@@ -1,12 +1,12 @@
 import React, {useContext, useState} from 'react';
-import Rate from "./Rate";
+import Rate from "../util/Rate";
 import styled from "styled-components";
-import MoreButton from "./MoreButton";
+import MoreButton from "../util/MoreButton";
 import MenuItem from "@material-ui/core/MenuItem";
 import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
 import CommentForm from "./CommentForm";
-import {ThemeContext} from "../contexts/ThemeContext";
+import {ThemeContext} from "../../contexts/ThemeContext";
 
 
 function Comment(props) {
