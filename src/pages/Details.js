@@ -11,8 +11,7 @@ import Navbar from "../components/navigation/Navbar";
 function Details(props) {
     const videoId = props.match.params.id;
 
-    const {state, fetchVideoById} = useContext(RootContext);
-    const actVideoId = state.selectedVideo.id;
+    const {fetchVideoById} = useContext(RootContext);
 
     useEffect(() => {
         fetchVideoById(videoId);
@@ -35,14 +34,12 @@ function Details(props) {
         min-width: 300px;
     `;
 
-    const video = parseInt(videoId) === actVideoId ? <Video/> : <VideoLoading/>;
-
     return (
         <div>
             <Navbar/>
             <Container>
                 <VideoSection>
-                    {video}
+                    <Video/>
                     <CommentForm/>
                     <CommentSection/>
                 </VideoSection>
