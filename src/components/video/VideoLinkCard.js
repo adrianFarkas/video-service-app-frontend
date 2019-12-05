@@ -4,7 +4,6 @@ import styled from "styled-components";
 import {Link} from "react-router-dom"
 import {ThemeContext} from "../../contexts/ThemeContext";
 
-
 function VideoLinkCard(props) {
     const {theme} = useContext(ThemeContext);
 
@@ -14,28 +13,27 @@ function VideoLinkCard(props) {
     getThumb(url)
         .then(thumb_url => setThumbNail(thumb_url));
 
-    const Card = styled.div`
+    const LinkCard = styled(Link)`
          min-width: 0;
+         color: ${theme.syntax};
          background-color: ${theme.cardBg};
-         border-radius: 5px;
+         border-radius: 3px;
          transition: all 0.3s ease-in-out 0s;
-         :hover {
-             box-shadow: 0 0 10px ${theme.syntax};
-             transform: translateY(-6px);
-         }
-         @media (max-width: 1024px){
+         text-decoration: none;
+         @media (min-width: 1024px){
              :hover {
-                 box-shadow: unset;
-                 transform: unset;
-              }
+                 color: ${theme.cardBg};
+                 background-color: ${theme.syntax};
+                 transform: translateY(-6px);
+            }
          }
     `;
 
     const ThumbnailImg = styled.img`
         width: 100%;
         height: 10vw;
-        border-top-left-radius: 5px;
-        border-top-right-radius: 5px;
+        border-top-left-radius: 3px;
+        border-top-right-radius: 3px;
         @media (max-width: 1024px) {
             height: unset;
         }
@@ -58,18 +56,11 @@ function VideoLinkCard(props) {
         }
     `;
 
-    const linkStyle = {
-        textDecoration: "none",
-        color: theme.syntax
-    };
-
     return (
-        <Card>
-            <Link to={"/video/" + id} style={linkStyle}>
-                <ThumbnailImg src={thumbNail == null ? "/img/empty_img.png" : thumbNail}/>
-                <Title>{name}</Title>
-            </Link>
-        </Card>
+        <LinkCard to={"/video/" + id} className={"link-card"}>
+            <ThumbnailImg src={thumbNail == null ? "/img/empty_img.png" : thumbNail}/>
+            <Title>{name}</Title>
+        </LinkCard>
     );
 }
 
