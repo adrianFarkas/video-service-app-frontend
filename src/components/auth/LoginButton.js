@@ -2,13 +2,16 @@ import React from 'react';
 import Button from "@material-ui/core/Button";
 import {colors} from "../../theme";
 import styled from "styled-components";
+import {Link} from "react-router-dom";
 
 function LoginButton({style}) {
 
-    const StyledButton = styled(Button)`
+    const CustomLink = styled(Link)`
+        width: 100%;
+        transition: all 0.2s ease-in-out 0s;
         @media (min-width: 1024px){
           :hover {
-             transform: skewX(-20deg);
+             transform: scaleX(1.05);
           }
         }
     `;
@@ -20,12 +23,17 @@ function LoginButton({style}) {
         height: "40px",
         color: colors.claret,
         backgroundColor: colors.white,
-        transition:' all 0.2s ease-in-out 0s',
     };
 
     const btnStyle = style ? style : loginBtn;
 
-    return <StyledButton style={btnStyle}>Login</StyledButton>;
+    return (
+        <CustomLink to={"/sign-in"}>
+            <Button style={btnStyle}>
+                Login
+            </Button>
+        </CustomLink>
+    );
 }
 
 export default LoginButton;
