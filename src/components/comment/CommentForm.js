@@ -1,22 +1,21 @@
 import React, {useContext, useState} from 'react';
 import TextField from "@material-ui/core/TextField";
-import Rate from "../util/Rate";
 import Button from "@material-ui/core/Button";
 import {RootContext} from "../../contexts/RootContext";
 import {colors} from "../../theme";
 import {makeStyles} from "@material-ui/core";
 import {ThemeContext} from "../../contexts/ThemeContext";
+import {CommentContext} from "../../contexts/CommentContext";
 
 function CommentForm(props) {
-    const {state, sendRecommendation, updateRecommendation} = useContext(RootContext);
-    const {rate, comment, commentId, buttonText} = props;
+    const {state} = useContext(RootContext);
+    const {sendComment, updateComment} = useContext(CommentContext);
+    const {comment, commentId, buttonText, handleClick} = props;
     const {theme} = useContext(ThemeContext);
 
-    const [hover, setHover] = useState(0);
-    const [value, setValue] = useState(rate ? rate : 0);
     const [text, setText] = useState(comment ? comment : "");
 
-    const isBtnDisabled = text === "" || value < 1;
+    const isBtnDisabled = text === "";
 
     const btnStyle = {
         backgroundColor: isBtnDisabled ? theme.disabledBtn : theme.button,
@@ -56,14 +55,6 @@ function CommentForm(props) {
 
     }));
 
-    const hoverChange = (event, newHover) => {
-        setHover(newHover)
-    };
-
-    const handleClick = () => {
-        setValue(hover)
-    };
-
     const textChange = (event) => {
         setText(event.target.value);
 
@@ -74,11 +65,11 @@ function CommentForm(props) {
         const videoId = state.selectedVideo.id;
         const recommendation = {
             comment: text,
-            rating: value
         };
-        if (commentId) updateRecommendation(commentId, recommendation);
-        else sendRecommendation(videoId, recommendation);
-        setText("")
+        if (commentId) updateComment(commentId, recommendation);
+        else sendComment(videoId, recommendation);
+        setText("");
+        handleClick();
     };
     const classes = useStyles();
 
@@ -90,13 +81,6 @@ function CommentForm(props) {
                 label="Comment"
                 onChange={textChange}
                 value={text}
-            />
-            <Rate
-                value={value}
-                handleChange={hoverChange}
-                handleClick={handleClick}
-                hover={hover}
-                style={{padding: "20px 0"}}
             />
             <div style={btnPosition}>
                 <Button variant="contained" style={btnStyle} type="submit" disabled={isBtnDisabled}>

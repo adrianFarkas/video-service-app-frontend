@@ -1,12 +1,10 @@
 import React, {useContext, useEffect} from 'react';
 import {RootContext} from "../contexts/RootContext";
 import Video from "../components/video/Video";
-import VideoLoading from "../components/video/VideoLoading";
 import styled from "styled-components";
 import CommentForm from "../components/comment/CommentForm";
 import CommentSection from "../components/comment/CommentSection";
 import Navbar from "../components/navigation/Navbar";
-
 
 function Details(props) {
     const videoId = props.match.params.id;
@@ -41,7 +39,7 @@ function Details(props) {
                 <VideoSection>
                     <Video/>
                     <CommentForm/>
-                    <CommentSection/>
+                    <CommentSection videoId={videoId}/>
                 </VideoSection>
             </Container>
         </div>
