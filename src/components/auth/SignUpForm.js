@@ -6,6 +6,7 @@ import {makeStyles} from "@material-ui/core";
 import {colors} from "../../theme";
 import {ThemeContext} from "../../contexts/ThemeContext";
 import axios from "axios";
+import {AuthButton} from "../../styled-components/authStyle";
 
 function SignUpForm() {
     const {theme} = useContext(ThemeContext);
@@ -41,44 +42,12 @@ function SignUpForm() {
     });
     const classes = useStyles();
 
-    const SignUpBtn = styled.button`
-        position: relative;
-        width: 40%;
-        min-width: 150px;
-        padding: 5px;
-        color: ${theme.syntax};
-        text-align: center;
-        border-radius: 100px;
-        background: ${theme.background};
-        border: 1px solid transparent;
-        transition: all 0.3s ease-in-out 0s;
-        &:after{
-            position: absolute;
-            top: -4px; bottom: -4px;
-            left: -4px; right: -4px;
-            background: linear-gradient(20deg, #fff 0%, #e2000d 50%, #6A0007 100%);
-            content: '';
-            z-index: -1;
-            border-radius: 100px;
-        }
-        &:hover {
-            background: rgba(0,0,0,0.61);
-            color: #fff;
-        }      
-    `;
-
     const PlaceHolder = styled.div`
         width: 25%;
     `;
 
-    const AuthButtons = styled.div`
-        display: flex;
+    const SignUpButton = styled(AuthButton)`
         margin-top: 30px;
-     `;
-
-    const LoginLink = styled.div`
-        padding: 5px;
-        margin-left: 30px;
     `;
 
     const formStyle = {
@@ -104,7 +73,7 @@ function SignUpForm() {
     return (
         <div>
             <form style={formStyle} onSubmit={handleSubmit}>
-                <div style={{display:"flex"}}>
+                <div style={{display: "flex"}}>
                     <TextField
                         required
                         className={classes.root}
@@ -156,10 +125,14 @@ function SignUpForm() {
                     onChange={textChange}
                     value={formData.confirmationPassword}
                 />
-                <AuthButtons>
-                    <SignUpBtn id={"signup-btn"} type={"submit"}>Sign Up</SignUpBtn>
-                    <LoginLink>or <Link to={"/sign-in"}>Login</Link></LoginLink>
-                </AuthButtons>
+                <SignUpButton
+                    id={"signup-btn"}
+                    type={"submit"}
+                    color={theme.syntax}
+                    background={theme.background}
+                >
+                    Sign Up
+                </SignUpButton>
             </form>
         </div>
     );

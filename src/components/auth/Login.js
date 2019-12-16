@@ -6,8 +6,11 @@ import {
     AuthFormContainer,
     AuthHeader,
     AuthText,
-    AuthTitle
+    AuthTitle,
+    LinkButton
 } from "../../styled-components/authStyle";
+import LoginForm from "./LoginForm";
+import {Link} from "react-router-dom";
 
 function Login() {
 
@@ -32,18 +35,25 @@ function Login() {
     `;
 
     const Text = styled(AuthText)`
-        margin: 30% auto 20%;
+        margin: 15% auto;
     `;
 
     return (
         <div>
             <Navbar/>
-            <AuthContainer id={"signup-container"}>
-                <Header id={"signup-header"}>
-                    <Title id={"signup-title"}>Welcome back!</Title>
-                    <Text className={"signup-text"}>Sign in before continue.</Text>
+            <AuthContainer id={"login-container"}>
+                <Header id={"login-header"}>
+                    <Title id={"login-title"}>Sign In</Title>
+                    <Text className={"login-text"}>Don't you have account yet?</Text>
+                    <Text className={"login-text"}>Let's create a new account so you can start uploading videos.</Text>
+                    <Link to={"/sign-up"}>
+                        <LinkButton className={"auth-link-btn"}>
+                            Sign Up
+                        </LinkButton>
+                    </Link>
                 </Header>
-                <FormContainer>
+                <FormContainer id={"login-form"}>
+                    <LoginForm/>
                 </FormContainer>
             </AuthContainer>
         </div>
