@@ -10,7 +10,8 @@ function SignUp() {
         width: 70%;
         min-width: 280px;
         height: 40vw;
-        margin: 40px auto;
+        min-height: 380px;
+        margin: 120px auto 0;
         display: flex;
     `;
 
@@ -57,7 +58,6 @@ function SignUp() {
                     <SignUpForm/>
                 </Form>
             </SignUpContainer>
-
         </div>
     );
 }

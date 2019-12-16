@@ -24,6 +24,7 @@ function SignUpForm() {
     const useStyles = makeStyles({
         root: {
             width: "100%",
+
             color: theme.syntax,
             "& label, label.Mui-focused, .MuiInputBase-root": {
                 color: theme.syntax,
@@ -83,7 +84,7 @@ function SignUpForm() {
     const formStyle = {
         margin: "10%",
         display: "grid",
-        gridTemplateRows: "repeat(4, 6vw)"
+        gridTemplateRows: "repeat(4, minmax(60px, 6vw))"
     };
 
     const textChange = (e) => {
