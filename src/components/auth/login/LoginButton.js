@@ -2,36 +2,33 @@ import React from 'react';
 import Button from "@material-ui/core/Button";
 import {colors} from "../../../theme";
 import styled from "styled-components";
+import LockOpenIcon from '@material-ui/icons/LockOpen';
 import {Link} from "react-router-dom";
 
-function LoginButton({style, id}) {
+function LoginButton({id}) {
 
-    const CustomLink = styled(Link)`
-        transition: all 0.2s ease-in-out 0s;
+    const Button = styled.div`
+        border: 2px solid ${colors.claret};
+        padding: 5px;
         width: 100%;
+        font-size: 16px;
+        color: ${colors.claret};
+        border-radius: 10px;
+        transition: all 0.2s ease-in-out 0s;
         @media (min-width: 1024px){
           :hover {
-             transform: scaleX(1.05);
+              background-color: rgba(106,0,7,0.2);
           }
         }
     `;
 
-    const loginBtn = {
-        border: `1px solid ${colors.lightGrey3}`,
-        fontWeight: "bold",
-        width: "100%",
-        color: colors.claret,
-        backgroundColor: colors.white,
-    };
-
-    const btnStyle = style ? style : loginBtn;
-
     return (
-        <CustomLink to={"/sign-in"} id={id}>
-            <Button style={btnStyle}>
+        <Link to={"/sign-in"} id={id}>
+            <Button>
+                <LockOpenIcon style={{ fontSize: "20px",  marginRight: "10px" }}/>
                 Login
             </Button>
-        </CustomLink>
+        </Link>
     );
 }
 

@@ -1,36 +1,36 @@
 import React from 'react';
 import Button from "@material-ui/core/Button";
-import {colors} from "../../../theme";
-import styled from "styled-components";
 import {Link} from "react-router-dom";
+import styled from "styled-components";
+import {colors} from "../../../theme";
+import PersonOutlineIcon from '@material-ui/icons/PersonOutline';
 
-function RegButton({style, id}) {
+function RegButton({id}) {
 
-    const CustomLink = styled(Link)`
-        transition: all 0.2s ease-in-out 0s;
+    const Button = styled.div`
+        border: 2px solid ${colors.claret};
+        background-color: ${colors.claret};
+        padding: 5px;
         width: 100%;
+        font-size: 16px;
+        color: #fff;
+        border-radius: 10px;
+        transition: all 0.2s ease-in-out 0s;
         @media (min-width: 1024px){
           :hover {
-             transform: scaleX(1.05);
+              background-color: rgba(106,0,7,0.2);
+              color: ${colors.claret};
           }
         }
     `;
 
-    const signUpBtn = {
-        backgroundColor: colors.claret,
-        color: colors.white,
-        fontWeight: "bold",
-        width: "100%",
-    };
-
-    const btnStyle = style ? style : signUpBtn;
-
     return (
-        <CustomLink to={"/sign-up"} id={id}>
-            <Button style={btnStyle}>
+        <Link to={"/sign-up"} id={id}>
+            <Button>
+                <PersonOutlineIcon style={{ fontSize: "20px",  marginRight: "10px" }}/>
                 Sign Up
             </Button>
-        </CustomLink>
+        </Link>
     );
 }
 
