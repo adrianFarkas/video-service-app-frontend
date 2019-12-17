@@ -1,10 +1,22 @@
-import React from 'react';
-import styled from "styled-components";
+import React, {useContext, useState} from 'react';
+import styled, {createGlobalStyle} from "styled-components";
 import {Link} from "react-router-dom";
 import LoginButton from "../auth/login/LoginButton";
 import RegButton from "../auth/signup/RegButton";
+import SlideMenu from "./SlideMenu";
+import Avatar from "@material-ui/core/Avatar";
+import {ThemeContext} from "../../contexts/ThemeContext";
 
 function CustomNavbar() {
+
+    const [open, setOpen] = useState(false);
+    const {theme} = useContext(ThemeContext);
+
+    const GlobalStyle = createGlobalStyle`
+        body {
+          background-color: ${theme.background};
+        }
+    `;
 
     const Wrapper = styled.div`
         margin-bottom: 60px;
@@ -27,7 +39,7 @@ function CustomNavbar() {
       };
     `;
 
-    const ItemContainer = styled.ul`
+    const ItemContainer = styled.div`
       margin: 0;
       padding: 0;
       clear: both;
@@ -43,12 +55,12 @@ function CustomNavbar() {
       }
     `;
 
-    const Item = styled.li`
+    const Item = styled.div`
       display: block;
       padding: 10px;
       @media (min-width: 480px) {
         float: left;
-        width: 150px;
+        width: 140px;
       }
     `;
 
@@ -89,20 +101,45 @@ function CustomNavbar() {
       }
     `;
 
+    const AvatarToggler = styled.div`
+        display: block;
+        padding: 10px;  
+        float: left;
+        width: 60px;
+        :hover {
+           cursor: pointer;
+        }
+`
+
+    const toggleDrawer = (open) => event => {
+        if (event && event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
+            return;
+        }
+
+        setOpen(open);
+    };
+
     return (
-        <Wrapper>
-            <Navbar>
-                <CustomLink to={"/"}>
-                    <img src="/img/logo.png" alt={"logo"} width={"100px"}/>
-                </CustomLink>
-                <Toggler type={"checkbox"} id={"toggler"}/>
-                <Label htmlFor={"toggler"}><Hamburger className={"hamburger"}/></Label>
-                <ItemContainer className={"menu"}>
-                    <Item><LoginButton/></Item>
-                    <Item><RegButton/></Item>
-                </ItemContainer>
-            </Navbar>
-        </Wrapper>
+        <div>
+            <GlobalStyle/>
+            <Wrapper>
+                <Navbar>
+                    <CustomLink to={"/"}>
+                        <img src="/img/logo.png" alt={"logo"} width={"100px"}/>
+                    </CustomLink>
+                    <Toggler type={"checkbox"} id={"toggler"}/>
+                    <Label htmlFor={"toggler"}><Hamburger className={"hamburger"}/></Label>
+                    <ItemContainer className={"menu"}>
+                        <Item id={"login-btn"}><LoginButton/></Item>
+                        <Item id={"reg-btn"}><RegButton/></Item>
+                        <AvatarToggler onClick={toggleDrawer(true)}>
+                            <Avatar>B</Avatar>
+                        </AvatarToggler>
+                    </ItemContainer>
+                </Navbar>
+            </Wrapper>
+            <SlideMenu open={open} toggleDrawer={toggleDrawer}/>
+        </div>
     );
 }
 
