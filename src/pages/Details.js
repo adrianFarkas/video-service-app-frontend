@@ -5,6 +5,7 @@ import styled from "styled-components";
 import CommentForm from "../components/comment/CommentForm";
 import CommentSection from "../components/comment/CommentSection";
 import Navbar from "../components/navigation/Navbar";
+import CustomNavbar from "../components/navigation/CustomNavbar";
 
 function Details(props) {
     const videoId = props.match.params.id;
@@ -34,7 +35,7 @@ function Details(props) {
 
     return (
         <div>
-            <Navbar/>
+            <CustomNavbar />
             <Container>
                 <VideoSection>
                     <Video/>
