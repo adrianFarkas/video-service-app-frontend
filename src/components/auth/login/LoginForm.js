@@ -1,13 +1,15 @@
 import React, {useContext, useState} from 'react';
 import TextField from "@material-ui/core/TextField";
+import {withRouter} from 'react-router-dom';
 import {makeStyles} from "@material-ui/core";
 import {colors} from "../../../theme";
 import {ThemeContext} from "../../../contexts/ThemeContext";
 import {AuthButton, AuthFormContainer} from "../../../styled-components/authStyle";
 import styled from "styled-components";
 import axios from "axios";
+import Cookies from "universal-cookie";
 
-function LoginForm() {
+function LoginForm(props) {
     const {theme} = useContext(ThemeContext);
     const url = "/auth/sign-in";
 
@@ -57,7 +59,12 @@ function LoginForm() {
     const handleSubmit = (e) => {
         e.preventDefault();
         axios.post(url, formData)
-            .then(res => console.log(res.data))
+            .then(res => {
+                const token = res.data.token;
+                const cookie = new Cookies();
+                cookie.set("token", token);
+                props.history.push('/');
+            })
     };
 
     return (
@@ -95,4 +102,4 @@ function LoginForm() {
     );
 }
 
-export default LoginForm;
+export default withRouter(LoginForm);
