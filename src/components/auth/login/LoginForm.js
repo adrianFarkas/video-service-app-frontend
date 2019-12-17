@@ -44,13 +44,6 @@ function LoginForm() {
         gridTemplateRows: "repeat(2, minmax(100px, 10vw))"
     };
 
-    const FormContainer = styled(AuthFormContainer)`
-        border-bottom-right-radius: 0;
-        border-top-right-radius: 0;
-        border-right: 0;
-        order: -1;
-    `;
-
     const LoginButton = styled(AuthButton)`
         width: 100%;
     `;
@@ -68,7 +61,7 @@ function LoginForm() {
     };
 
     return (
-        <FormContainer id={"login-form"}>
+        <AuthFormContainer id={"login-form"}>
             <form style={formStyle} onSubmit={handleSubmit}>
                     <TextField
                         required
@@ -98,7 +91,7 @@ function LoginForm() {
                     Login
                 </LoginButton>
             </form>
-        </FormContainer>
+        </AuthFormContainer>
     );
 }
 

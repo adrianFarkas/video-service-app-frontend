@@ -1,5 +1,4 @@
 import React from 'react';
-import Button from "@material-ui/core/Button";
 import {colors} from "../../../theme";
 import styled from "styled-components";
 import LockOpenIcon from '@material-ui/icons/LockOpen';

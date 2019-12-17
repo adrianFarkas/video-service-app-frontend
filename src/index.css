@@ -19,6 +19,19 @@ a:hover {
 
 /*Responsive sign up, login*/
 
+#login-form {
+    border-bottom-right-radius: 0;
+    border-top-right-radius: 0;
+    border-right: 0;
+    order: -1;
+}
+
+#signup-form {
+    border-bottom-left-radius: 0;
+    border-top-left-radius: 0;
+    border-left: 0;
+}
+
 @media (max-width: 1024px) {
     #signup-container, #login-container {
         width: 100%;
@@ -70,8 +83,6 @@ a:hover {
     }
 }
 
-@media (max-width: 600px) {
-    #login-btn, #reg-btn {
-        display: none;
-    }
+#login-btn, #reg-btn {
+    display: none;
 }

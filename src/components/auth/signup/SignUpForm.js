@@ -49,12 +49,6 @@ function SignUpForm() {
         margin-top: 30px;
     `;
 
-    const FormContainer = styled(AuthFormContainer)`
-        border-bottom-left-radius: 0;
-        border-top-left-radius: 0;
-        border-left: 0;
-    `;
-
     const formStyle = {
         margin: "10%",
         display: "grid",
@@ -76,7 +70,7 @@ function SignUpForm() {
     };
 
     return (
-        <FormContainer id={"signup-form"}>
+        <AuthFormContainer id={"signup-form"}>
             <form style={formStyle} onSubmit={handleSubmit}>
                 <div style={{display: "flex"}}>
                     <TextField
@@ -139,7 +133,7 @@ function SignUpForm() {
                     Sign Up
                 </SignUpButton>
             </form>
-        </FormContainer>
+        </AuthFormContainer>
     );
 }
 
