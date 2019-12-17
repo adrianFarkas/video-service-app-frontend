@@ -1,10 +1,10 @@
 import React from 'react';
 import Button from "@material-ui/core/Button";
-import {colors} from "../../theme";
+import {colors} from "../../../theme";
 import styled from "styled-components";
 import {Link} from "react-router-dom";
 
-function RegButton({style}) {
+function RegButton({style, id}) {
 
     const CustomLink = styled(Link)`
         transition: all 0.2s ease-in-out 0s;
@@ -21,13 +21,12 @@ function RegButton({style}) {
         color: colors.white,
         fontWeight: "bold",
         width: "100%",
-        height: "40px",
     };
 
     const btnStyle = style ? style : signUpBtn;
 
     return (
-        <CustomLink to={"/sign-up"}>
+        <CustomLink to={"/sign-up"} id={id}>
             <Button style={btnStyle}>
                 Sign Up
             </Button>

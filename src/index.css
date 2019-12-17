@@ -26,20 +26,20 @@ a:hover {
         margin-top: 0;
     }
 
-    #signup-header div, #login-header div {
+    #auth-header div {
         margin: 15% auto;
     }
 
-    #signup-title, #login-title {
+    #auth-header-title {
         font-size: 40px !important;
     }
 
-    #signup-header, #login-header,
-    #signup-form, #login-form {
+    #auth-header, #signup-form,
+    #login-form {
         min-width: 350px;
     }
 
-    .signup-text, .login-text {
+    .auth-header-text {
         font-size: 20px !important;
     }
 }
@@ -51,7 +51,7 @@ a:hover {
         margin-top: -8px;
     }
 
-    #signup-header, #login-header {
+    #auth-header {
         width: 100%;
     }
 
@@ -67,5 +67,11 @@ a:hover {
 
     #login-form {
         order: 0;
+    }
+}
+
+@media (max-width: 600px) {
+    #login-btn, #reg-btn {
+        display: none;
     }
 }

@@ -9,8 +9,8 @@ import ThemeContextProvider from "./contexts/ThemeContext";
 import CommentContextProvider from "./contexts/CommentContext";
 import Player from "./components/Player";
 import Test from "./components/Test";
-import SignUp from "./components/auth/SignUp";
-import Login from "./components/auth/Login";
+import SignUp from "./pages/SignUp";
+import Login from "./pages/Login";
 
 const routing = (
     <Router>

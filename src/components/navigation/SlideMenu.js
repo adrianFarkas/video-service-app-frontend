@@ -9,8 +9,8 @@ import List from "@material-ui/core/List";
 import SettingsIcon from '@material-ui/icons/Settings';
 import ThemeSwitcher from "../util/ThemeSwitcher";
 import SettingsBrightnessIcon from '@material-ui/icons/SettingsBrightness';
-import LoginButton from "../auth/LoginButton";
-import RegButton from "../auth/RegButton";
+import LoginButton from "../auth/login/LoginButton";
+import RegButton from "../auth/signup/RegButton";
 import Avatar from "@material-ui/core/Avatar";
 import {ThemeContext} from "../../contexts/ThemeContext";
 

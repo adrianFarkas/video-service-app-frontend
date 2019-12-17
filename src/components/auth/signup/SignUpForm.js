@@ -1,12 +1,11 @@
 import React, {useContext, useState} from 'react';
 import TextField from "@material-ui/core/TextField";
-import {Link} from "react-router-dom";
 import styled from "styled-components";
 import {makeStyles} from "@material-ui/core";
-import {colors} from "../../theme";
-import {ThemeContext} from "../../contexts/ThemeContext";
+import {colors} from "../../../theme";
+import {ThemeContext} from "../../../contexts/ThemeContext";
 import axios from "axios";
-import {AuthButton} from "../../styled-components/authStyle";
+import {AuthButton, AuthFormContainer} from "../../../styled-components/authStyle";
 
 function SignUpForm() {
     const {theme} = useContext(ThemeContext);
@@ -50,6 +49,12 @@ function SignUpForm() {
         margin-top: 30px;
     `;
 
+    const FormContainer = styled(AuthFormContainer)`
+        border-bottom-left-radius: 0;
+        border-top-left-radius: 0;
+        border-left: 0;
+    `;
+
     const formStyle = {
         margin: "10%",
         display: "grid",
@@ -71,7 +76,7 @@ function SignUpForm() {
     };
 
     return (
-        <div>
+        <FormContainer id={"signup-form"}>
             <form style={formStyle} onSubmit={handleSubmit}>
                 <div style={{display: "flex"}}>
                     <TextField
@@ -134,7 +139,7 @@ function SignUpForm() {
                     Sign Up
                 </SignUpButton>
             </form>
-        </div>
+        </FormContainer>
     );
 }
 

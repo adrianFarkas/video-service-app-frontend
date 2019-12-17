@@ -1,14 +1,14 @@
 import React from 'react';
 import Button from "@material-ui/core/Button";
-import {colors} from "../../theme";
+import {colors} from "../../../theme";
 import styled from "styled-components";
 import {Link} from "react-router-dom";
 
-function LoginButton({style}) {
+function LoginButton({style, id}) {
 
     const CustomLink = styled(Link)`
-        width: 100%;
         transition: all 0.2s ease-in-out 0s;
+        width: 100%;
         @media (min-width: 1024px){
           :hover {
              transform: scaleX(1.05);
@@ -20,7 +20,6 @@ function LoginButton({style}) {
         border: `1px solid ${colors.lightGrey3}`,
         fontWeight: "bold",
         width: "100%",
-        height: "40px",
         color: colors.claret,
         backgroundColor: colors.white,
     };
@@ -28,7 +27,7 @@ function LoginButton({style}) {
     const btnStyle = style ? style : loginBtn;
 
     return (
-        <CustomLink to={"/sign-in"}>
+        <CustomLink to={"/sign-in"} id={id}>
             <Button style={btnStyle}>
                 Login
             </Button>

@@ -1,13 +1,22 @@
-import React, {useContext} from 'react';
+import React, {useContext, useState} from 'react';
 import TextField from "@material-ui/core/TextField";
 import {makeStyles} from "@material-ui/core";
-import {colors} from "../../theme";
-import {ThemeContext} from "../../contexts/ThemeContext";
-import {AuthButton} from "../../styled-components/authStyle";
+import {colors} from "../../../theme";
+import {ThemeContext} from "../../../contexts/ThemeContext";
+import {AuthButton, AuthFormContainer} from "../../../styled-components/authStyle";
 import styled from "styled-components";
+import axios from "axios";
 
 function LoginForm() {
     const {theme} = useContext(ThemeContext);
+    const url = "/auth/sign-in";
+
+    const initialState = {
+        email: "",
+        password: ""
+    };
+
+    const [formData, setFormData] = useState(initialState);
 
     const useStyles = makeStyles({
         root: {
@@ -35,19 +44,40 @@ function LoginForm() {
         gridTemplateRows: "repeat(2, minmax(100px, 10vw))"
     };
 
+    const FormContainer = styled(AuthFormContainer)`
+        border-bottom-right-radius: 0;
+        border-top-right-radius: 0;
+        border-right: 0;
+        order: -1;
+    `;
+
     const LoginButton = styled(AuthButton)`
         width: 100%;
     `;
 
+    const textChange = (e) => {
+        const field = e.target.name;
+        const value = e.target.value;
+        setFormData({...formData, [field]: value});
+    };
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        axios.post(url, formData)
+            .then(res => console.log(res.data))
+    };
+
     return (
-        <div>
-            <form style={formStyle} >
+        <FormContainer id={"login-form"}>
+            <form style={formStyle} onSubmit={handleSubmit}>
                     <TextField
                         required
                         className={classes.root}
                         id="email"
                         label="Email"
                         name="email"
+                        onChange={textChange}
+                        value={formData.email}
                     />
                     <TextField
                         required
@@ -56,6 +86,8 @@ function LoginForm() {
                         label="Password"
                         name="password"
                         type="password"
+                        onChange={textChange}
+                        value={formData.password}
                     />
                 <LoginButton
                     id={"login-btn"}
@@ -66,7 +98,7 @@ function LoginForm() {
                     Login
                 </LoginButton>
             </form>
-        </div>
+        </FormContainer>
     );
 }
 
