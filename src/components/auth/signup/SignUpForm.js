@@ -131,7 +131,7 @@ function SignUpForm() {
                     value={formData.confirmationPassword}
                 />
                 <SignUpButton
-                    id={"signup-btn"}
+                    id={"signup-form-btn"}
                     type={"submit"}
                     color={theme.syntax}
                     background={theme.background}

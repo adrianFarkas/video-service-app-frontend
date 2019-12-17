@@ -90,7 +90,7 @@ function LoginForm() {
                         value={formData.password}
                     />
                 <LoginButton
-                    id={"login-btn"}
+                    id={"login-form-btn"}
                     type={"submit"}
                     color={theme.syntax}
                     background={theme.background}
