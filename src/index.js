@@ -11,21 +11,24 @@ import Player from "./components/Player";
 import Test from "./components/Test";
 import SignUp from "./pages/SignUp";
 import Login from "./pages/Login";
+import AuthContextProvider from "./contexts/AuthContext";
 
 const routing = (
     <Router>
-        <RootContextProvider>
-            <ThemeContextProvider>
-                <Route exact path="/" component={App}/>
-                <CommentContextProvider>
-                    <Route path="/video/:id" component={Details}/>
-                </CommentContextProvider>
-                <Route path="/sign-up" component={SignUp}/>
-                <Route path="/sign-in" component={Login}/>
-                <Route path="/player" component={Player}/>
-                <Route path="/test" component={Test}/>
-            </ThemeContextProvider>
-        </RootContextProvider>
+        <AuthContextProvider>
+            <RootContextProvider>
+                <ThemeContextProvider>
+                    <Route exact path="/" component={App}/>
+                    <CommentContextProvider>
+                        <Route path="/video/:id" component={Details}/>
+                    </CommentContextProvider>
+                    <Route path="/sign-up" component={SignUp}/>
+                    <Route path="/sign-in" component={Login}/>
+                    <Route path="/player" component={Player}/>
+                    <Route path="/test" component={Test}/>
+                </ThemeContextProvider>
+            </RootContextProvider>
+        </AuthContextProvider>
     </Router>
 );
 

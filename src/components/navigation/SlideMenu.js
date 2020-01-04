@@ -13,9 +13,10 @@ import CloseIcon from '@material-ui/icons/Close';
 import IconButton from "@material-ui/core/IconButton";
 import Divider from "@material-ui/core/Divider";
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 
 function SlideMenu(props) {
-    const {open, toggleDrawer} = props;
+    const {open, toggleDrawer, handleLogOut} = props;
     const {theme} = useContext(ThemeContext);
 
     const useStyles = makeStyles({
@@ -65,6 +66,11 @@ function SlideMenu(props) {
                     <ListItemIcon><SettingsBrightnessIcon className={classes.icon}/></ListItemIcon>
                     <ListItemText primary={"Dark Theme:"} />
                     <ThemeSwitcher/>
+                </ListItem>
+                <Divider/>
+                <ListItem button onClick={handleLogOut}>
+                    <ListItemIcon><ExitToAppIcon className={classes.icon}/></ListItemIcon>
+                    <ListItemText primary={"Logout"} />
                 </ListItem>
             </List>
         </div>

@@ -112,6 +112,7 @@ function SignUpForm() {
                     type="password"
                     onChange={textChange}
                     value={formData.password}
+                    autoComplete="off"
                 />
                 <TextField
                     required
@@ -123,6 +124,7 @@ function SignUpForm() {
                     type="password"
                     onChange={textChange}
                     value={formData.confirmationPassword}
+                    autoComplete="off"
                 />
                 <SignUpButton
                     id={"signup-form-btn"}

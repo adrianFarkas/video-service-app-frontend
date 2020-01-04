@@ -6,11 +6,13 @@ import RegButton from "../auth/signup/RegButton";
 import SlideMenu from "./SlideMenu";
 import Avatar from "@material-ui/core/Avatar";
 import {ThemeContext} from "../../contexts/ThemeContext";
+import {AuthContext} from "../../contexts/AuthContext";
 
 function CustomNavbar() {
 
     const [open, setOpen] = useState(false);
     const {theme} = useContext(ThemeContext);
+    const {logOut, userData} = useContext(AuthContext);
 
     const GlobalStyle = createGlobalStyle`
         body {
@@ -42,11 +44,12 @@ function CustomNavbar() {
     const ItemContainer = styled.div`
       margin: 0;
       padding: 0;
-      clear: both;
       list-style: none;
       overflow: hidden;
       text-align: center;
-      max-height: 0;
+      clear: ${userData ? "none" : "both"};
+      float: ${userData ? "right" : "unset"};
+      max-height: ${userData ? "none" : "0"};
       transition: max-height .3s ease-in-out 0s;
       @media (min-width: 480px) {
         clear: none;
@@ -56,8 +59,8 @@ function CustomNavbar() {
     `;
 
     const Item = styled.div`
-      display: block;
       padding: 10px;
+      display: ${userData ? "none" : "block"};
       @media (min-width: 480px) {
         float: left;
         width: 140px;
@@ -76,6 +79,7 @@ function CustomNavbar() {
         position: relative;
         margin: 0;
         cursor: pointer;
+        display: ${userData ? "none" : "unset"};
         @media (min-width: 480px) {
           display: none;
         }  
@@ -102,10 +106,10 @@ function CustomNavbar() {
     `;
 
     const AvatarToggler = styled.div`
-        display: block;
-        padding: 10px;  
+        padding: 10px; 
         float: left;
         width: 60px;
+        display: ${userData ? "block" : "none"};
         :hover {
            cursor: pointer;
         }
@@ -117,6 +121,15 @@ function CustomNavbar() {
         }
 
         setOpen(open);
+    };
+
+    const getAvatar = () => {
+        if (userData) {
+            const {firstName, profileImg} = userData;
+            if (profileImg)
+                return (<Avatar src={`https://d36gs7u6yr0lc3.cloudfront.net/${profileImg}`}/>);
+            return (<Avatar>{firstName.charAt(0)}</Avatar>);
+        }
     };
 
     return (
@@ -133,12 +146,16 @@ function CustomNavbar() {
                         <Item id={"login-btn"}><LoginButton/></Item>
                         <Item id={"reg-btn"}><RegButton/></Item>
                         <AvatarToggler onClick={toggleDrawer(true)}>
-                            <Avatar>B</Avatar>
+                            {getAvatar()}
                         </AvatarToggler>
                     </ItemContainer>
                 </Navbar>
             </Wrapper>
-            <SlideMenu open={open} toggleDrawer={toggleDrawer}/>
+            <SlideMenu
+                open={open}
+                toggleDrawer={toggleDrawer}
+                handleLogOut={logOut}
+            />
         </div>
     );
 }

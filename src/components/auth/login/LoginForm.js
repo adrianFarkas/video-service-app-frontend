@@ -7,10 +7,11 @@ import {ThemeContext} from "../../../contexts/ThemeContext";
 import {AuthButton, AuthFormContainer} from "../../../styled-components/authStyle";
 import styled from "styled-components";
 import axios from "axios";
-import Cookies from "universal-cookie";
+import {AuthContext} from "../../../contexts/AuthContext";
 
 function LoginForm(props) {
     const {theme} = useContext(ThemeContext);
+    const {logIn} = useContext(AuthContext);
     const url = "/auth/sign-in";
 
     const initialState = {
@@ -61,8 +62,7 @@ function LoginForm(props) {
         axios.post(url, formData)
             .then(res => {
                 const token = res.data.token;
-                const cookie = new Cookies();
-                cookie.set("token", token);
+                logIn(token);
                 props.history.push('/');
             })
     };
@@ -88,6 +88,7 @@ function LoginForm(props) {
                         type="password"
                         onChange={textChange}
                         value={formData.password}
+                        autoComplete="off"
                     />
                 <LoginButton
                     id={"login-form-btn"}
