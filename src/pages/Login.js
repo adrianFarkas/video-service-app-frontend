@@ -6,10 +6,6 @@ import LoginHeader from "../components/auth/login/LoginHeader";
 
 function Login() {
 
-
-
-
-
     return (
         <div>
             <CustomNavbar/>
