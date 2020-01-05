@@ -7,7 +7,6 @@ import {Route, BrowserRouter as Router} from "react-router-dom";
 import RootContextProvider from "./contexts/RootContext";
 import ThemeContextProvider from "./contexts/ThemeContext";
 import CommentContextProvider from "./contexts/CommentContext";
-import Player from "./components/Player";
 import Test from "./components/Test";
 import SignUp from "./pages/SignUp";
 import Login from "./pages/Login";
@@ -24,7 +23,6 @@ const routing = (
                     </CommentContextProvider>
                     <Route path="/sign-up" component={SignUp}/>
                     <Route path="/sign-in" component={Login}/>
-                    <Route path="/player" component={Player}/>
                     <Route path="/test" component={Test}/>
                 </ThemeContextProvider>
             </RootContextProvider>

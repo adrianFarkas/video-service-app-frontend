@@ -1,12 +1,14 @@
 import React, {useContext, useState} from 'react';
 import styled, {createGlobalStyle} from "styled-components";
 import {Link} from "react-router-dom";
-import LoginButton from "../auth/login/LoginButton";
-import RegButton from "../auth/signup/RegButton";
 import SlideMenu from "./SlideMenu";
 import Avatar from "@material-ui/core/Avatar";
 import {ThemeContext} from "../../contexts/ThemeContext";
 import {AuthContext} from "../../contexts/AuthContext";
+import PersonOutlineIcon from '@material-ui/icons/PersonOutline';
+import LockOpenIcon from '@material-ui/icons/LockOpen';
+import AuthButton from "../auth/AuthButton";
+import {colors} from "../../theme";
 
 function CustomNavbar() {
 
@@ -59,7 +61,7 @@ function CustomNavbar() {
     `;
 
     const Item = styled.div`
-      padding: 10px;
+      padding: 12px;
       display: ${userData ? "none" : "block"};
       @media (min-width: 480px) {
         float: left;
@@ -143,8 +145,22 @@ function CustomNavbar() {
                     <Toggler type={"checkbox"} id={"toggler"}/>
                     <Label htmlFor={"toggler"}><Hamburger className={"hamburger"}/></Label>
                     <ItemContainer className={"menu"}>
-                        <Item id={"login-btn"}><LoginButton/></Item>
-                        <Item id={"reg-btn"}><RegButton/></Item>
+                        <Item id={"login-btn"}>
+                            <AuthButton
+                                url={"/sign-in"}
+                                color={colors.claret}
+                                text={"Login"}
+                                IconComponent={<LockOpenIcon/>}
+                            />
+                        </Item>
+                        <Item id={"reg-btn"}>
+                            <AuthButton
+                                url={"/sign-up"}
+                                background={colors.claret}
+                                text={"Sign Up"}
+                                IconComponent={<PersonOutlineIcon/>}
+                            />
+                        </Item>
                         <AvatarToggler onClick={toggleDrawer(true)}>
                             {getAvatar()}
                         </AvatarToggler>

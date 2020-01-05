@@ -7,10 +7,12 @@ body {
     padding: 0;
     border: 0;
     background-color: #515151;
+    font-family: sans-serif;
 }
 
-a:hover {
+a, a:hover {
     text-decoration: none;
+    font-family: sans-serif;
 }
 
 *:focus {
