@@ -14,6 +14,8 @@ import IconButton from "@material-ui/core/IconButton";
 import Divider from "@material-ui/core/Divider";
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+import Publish from "@material-ui/icons/Publish";
+import {Link} from "react-router-dom";
 
 function SlideMenu(props) {
     const {open, toggleDrawer, handleLogOut} = props;
@@ -57,6 +59,10 @@ function SlideMenu(props) {
                 <ListItem button>
                     <ListItemIcon><AccountCircleIcon className={classes.icon}/></ListItemIcon>
                     <ListItemText primary={"Profile"} />
+                </ListItem>
+                <ListItem button component={Link} to={"/upload"}>
+                    <ListItemIcon><Publish className={classes.icon}/></ListItemIcon>
+                    <ListItemText primary={"Upload"} />
                 </ListItem>
                 <ListItem button>
                     <ListItemIcon><SettingsIcon className={classes.icon}/></ListItemIcon>
