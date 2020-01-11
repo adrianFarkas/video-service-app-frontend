@@ -1,37 +1,35 @@
 import React, {createContext, useEffect, useState} from 'react';
-import Cookies from "universal-cookie";
+import {withRouter} from 'react-router-dom';
 import axios from "axios";
 
 export const AuthContext = createContext();
 
 function AuthContextProvider(props) {
 
-    const cookie = new Cookies();
     const [userData, setUserData] = useState(null);
+    const authUrl ="/auth";
 
     useEffect(() => {
-        const userToken = getUser();
-        if (userToken) fetchUserData(userToken);
+        fetchUserData();
     }, []);
 
-    const fetchUserData = (token) => {
-        axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+    const fetchUserData = () => {
         axios.get("/user")
             .then(res => setUserData(res.data))
     };
 
-    const getUser = () => {
-        return cookie.get("token");
-    };
 
-    const logIn = (token) => {
-        cookie.set("token", token);
-        fetchUserData(token);
+    const logIn = (formData) => {
+        axios.post(`${authUrl}/sign-in`, formData)
+            .then(() => {
+                fetchUserData();
+                props.history.push('/');
+            })
     };
 
     const logOut = () => {
-        cookie.remove("token");
-        setUserData(null);
+        axios.post(`${authUrl}/logout`)
+            .then(() => setUserData(null));
     };
 
     return (
@@ -41,4 +39,4 @@ function AuthContextProvider(props) {
     );
 }
 
-export default AuthContextProvider;
+export default withRouter(AuthContextProvider);

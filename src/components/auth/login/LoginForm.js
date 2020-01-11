@@ -1,18 +1,15 @@
 import React, {useContext, useState} from 'react';
 import TextField from "@material-ui/core/TextField";
-import {withRouter} from 'react-router-dom';
 import {makeStyles} from "@material-ui/core";
 import {colors} from "../../../theme";
 import {ThemeContext} from "../../../contexts/ThemeContext";
 import {AuthButton, AuthFormContainer} from "../../../styled-components/authStyle";
 import styled from "styled-components";
-import axios from "axios";
 import {AuthContext} from "../../../contexts/AuthContext";
 
 function LoginForm(props) {
     const {theme} = useContext(ThemeContext);
     const {logIn} = useContext(AuthContext);
-    const url = "/auth/sign-in";
 
     const initialState = {
         email: "",
@@ -59,12 +56,7 @@ function LoginForm(props) {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        axios.post(url, formData)
-            .then(res => {
-                const token = res.data.token;
-                logIn(token);
-                props.history.push('/');
-            })
+        logIn(formData);
     };
 
     return (
@@ -103,4 +95,4 @@ function LoginForm(props) {
     );
 }
 
-export default withRouter(LoginForm);
+export default LoginForm;
