@@ -66,10 +66,12 @@ function CommentForm(props) {
         const recommendation = {
             comment: text,
         };
-        if (commentId) updateComment(commentId, recommendation);
+        if (commentId) {
+            updateComment(commentId, recommendation);
+            handleClick();
+        }
         else sendComment(videoId, recommendation);
         setText("");
-        handleClick();
     };
     const classes = useStyles();
 
