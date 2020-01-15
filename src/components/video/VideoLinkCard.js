@@ -1,5 +1,4 @@
-import React, {useContext, useState} from 'react';
-import getThumb from 'video-thumbnail-url';
+import React, {useContext} from 'react';
 import styled from "styled-components";
 import {Link} from "react-router-dom"
 import {ThemeContext} from "../../contexts/ThemeContext";
@@ -7,11 +6,7 @@ import {ThemeContext} from "../../contexts/ThemeContext";
 function VideoLinkCard(props) {
     const {theme} = useContext(ThemeContext);
 
-    const [thumbNail, setThumbNail] = useState("/img/empty_img.png");
-    const {id, name, url} = props.video;
-
-    getThumb(url)
-        .then(thumb_url => setThumbNail(thumb_url));
+    const {id, title, thumbnailLink} = props.video;
 
     const LinkCard = styled(Link)`
          min-width: 0;
@@ -58,8 +53,9 @@ function VideoLinkCard(props) {
 
     return (
         <LinkCard to={"/video/" + id} className={"link-card"}>
-            <ThumbnailImg src={thumbNail == null ? "/img/empty_img.png" : thumbNail}/>
-            <Title>{name}</Title>
+
+            <ThumbnailImg src={thumbnailLink == null ? "/img/empty_img.png" : thumbnailLink}/>
+            <Title>{title}</Title>
         </LinkCard>
     );
 }
