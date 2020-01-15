@@ -19,3 +19,8 @@ export const VidRow = styled.div`
      grid-row-end: span 3;
      min-height: 200px;
 `;
+
+export const Img = styled.img`
+    width: 100%;
+    height: 100%;
+`;
