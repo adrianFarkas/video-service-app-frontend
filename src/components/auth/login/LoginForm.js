@@ -21,17 +21,19 @@ function LoginForm(props) {
     const useStyles = makeStyles({
         root: {
             width: "100%",
-
             color: theme.syntax,
             "& label, label.Mui-focused, .MuiInputBase-root": {
                 color: theme.syntax,
             },
-            "& .MuiInput-underline:after, .MuiInput-underline:before": {
-                borderBottomColor: theme.syntax,
-            },
-            "& .MuiInput-underline": {
-                '&:hover:before': {
-                    borderBottomColor: `${colors.claret} !important`,
+            '& .MuiOutlinedInput-root': {
+                '& fieldset': {
+                    borderColor: theme.syntax,
+                },
+                '&:hover fieldset': {
+                    borderColor: colors.claret,
+                },
+                '&.Mui-focused fieldset': {
+                    borderColor: theme.syntax,
                 },
             },
         },
@@ -64,6 +66,7 @@ function LoginForm(props) {
             <form style={formStyle} onSubmit={handleSubmit}>
                     <TextField
                         required
+                        variant="outlined"
                         className={classes.root}
                         id="email"
                         label="Email"
@@ -73,6 +76,7 @@ function LoginForm(props) {
                     />
                     <TextField
                         required
+                        variant="outlined"
                         className={classes.root}
                         id="password"
                         label="Password"
