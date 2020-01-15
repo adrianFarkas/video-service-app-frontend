@@ -13,7 +13,7 @@ import {createGlobalStyle} from "styled-components";
 const useStyles = makeStyles({
     root: {
         flexGrow: 1,
-        marginBottom: 100,
+        marginBottom: "65px",
         "& .MuiToolbar-root": {
             backgroundColor: colors.white2,
             color: colors.darkerGrey,

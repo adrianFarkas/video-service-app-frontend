@@ -1,13 +1,17 @@
-import React, {useContext} from 'react';
-import {RootContext} from "../../contexts/RootContext";
+import React, {useContext, useEffect} from 'react';
 import Comment from "./Comment";
+import {CommentContext} from "../../contexts/CommentContext";
 
-function CommentSection(props) {
+function CommentSection({videoId}) {
 
-    const {state} = useContext(RootContext);
+    const {comments, fetchCommentsByVideo} = useContext(CommentContext);
 
-    const recommendations = state.selectedVideo["recommendations"] ?
-        state.selectedVideo["recommendations"].map((r, i) => <Comment key={i} comment={r}/>)
+    useEffect(() => {
+        fetchCommentsByVideo(videoId)
+    }, [videoId, fetchCommentsByVideo]);
+
+    const recommendations = comments ?
+        comments.map((r, i) => <Comment key={i} comment={r}/>)
         : <div>Loading...</div>;
 
     return (

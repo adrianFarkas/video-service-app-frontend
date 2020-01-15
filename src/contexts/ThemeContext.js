@@ -11,7 +11,7 @@ function ThemeContextProvider(props) {
 
     const changeTheme = () => {
         const isDark = theme === dark;
-        cookie.set("theme", isDark, { path: '/' });
+        cookie.set("theme", isDark, { path: '/', expires: new Date("2020-12-08T21:30:03.897Z") });
         setTheme(isDark ? light : dark);
     };
 

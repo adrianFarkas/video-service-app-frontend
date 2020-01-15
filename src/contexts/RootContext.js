@@ -10,8 +10,7 @@ function RootContextProvider(props) {
             selectedVideo: {},
         };
 
-    const baseUrlVideo = "http://localhost:8080/videos/";
-    const baseUrlRecommendations = "http://localhost:8080/recommendations/";
+    const baseUrlVideo = "/videos/";
 
     const [state, dispatch] = useReducer(rootReducer, initialState);
 
@@ -32,24 +31,8 @@ function RootContextProvider(props) {
             });
     }, []);
 
-    const sendRecommendation = (id, recommendation) => {
-        axios.post(baseUrlRecommendations + `?videoId=${id}`, recommendation)
-            .then(res => {
-                const data = res.data;
-                dispatch({type: "CHANGE_RECOMMENDATIONS", data})
-            });
-    };
-
-    const updateRecommendation = (id, recommendation) => {
-        axios.put(baseUrlRecommendations + id , recommendation)
-            .then(res => {
-                const data = res.data;
-                dispatch({type: "UPDATE_RECOMMENDATION", data})
-            });
-    };
-
     return (
-        <RootContext.Provider value={{state, dispatch, fetchVideoById, sendRecommendation, updateRecommendation}}>
+        <RootContext.Provider value={{state, dispatch, fetchVideoById}}>
             {props.children}
         </RootContext.Provider>
     );
