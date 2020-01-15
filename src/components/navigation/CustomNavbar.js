@@ -18,7 +18,7 @@ function CustomNavbar() {
 
     const GlobalStyle = createGlobalStyle`
         body {
-          background-color: ${theme.background};
+          background-color: ${theme.background} !important;
         }
     `;
 
@@ -110,7 +110,6 @@ function CustomNavbar() {
     const AvatarToggler = styled.div`
         padding: 10px; 
         float: left;
-        width: 60px;
         display: ${userData ? "block" : "none"};
         :hover {
            cursor: pointer;
@@ -129,7 +128,7 @@ function CustomNavbar() {
         if (userData) {
             const {firstName, profileImg} = userData;
             if (profileImg)
-                return (<Avatar src={`https://d36gs7u6yr0lc3.cloudfront.net/${profileImg}`}/>);
+                return (<Avatar src={profileImg}/>);
             return (<Avatar>{firstName.charAt(0)}</Avatar>);
         }
     };
