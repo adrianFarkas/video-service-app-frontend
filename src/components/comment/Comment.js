@@ -1,16 +1,15 @@
 import React, {useContext, useState} from 'react';
-import Rate from "./Rate";
 import styled from "styled-components";
-import MoreButton from "./MoreButton";
+import MoreButton from "../util/MoreButton";
 import MenuItem from "@material-ui/core/MenuItem";
 import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
 import CommentForm from "./CommentForm";
-import {ThemeContext} from "../contexts/ThemeContext";
+import {ThemeContext} from "../../contexts/ThemeContext";
 
 
 function Comment(props) {
-    const {id, rating, comment} = props.comment;
+    const {id, comment} = props.comment;
     const [editMode, setEdiMode] = useState(false);
     const {theme} = useContext(ThemeContext);
 
@@ -21,7 +20,7 @@ function Comment(props) {
     `;
 
     const CommentCard = styled.div`
-        padding: 15px;
+        padding: 30px;
         background-color: ${theme.cardBg};
         border-radius: 5px;
     `;
@@ -56,21 +55,16 @@ function Comment(props) {
     const recommendation = editMode ?
         <div>
             <CommentForm
-                rate={rating}
                 comment={comment}
                 commentId={id}
                 buttonText={"Edit"}
+                handleClick={handleEditMode}
             />
             <Cancel onClick={handleEditMode}>Cancel</Cancel>
         </div>
         :
         <div>
             <Text>{comment}</Text>
-            <Rate
-                value={rating}
-                disabled={true}
-                size={"medium"}
-                style={{textAlign: "right", marginRight: 10}}/>
         </div>;
 
     return (

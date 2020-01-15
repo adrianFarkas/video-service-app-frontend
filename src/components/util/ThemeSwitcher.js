@@ -1,12 +1,13 @@
 import React, {useContext, useState} from 'react';
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Switch from "@material-ui/core/Switch";
-import {ThemeContext} from "../contexts/ThemeContext";
-import {light} from "../theme";
+import {ThemeContext} from "../../contexts/ThemeContext";
+import {dark} from "../../theme";
+import {makeStyles} from "@material-ui/core";
 
 function ThemeSwitcher() {
     const {theme, changeTheme} = useContext(ThemeContext);
-    const [checked, setChecked] = useState(theme === light);
+    const [checked, setChecked] = useState(theme === dark);
 
     const handleChange = event => {
         const checked = event.target.checked;
@@ -14,9 +15,17 @@ function ThemeSwitcher() {
         changeTheme();
     };
 
+    const useStyles = makeStyles(() => ({
+        root: {
+            margin: "2px",
+        }
+    }));
+
     return (
         <div>
             <FormControlLabel
+                className={useStyles().root}
+
                 control={
                     <Switch
                         checked={checked}
@@ -24,7 +33,8 @@ function ThemeSwitcher() {
                         color="default"
                     />
                 }
-                label={checked ? "Light" : "Dark"}
+                label={checked ? "On" : "Off"}
+                labelPlacement="start"
             />
         </div>
     );

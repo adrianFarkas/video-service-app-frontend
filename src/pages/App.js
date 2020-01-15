@@ -1,12 +1,12 @@
 import React from 'react';
-import VideoLinkSection from "../components/VideoLinkSection";
-import Navbar from "../components/Navbar";
+import VideoLinkSection from "../components/video/VideoLinkSection";
+import CustomNavbar from "../components/navigation/CustomNavbar";
 
 function App() {
 
     return (
         <div className="App">
-            <Navbar/>
+            <CustomNavbar/>
             <VideoLinkSection/>
         </div>
     );

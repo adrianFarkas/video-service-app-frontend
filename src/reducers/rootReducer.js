@@ -10,26 +10,26 @@ const rootReducer = (state, action) => {
                 ...state,
                 selectedVideo: action.data
             };
-        case "CHANGE_RECOMMENDATIONS":
-            return {
-                ...state,
-                selectedVideo: {...state.selectedVideo, recommendations: action.data}
-            };
+        case "STORE_COMMENTS":
+            return [
+                ...action.data
+            ];
+        case "CHANGE_COMMENTS":
+            return [
+                ...action.data
+            ];
         case "SWITCH_THEME":
             return {
                 ...state,
                 isLightTheme: action.checked
             };
-        case "UPDATE_RECOMMENDATION":
-            const recommendations = state.selectedVideo.recommendations.filter(r => r.id !== action.data.id);
+        case "UPDATE_COMMENTS":
+            const comments = state.filter(r => r.id !== action.data.id);
 
-            return {
-                ...state,
-                selectedVideo: {
-                    ...state.selectedVideo,
-                    recommendations: [...recommendations, action.data]
-                }
-            };
+            return [
+                action.data,
+                ...comments
+            ];
         default:
             return state;
 

@@ -1,18 +1,15 @@
 import React, {useContext, useEffect} from 'react';
 import {RootContext} from "../contexts/RootContext";
-import Video from "../components/Video";
-import VideoLoading from "../components/VideoLoading";
+import Video from "../components/video/Video";
 import styled from "styled-components";
-import CommentForm from "../components/CommentForm";
-import CommentSection from "../components/CommentSection";
-import Navbar from "../components/Navbar";
-
+import CommentForm from "../components/comment/CommentForm";
+import CommentSection from "../components/comment/CommentSection";
+import CustomNavbar from "../components/navigation/CustomNavbar";
 
 function Details(props) {
     const videoId = props.match.params.id;
 
-    const {state, fetchVideoById} = useContext(RootContext);
-    const actVideoId = state.selectedVideo.id;
+    const {fetchVideoById} = useContext(RootContext);
 
     useEffect(() => {
         fetchVideoById(videoId);
@@ -35,16 +32,14 @@ function Details(props) {
         min-width: 300px;
     `;
 
-    const video = parseInt(videoId) === actVideoId ? <Video/> : <VideoLoading/>;
-
     return (
         <div>
-            <Navbar/>
+            <CustomNavbar />
             <Container>
                 <VideoSection>
-                    {video}
+                    <Video/>
                     <CommentForm/>
-                    <CommentSection/>
+                    <CommentSection videoId={videoId}/>
                 </VideoSection>
             </Container>
         </div>
