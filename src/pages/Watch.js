@@ -5,7 +5,7 @@ import styled from "styled-components";
 import CommentForm from "../components/comment/CommentForm";
 import CommentSection from "../components/comment/CommentSection";
 
-function Details(props) {
+function Watch(props) {
     const videoId = props.match.params.id;
 
     const {fetchVideoById} = useContext(RootContext);
@@ -44,4 +44,4 @@ function Details(props) {
     );
 }
 
-export default Details;
+export default Watch;
