@@ -12,12 +12,14 @@ import SignUp from "./pages/SignUp";
 import Login from "./pages/Login";
 import AuthContextProvider from "./contexts/AuthContext";
 import Upload from "./pages/Upload";
+import CustomNavbar from "./components/navigation/CustomNavbar";
 
 const routing = (
     <Router>
         <AuthContextProvider>
             <RootContextProvider>
                 <ThemeContextProvider>
+                    <CustomNavbar/>
                     <Route exact path="/" component={App}/>
                     <CommentContextProvider>
                         <Route path="/video/:id" component={Details}/>
