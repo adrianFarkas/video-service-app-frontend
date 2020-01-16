@@ -1,61 +1,100 @@
-import React, {useContext} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import styled from "styled-components";
 import {Link} from "react-router-dom"
 import {ThemeContext} from "../../contexts/ThemeContext";
+import {Img} from "../../styled-components/styled"
+import Avatar from "@material-ui/core/Avatar";
+import {makeStyles} from "@material-ui/styles";
+import Tooltip from "@material-ui/core/Tooltip";
+import axios from "axios";
 
 function VideoLinkCard(props) {
     const {theme} = useContext(ThemeContext);
 
-    const {id, title, thumbnailLink} = props.video;
+    const {id, title, thumbnailLink, userId, creationDate} = props.video;
+    const [user, setUser] = useState({firstName: " ", lastName: "", profileImg: ""});
+
+    useEffect(() => {
+        axios.get(`/user/${userId}`)
+            .then(res => setUser(res.data))
+    }, []);
+
+    const useStyle = makeStyles( {
+        root: {
+            marginRight: "10px",
+        },
+        tooltip: {
+            fontSize: "15px",
+            display: title.length < 45 && "none",
+        }
+    });
+    const classes = useStyle();
 
     const LinkCard = styled(Link)`
-         min-width: 0;
-         color: ${theme.syntax};
-         background-color: ${theme.cardBg};
-         border-radius: 3px;
-         transition: all 0.3s ease-in-out 0s;
-         text-decoration: none;
-         @media (min-width: 1024px){
-             :hover {
-                 color: ${theme.cardBg};
-                 background-color: ${theme.syntax};
-                 transform: translateY(-6px);
+        color: ${theme.syntax};
+        min-width: 250px;
+        background-color: ${theme.cardBg};
+        transition: all 0.5s ease-in-out 0s;
+        @media (min-width: 1024px){
+            :hover {
+                background-color: ${theme.cardBgHover};
+                transform: translateY(-5px);
             }
-         }
-    `;
-
-    const ThumbnailImg = styled.img`
-        width: 100%;
-        height: 10vw;
-        border-top-left-radius: 3px;
-        border-top-right-radius: 3px;
-        @media (max-width: 1024px) {
-            height: unset;
         }
     `;
 
-    const Title = styled.div`
-        font-size: 1.5em;
-        margin: 4%;
-        text-align: left;
+    const Details = styled.div`
+        padding: 5px 10px;
+        display: flex;
+    `;
+
+    const Texts = styled.div`
+        padding-right: 30px;
+    `;
+
+    const User = styled(Link)`
+        margin-top: 10px;
+        display: block;
+        color: ${theme.syntax};
+        :hover {
+           text-decoration: underline;
+        }
+    `;
+
+    const Text = styled.div`
+        margin-top: 10px;
+        word-wrap: break-word;
+    `;
+
+    const Title = styled(Text)`
+        margin-top: 6px;
+        font-weight: bold;
         overflow: hidden;
         display: -webkit-box;
         -webkit-line-clamp: 2;
-        -webkit-box-orient: vertical;  
+        -webkit-box-orient: vertical;
         text-overflow: ellipsis;
-        @media (max-width: 700px) {
-            font-size: 1.1em;
-        }
-        @media (max-width: 480px) {
-            font-size: 1.4em;
-        }
     `;
+
+    const avatar = user.profileImg ?
+        <Avatar className={classes.root} src={user.profileImg}/>
+        :
+        <Avatar className={classes.root}>{user.firstName.charAt(0)}</Avatar>;
+
 
     return (
         <LinkCard to={"/video/" + id} className={"link-card"}>
-
-            <ThumbnailImg src={thumbnailLink == null ? "/img/empty_img.png" : thumbnailLink}/>
-            <Title>{title}</Title>
+            <Img src={thumbnailLink == null ? "/img/empty_img.png" : thumbnailLink}/>
+            <Details>
+                {avatar}
+                <Texts>
+                    <Tooltip title={title} placement="bottom" classes={{tooltip: classes.tooltip}}>
+                        <Title>{title}</Title>
+                    </Tooltip>
+                    <User to={"#"}>{`${user.firstName} ${user.lastName}`}</User>
+                    <Text>{new Date(creationDate).toDateString()}</Text>
+                </Texts>
+            </Details>
         </LinkCard>
     );
 }

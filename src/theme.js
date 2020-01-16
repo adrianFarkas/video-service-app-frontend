@@ -13,6 +13,7 @@ export const colors = {
 export const light = {
     background: "#f1f0ef",
     cardBg: "#e7e3e5",
+    cardBgHover: "#d2ced0",
     syntax: "#484848",
     button: "#630400",
     buttonTxt: "#ffffff",
@@ -25,6 +26,7 @@ export const light = {
 export const dark = {
     background: "#515151",
     cardBg: "#484848",
+    cardBgHover: "#3c3c3c",
     syntax: "#dcdbd4",
     button: "#ffffff",
     buttonTxt: "#630400",

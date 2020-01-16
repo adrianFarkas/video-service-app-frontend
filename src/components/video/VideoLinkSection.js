@@ -5,23 +5,29 @@ import {RootContext} from "../../contexts/RootContext";
 import {ThemeContext} from "../../contexts/ThemeContext";
 import {Container} from "../../styled-components/styled";
 
-function VideoLinkSection(props) {
+function VideoLinkSection() {
     const {state: {videos}} = useContext(RootContext);
     const {theme} = useContext(ThemeContext);
 
-    const VideoLinkGrid = styled.div`
+    const Container = styled.div`
+        width: 90%;
         margin: 0 auto;
+        @media (max-width: 600px) {
+            width: 100%;
+        }
+`
+
+    const VideoLinkGrid = styled.div`
         display: grid;
-        grid-template-columns: repeat(5, 1fr);
+        grid-template-columns: repeat(4, 1fr);
         grid-gap: 8px;
-        @media (max-width: 1024px) {
+        @media (max-width: 1200px) {
            grid-template-columns: repeat(3, 1fr);
         }
         @media (max-width: 900px) {
             grid-template-columns: repeat(2, 1fr);
         }
         @media (max-width: 480px) {
-            width: unset;
             grid-template-columns: repeat(1, 1fr);
         }
     `;
