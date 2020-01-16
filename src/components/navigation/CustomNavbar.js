@@ -23,7 +23,7 @@ function CustomNavbar() {
     `;
 
     const Wrapper = styled.div`
-        margin-bottom: 60px;
+        padding-bottom: 62px;
     `;
 
     const Navbar = styled.div`
