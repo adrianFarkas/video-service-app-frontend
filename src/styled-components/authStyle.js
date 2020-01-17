@@ -6,7 +6,7 @@ export const AuthContainer = styled.div`
     min-width: 280px;
     height: 40vw;
     min-height: 380px;
-    margin: 120px auto 0;
+    margin: 100px auto 0;
     display: flex;
 `;
 

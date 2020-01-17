@@ -3,7 +3,6 @@ import VideoLinkCard from "./VideoLinkCard";
 import styled from "styled-components";
 import {RootContext} from "../../contexts/RootContext";
 import {ThemeContext} from "../../contexts/ThemeContext";
-import {Container} from "../../styled-components/styled";
 
 function VideoLinkSection() {
     const {state: {videos}} = useContext(RootContext);
