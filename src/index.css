@@ -19,6 +19,11 @@ a, a:hover {
     outline: none !important;
 }
 
+#comment-form {
+    margin: 15px 5px;
+    height: 100px;
+}
+
 /*Responsive sign up, login*/
 
 #login-form {
