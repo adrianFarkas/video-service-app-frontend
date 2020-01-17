@@ -2,13 +2,13 @@ import React, {useContext, useState} from 'react';
 import styled, {createGlobalStyle} from "styled-components";
 import {Link} from "react-router-dom";
 import SlideMenu from "./SlideMenu";
-import Avatar from "@material-ui/core/Avatar";
 import {ThemeContext} from "../../contexts/ThemeContext";
 import {AuthContext} from "../../contexts/AuthContext";
 import PersonOutlineIcon from '@material-ui/icons/PersonOutline';
 import LockOpenIcon from '@material-ui/icons/LockOpen';
 import AuthButton from "../auth/AuthButton";
 import {colors} from "../../theme";
+import UserAvatar from "../util/UserAvatar";
 
 function CustomNavbar() {
 
@@ -124,15 +124,6 @@ function CustomNavbar() {
         setOpen(open);
     };
 
-    const getAvatar = () => {
-        if (userData) {
-            const {firstName, profileImg} = userData;
-            if (profileImg)
-                return (<Avatar src={profileImg}/>);
-            return (<Avatar>{firstName.charAt(0)}</Avatar>);
-        }
-    };
-
     return (
         <div>
             <GlobalStyle/>
@@ -161,7 +152,7 @@ function CustomNavbar() {
                             />
                         </Item>
                         <AvatarToggler onClick={toggleDrawer(true)}>
-                            {getAvatar()}
+                            <UserAvatar user={userData} />
                         </AvatarToggler>
                     </ItemContainer>
                 </Navbar>

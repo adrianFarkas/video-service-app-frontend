@@ -3,7 +3,7 @@ import styled from "styled-components";
 import {Link} from "react-router-dom"
 import {ThemeContext} from "../../contexts/ThemeContext";
 import {Img} from "../../styled-components/styled"
-import Avatar from "@material-ui/core/Avatar";
+import UserAvatar from "../util/UserAvatar";
 import {makeStyles} from "@material-ui/styles";
 import Tooltip from "@material-ui/core/Tooltip";
 import axios from "axios";
@@ -76,17 +76,11 @@ function VideoLinkCard(props) {
         text-overflow: ellipsis;
     `;
 
-    const avatar = user.profileImg ?
-        <Avatar className={classes.root} src={user.profileImg}/>
-        :
-        <Avatar className={classes.root}>{user.firstName.charAt(0)}</Avatar>;
-
-
     return (
         <LinkCard to={"/video/" + id} className={"link-card"}>
             <Img src={thumbnailLink == null ? "/img/empty_img.png" : thumbnailLink}/>
             <Details>
-                {avatar}
+                <UserAvatar className={classes.root} user={user} />
                 <Texts>
                     <Tooltip title={title} placement="bottom" classes={{tooltip: classes.tooltip}}>
                         <Title>{title}</Title>
