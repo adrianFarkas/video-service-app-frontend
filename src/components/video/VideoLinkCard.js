@@ -1,4 +1,4 @@
-import React, {useContext, useEffect, useState} from 'react';
+import React, {useContext} from 'react';
 import styled from "styled-components";
 import {Link} from "react-router-dom"
 import {ThemeContext} from "../../contexts/ThemeContext";
@@ -6,18 +6,13 @@ import {Img} from "../../styled-components/styled"
 import UserAvatar from "../util/UserAvatar";
 import {makeStyles} from "@material-ui/styles";
 import Tooltip from "@material-ui/core/Tooltip";
-import axios from "axios";
+import useAuthor from "../../hooks/useAuthor";
 
 function VideoLinkCard(props) {
     const {theme} = useContext(ThemeContext);
 
     const {id, title, thumbnailLink, userId, creationDate} = props.video;
-    const [user, setUser] = useState({firstName: " ", lastName: "", profileImg: ""});
-
-    useEffect(() => {
-        axios.get(`/user/${userId}`)
-            .then(res => setUser(res.data))
-    }, []);
+    const author = useAuthor({firstName: " ", lastName: "", profileImg: ""}, userId);
 
     const useStyle = makeStyles( {
         root: {
@@ -52,13 +47,10 @@ function VideoLinkCard(props) {
         padding-right: 30px;
     `;
 
-    const User = styled(Link)`
+    const User = styled.div`
         margin-top: 10px;
         display: block;
         color: ${theme.syntax};
-        :hover {
-           text-decoration: underline;
-        }
     `;
 
     const Text = styled.div`
@@ -80,12 +72,12 @@ function VideoLinkCard(props) {
         <LinkCard to={"/video/" + id} className={"link-card"}>
             <Img src={thumbnailLink == null ? "/img/empty_img.png" : thumbnailLink}/>
             <Details>
-                <UserAvatar className={classes.root} user={user} />
+                <UserAvatar className={classes.root} user={author} />
                 <Texts>
                     <Tooltip title={title} placement="bottom" classes={{tooltip: classes.tooltip}}>
                         <Title>{title}</Title>
                     </Tooltip>
-                    <User to={"#"}>{`${user.firstName} ${user.lastName}`}</User>
+                    <User to={"/"}>{`${author.firstName} ${author.lastName}`}</User>
                     <Text>{new Date(creationDate).toDateString()}</Text>
                 </Texts>
             </Details>
