@@ -1,28 +1,27 @@
 import React, {useContext} from 'react';
 import {RootContext} from "../../contexts/RootContext";
-import VideoName from "./VideoName";
-import {VideoGrid, VidRow} from "../../styled-components/styled";
-import VideoLoading from "./VideoLoading";
+import styled from "styled-components";
 
-function Video(props) {
+function Video() {
 
     const {state} = useContext(RootContext);
-    const {title, videoLink} = state.selectedVideo;
+    const {videoLink} = state.selectedVideo;
 
-    const video = videoLink ?
-        <video width={"100%"} height={"100%"} controls>
-            <source src={videoLink}/>
-        </video>
-        :
-        <VideoLoading/>;
+    const Video = styled.div`
+        width: 100%;
+        z-index: 1;
+        @media (max-width: 500px) {
+            position: sticky;
+            top: 62px;
+        }
+    `;
 
     return (
-        <VideoGrid>
-            <VidRow>
-                {video}
-            </VidRow>
-            <VideoName>{title}</VideoName>
-        </VideoGrid>
+        <Video>
+            <video width={"100%"}  controls >
+                <source src={videoLink}/>
+            </video>
+        </Video>
     );
 }
 
