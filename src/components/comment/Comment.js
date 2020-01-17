@@ -1,59 +1,63 @@
 import React, {useContext, useState} from 'react';
 import styled from "styled-components";
-import MoreButton from "../util/MoreButton";
+import EditMenu from "../util/EditMenu";
 import MenuItem from "@material-ui/core/MenuItem";
 import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
 import CommentForm from "./CommentForm";
 import {ThemeContext} from "../../contexts/ThemeContext";
+import useAuthor from "../../hooks/useAuthor";
+import UserAvatar from "../util/UserAvatar";
 
-
-function Comment(props) {
-    const {id, comment} = props.comment;
+function Comment({data}) {
+    const {id, comment, creationDate, userId} = data;
+    const author = useAuthor(null, userId);
     const [editMode, setEdiMode] = useState(false);
     const {theme} = useContext(ThemeContext);
 
-    const Wrapper = styled.div`
-        padding: 10px 0;
-        color: ${theme.syntax};
-        position: relative;
-    `;
-
-    const CommentCard = styled.div`
-        padding: 30px;
-        background-color: ${theme.cardBg};
-        border-radius: 5px;
+    const CommentContainer = styled.div`
+        padding: 10px 5px;
+        border-bottom: 1px solid rgba(105,105,105,0.6);
+        display: flex;
     `;
 
     const Text = styled.div`
-        font-size: 30px;
-        padding-top: 15px;
-        overflow-wrap: break-word;
+        margin: 5px 0;
+        color: ${theme.syntax};  
+    `;
+
+    const CreationDate = styled(Text)`
+        font-size: 12px;
+        margin-bottom: 20px;
+    `;
+
+    const Name = styled(Text)`
+        font-size: 15px;
+        font-weight: bold;
+    `;
+
+    const Main = styled.div`
+        width: 100%;
+        margin: 0 15px;
     `;
 
     const Cancel = styled.div`
-        top: 0;
-        right: 0;
-        position: absolute;
-        font-size: 20px;
+        font-size: 12px;
         color: ${theme.syntax};
-        margin: 135px 140px 0 0;
         cursor: pointer;
+        position: absolute;
+        top: 59px;
+        right: 110px;
+        padding: 8px 0;
+        text-transform: uppercase;
     `;
-
-    const moreStyle = {
-        top: 0,
-        right: 0,
-        position: "absolute",
-        paddingTop: 10
-    };
 
     const handleEditMode = () => {
         setEdiMode(!editMode)
     };
 
-    const recommendation = editMode ?
-        <div>
+    const description = editMode ?
+        <div style={{position: "relative"}}>
             <CommentForm
                 comment={comment}
                 commentId={id}
@@ -63,25 +67,27 @@ function Comment(props) {
             <Cancel onClick={handleEditMode}>Cancel</Cancel>
         </div>
         :
-        <div>
-            <Text>{comment}</Text>
-        </div>;
+        <Text>{comment}</Text>
+        ;
 
     return (
-        <Wrapper>
-            <CommentCard>
-                <div style={{paddingBottom: "15px"}}>Unknown</div>
-                {recommendation}
-            </CommentCard>
-            <MoreButton
-                color={theme.syntax}
-                style={moreStyle}
-                comment={comment}
-            >
-                <MenuItem onClick={handleEditMode}><EditIcon fontSize={"small"}/>Edit</MenuItem>
-                <MenuItem><DeleteIcon fontSize={"small"}/>Delete</MenuItem>
-            </MoreButton>
-        </Wrapper>
+        <CommentContainer>
+            <UserAvatar user={author}/>
+            <Main>
+                <Name>{`${author.firstName} ${author.lastName}`}</Name>
+                <CreationDate>{new Date(creationDate).toDateString()}</CreationDate>
+                {description}
+            </Main>
+            <div>
+                <EditMenu
+                    color={theme.syntax}
+                    comment={comment}
+                >
+                    <MenuItem onClick={handleEditMode}><EditIcon fontSize={"small"}/>Edit</MenuItem>
+                    <MenuItem><DeleteIcon fontSize={"small"}/>Delete</MenuItem>
+                </EditMenu>
+            </div>
+        </CommentContainer>
     );
 }
 
