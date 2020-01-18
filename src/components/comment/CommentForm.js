@@ -30,23 +30,27 @@ function CommentForm(props) {
             },
             "& .MuiInput-underline": {
                 '&:hover:before': {
-                    borderBottom: `2px solid ${theme.syntax}`,
+                    borderBottomColor: theme.syntax,
                 },
             },
             "& .Mui-disabled": {
-                color: theme.disabledBtnTxt,
+                color: theme.disabledSyntax,
             },
         },
         button: {
-            backgroundColor: isBtnDisabled ? theme.disabledBtn : theme.button,
+            backgroundColor: theme.button,
             color: theme.buttonTxt,
             fontWeight: "bold",
             padding: "3px 25px",
             margin: "10px 0",
             float: "right",
             "&:hover" : {
-                backgroundColor: isBtnDisabled ? theme.disabledBtn : theme.button,
-            }
+                backgroundColor: theme.button,
+            },
+            "&:disabled": {
+                color: theme.disabledSyntax,
+                backgroundColor: theme.disabled,
+            },
         }
     }));
 
@@ -73,7 +77,7 @@ function CommentForm(props) {
         <form id={"comment-form"} onSubmit={handleSubmit}>
             <TextField
                 className={classes.root}
-                label="Comment"
+                label={userData ? "Comment" : "You have to be logged in to post a comment"}
                 onChange={textChange}
                 value={text}
                 disabled={userData === null}

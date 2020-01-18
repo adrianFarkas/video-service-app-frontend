@@ -16,7 +16,7 @@ function CommentSection({videoId}) {
     const CommentsNum = styled.div`
       color: ${theme.syntax};
       padding: 5px 5px 10px;
-      border-bottom: 1px solid rgba(105,105,105,0.6);
+      border-bottom: 1px solid ${theme.dividerBorder};
     `;
 
     const recommendations = comments ?

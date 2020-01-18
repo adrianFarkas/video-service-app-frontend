@@ -23,7 +23,7 @@ function VideoDetails() {
     const BasicDetails = styled.div`
         margin-top: 15px;
         padding: 0 5px;
-        border-bottom: 1px solid rgba(105,105,105,0.6);
+        border-bottom: 1px solid ${theme.dividerBorder};
         display: flex;
         flex-wrap: wrap;
         justify-content: space-between;
@@ -51,7 +51,7 @@ function VideoDetails() {
     `;
     const DescriptionContainer = styled.div`
       padding: 15px 5px 10px;
-      border-bottom: 1px solid rgba(105,105,105,0.6);
+      border-bottom: 1px solid ${theme.dividerBorder};
     `;
 
     const useStyle = makeStyles({

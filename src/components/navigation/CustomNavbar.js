@@ -7,7 +7,6 @@ import {AuthContext} from "../../contexts/AuthContext";
 import PersonOutlineIcon from '@material-ui/icons/PersonOutline';
 import LockOpenIcon from '@material-ui/icons/LockOpen';
 import AuthButton from "../auth/AuthButton";
-import {colors} from "../../theme";
 import UserAvatar from "../util/UserAvatar";
 
 function CustomNavbar() {
@@ -28,10 +27,10 @@ function CustomNavbar() {
 
     const Navbar = styled.div`
       position: fixed;
-      background-color: white;
+      background-color: ${theme.navBg};
       top: 0;
       width: 100%;
-      box-shadow: 1px 1px 4px 0 rgba(0,0,0,0.51);
+      box-shadow: 0 1px 2px 0 rgba(0,0,0,0.5);
       z-index: 3;
      
     `;
@@ -88,13 +87,13 @@ function CustomNavbar() {
     `;
 
     const Hamburger = styled.div`
-      background: #333;
+      background: ${theme.syntax};
       display: block;
       height: 2px;
       width: 18px;
       position: relative;
       :before, :after {
-          background: #333;
+          background: ${theme.syntax};
           content: "";
           display: block;
           height: 100%;
@@ -138,7 +137,6 @@ function CustomNavbar() {
                         <Item id={"login-btn"}>
                             <AuthButton
                                 url={"/sign-in"}
-                                color={colors.claret}
                                 text={"Login"}
                                 IconComponent={<LockOpenIcon/>}
                             />
@@ -146,7 +144,6 @@ function CustomNavbar() {
                         <Item id={"reg-btn"}>
                             <AuthButton
                                 url={"/sign-up"}
-                                background={colors.claret}
                                 text={"Sign Up"}
                                 IconComponent={<PersonOutlineIcon/>}
                             />
