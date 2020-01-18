@@ -5,14 +5,11 @@ import BasicAuthHeader from "../BasicAuthHeader";
 function LoginHeader() {
 
     const Header = styled(BasicAuthHeader)`
-        border-bottom-left-radius: 0;
-        border-top-left-radius: 0;
+        border-radius: 0 5px 5px 0 !important;
         &:after {
-          border-bottom-left-radius: 0;
-          border-top-left-radius: 0;
+          border-radius: 0 5px 5px 0 !important;
         }
     `;
-
 
     return (
         <Header

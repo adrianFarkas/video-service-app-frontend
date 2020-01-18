@@ -2,62 +2,60 @@ import React, {useContext, useState} from 'react';
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import {RootContext} from "../../contexts/RootContext";
-import {colors} from "../../theme";
 import {makeStyles} from "@material-ui/core";
 import {ThemeContext} from "../../contexts/ThemeContext";
 import {CommentContext} from "../../contexts/CommentContext";
+import {AuthContext} from "../../contexts/AuthContext";
 
 function CommentForm(props) {
     const {state} = useContext(RootContext);
     const {sendComment, updateComment} = useContext(CommentContext);
-    const {comment, commentId, buttonText, handleClick} = props;
+    const {userData} = useContext(AuthContext);
     const {theme} = useContext(ThemeContext);
+
+    const {comment, commentId, buttonText, handleClick} = props;
 
     const [text, setText] = useState(comment ? comment : "");
 
     const isBtnDisabled = text === "";
 
-    const btnStyle = {
-        backgroundColor: isBtnDisabled ? theme.disabledBtn : theme.button,
-        color: isBtnDisabled ? theme.disabledBtnTxt : theme.buttonTxt,
-        fontWeight: "bold",
-        width: "100px",
-    };
-
-    const btnPosition = {
-        width: "100px",
-        position: "absolute",
-        padding: "20px 0",
-        top: 0,
-        right: 0,
-        marginTop: "50px",
-    };
-
     const useStyles = makeStyles(() => ({
         root: {
             width: "100%",
-            "& label": {
+            "& label, label.Mui-focused, .MuiInputBase-root": {
                 color: theme.syntax,
             },
-            "& label.Mui-focused": {
-                color: theme.syntax,
+            "& .MuiInput-underline:after, .MuiInput-underline:before": {
+              borderBottomColor: theme.syntax,
             },
-            "& .MuiInputBase-root": {
-                color: theme.syntax,
+            "& .MuiInput-underline": {
+                '&:hover:before': {
+                    borderBottomColor: theme.syntax,
+                },
             },
-            "& .MuiInput-underline:after": {
-              borderBottomColor: colors.claret,
-            },
-            "& .MuiInput-underline:before": {
-                borderBottomColor: theme.syntax,
+            "& .Mui-disabled": {
+                color: theme.disabledSyntax,
             },
         },
-
+        button: {
+            backgroundColor: theme.button,
+            color: theme.buttonTxt,
+            fontWeight: "bold",
+            padding: "3px 25px",
+            margin: "10px 0",
+            float: "right",
+            "&:hover" : {
+                backgroundColor: theme.button,
+            },
+            "&:disabled": {
+                color: theme.disabledSyntax,
+                backgroundColor: theme.disabled,
+            },
+        }
     }));
 
     const textChange = (event) => {
         setText(event.target.value);
-
     };
 
     const handleSubmit = (e) => {
@@ -76,21 +74,18 @@ function CommentForm(props) {
     const classes = useStyles();
 
     return (
-        <div style={{width: "100%", position: "relative"}}>
-            <form onSubmit={handleSubmit}>
+        <form id={"comment-form"} onSubmit={handleSubmit}>
             <TextField
                 className={classes.root}
-                label="Comment"
+                label={userData ? "Comment" : "You have to be logged in to post a comment"}
                 onChange={textChange}
                 value={text}
+                disabled={userData === null}
             />
-            <div style={btnPosition}>
-                <Button variant="contained" style={btnStyle} type="submit" disabled={isBtnDisabled}>
-                    {buttonText ? buttonText : "Send"}
-                </Button>
-            </div>
-            </form>
-        </div>
+            <Button className={classes.button} type="submit" disabled={isBtnDisabled}>
+                {buttonText ? buttonText : "Send"}
+            </Button>
+        </form>
     );
 }
 

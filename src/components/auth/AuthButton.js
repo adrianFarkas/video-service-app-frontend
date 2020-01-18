@@ -1,25 +1,26 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import styled from "styled-components";
-import {colors} from "../../theme";
 import {Link} from "react-router-dom";
+import {ThemeContext} from "../../contexts/ThemeContext";
 
-function AuthButton({id, text, url, IconComponent, color, background}) {
+function AuthButton({id, text, url, IconComponent}) {
+    const {theme} = useContext(ThemeContext);
 
     const Button = styled.div`
         display: flex;
         justify-content: center;
-        border: 2px solid ${colors.claret};
-        background-color: ${background ? background : "unset"};
+        box-sizing: border-box;
+        border: 2px solid ${theme.authButton};
         padding: 6px 0;
         width: 100%;
         font-size: 16px;
-        color: ${color ? color : "#fff"};
+        color: ${theme.syntax};
         border-radius: 10px;
-        transition: all 0.2s ease-in-out 0s;
+        transition: all 0.4s ease-in-out 0s;
         @media (min-width: 1024px){
           :hover {
-              background-color: rgba(106,0,7,0.2);
-              color: ${colors.claret};
+              transform: translateY(-2px);
+              background-color: ${theme.authButtonHover};
           }
         }
         & .MuiSvgIcon-root {

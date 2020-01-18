@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css'
 import App from './pages/App';
-import Details from './pages/Details';
+import Watch from './pages/Watch';
 import {Route, BrowserRouter as Router} from "react-router-dom";
 import RootContextProvider from "./contexts/RootContext";
 import ThemeContextProvider from "./contexts/ThemeContext";
@@ -22,7 +22,7 @@ const routing = (
                     <CustomNavbar/>
                     <Route exact path="/" component={App}/>
                     <CommentContextProvider>
-                        <Route path="/video/:id" component={Details}/>
+                        <Route path="/video/:id" component={Watch}/>
                     </CommentContextProvider>
                     <Route path="/sign-up" component={SignUp}/>
                     <Route path="/sign-in" component={Login}/>

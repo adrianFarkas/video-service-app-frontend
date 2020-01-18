@@ -5,11 +5,9 @@ import BasicAuthHeader from "../BasicAuthHeader";
 function SignUpHeader() {
 
     const Header = styled(BasicAuthHeader)`
-        border-bottom-right-radius: 0;
-        border-top-right-radius: 0;
+        border-radius: 5px 0 0 5px !important;
         &:after {
-          border-bottom-right-radius: 0;
-          border-top-right-radius: 0;
+          border-radius: 5px 0 0 5px !important;
         }
     `;
 
