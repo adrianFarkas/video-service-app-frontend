@@ -1,13 +1,15 @@
 import React, {useContext, useState} from 'react';
 import TextField from "@material-ui/core/TextField";
 import {makeStyles} from "@material-ui/core";
-import {colors} from "../../../theme";
 import {ThemeContext} from "../../../contexts/ThemeContext";
 import {AuthButton, AuthFormContainer} from "../../../styled-components/authStyle";
 import styled from "styled-components";
 import {AuthContext} from "../../../contexts/AuthContext";
+import InputAdornment from "@material-ui/core/InputAdornment";
+import MailOutlineIcon from "@material-ui/icons/MailOutline";
+import {Lock} from "@material-ui/icons";
 
-function LoginForm(props) {
+function LoginForm() {
     const {theme} = useContext(ThemeContext);
     const {logIn} = useContext(AuthContext);
 
@@ -21,30 +23,24 @@ function LoginForm(props) {
     const useStyles = makeStyles({
         root: {
             width: "100%",
-            color: theme.syntax,
+            color: theme.authFormContent,
             "& label, label.Mui-focused, .MuiInputBase-root": {
-                color: theme.syntax,
+                color: theme.authFormContent,
             },
             '& .MuiOutlinedInput-root': {
                 '& fieldset': {
-                    borderColor: theme.syntax,
+                    borderColor: theme.authFormContent,
                 },
                 '&:hover fieldset': {
-                    borderColor: colors.claret,
+                    borderColor: theme.authFormContent,
                 },
                 '&.Mui-focused fieldset': {
-                    borderColor: theme.syntax,
+                    borderColor: theme.authFormContent,
                 },
             },
         },
     });
     const classes = useStyles();
-
-    const formStyle = {
-        margin: "15% 10% 10%",
-        display: "grid",
-        gridTemplateRows: "repeat(2, minmax(100px, 10vw))"
-    };
 
     const LoginButton = styled(AuthButton)`
         width: 100%;
@@ -62,8 +58,8 @@ function LoginForm(props) {
     };
 
     return (
-        <AuthFormContainer id={"login-form"}>
-            <form style={formStyle} onSubmit={handleSubmit}>
+        <AuthFormContainer id={"login-form-cont"} borderColor={theme.authForm}>
+            <form id={"login-form"} onSubmit={handleSubmit}>
                     <TextField
                         required
                         variant="outlined"
@@ -73,6 +69,9 @@ function LoginForm(props) {
                         name="email"
                         onChange={textChange}
                         value={formData.email}
+                        InputProps={{
+                            startAdornment: <InputAdornment position="start"><MailOutlineIcon/></InputAdornment>,
+                        }}
                     />
                     <TextField
                         required
@@ -85,12 +84,14 @@ function LoginForm(props) {
                         onChange={textChange}
                         value={formData.password}
                         autoComplete="off"
+                        InputProps={{
+                            startAdornment: <InputAdornment position="start"><Lock/></InputAdornment>,
+                        }}
                     />
                 <LoginButton
                     id={"login-form-btn"}
                     type={"submit"}
-                    color={theme.syntax}
-                    background={theme.background}
+                    color={theme.authFormContent}
                 >
                     Login
                 </LoginButton>

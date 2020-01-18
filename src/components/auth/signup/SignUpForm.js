@@ -2,7 +2,6 @@ import React, {useContext, useState} from 'react';
 import TextField from "@material-ui/core/TextField";
 import styled from "styled-components";
 import {makeStyles} from "@material-ui/core";
-import {colors} from "../../../theme";
 import {ThemeContext} from "../../../contexts/ThemeContext";
 import axios from "axios";
 import {AuthButton, AuthFormContainer} from "../../../styled-components/authStyle";
@@ -27,42 +26,40 @@ function SignUpForm() {
     const useStyles = makeStyles({
         root: {
             width: "100%",
-            color: theme.syntax,
+            color: theme.authFormContent,
             "& label, label.Mui-focused, .MuiInputBase-root": {
-                color: theme.syntax,
+                color: theme.authFormContent,
             },
             '& .MuiOutlinedInput-root': {
                 '& fieldset': {
-                    borderColor: theme.syntax,
+                    borderColor: theme.authFormContent,
                 },
                 '&:hover fieldset': {
-                    borderColor: colors.claret,
+                    borderColor: theme.authFormContent,
                 },
                 '&.Mui-focused fieldset': {
-                    borderColor: theme.syntax,
+                    borderColor: theme.authFormContent,
                 },
             },
             "& .MuiTypography-root": {
-                color: theme.syntax,
+                color: theme.authFormContent,
             },
         },
+        name: {
+            width: "48%",
+        }
     });
     const classes = useStyles();
-
-    const PlaceHolder = styled.div`
-        width: 25%;
-    `;
 
     const SignUpButton = styled(AuthButton)`
         margin-top: 30px;
     `;
 
-    const formStyle = {
-        margin: "10%",
-        display: "grid",
-        gridTemplateRows: "repeat(4, minmax(60px, 6vw))",
-        gridGap: "5px",
-    };
+    const NameCont = styled.div`
+        display: flex;
+        justify-content: space-between;
+
+    `;
 
     const textChange = (e) => {
         const field = e.target.name;
@@ -79,31 +76,30 @@ function SignUpForm() {
     };
 
     return (
-        <AuthFormContainer id={"signup-form"}>
-            <form style={formStyle} onSubmit={handleSubmit}>
-                <div style={{display: "flex"}}>
+        <AuthFormContainer id={"signup-form-cont"} borderColor={theme.authForm}>
+            <form id={"signup-form"} onSubmit={handleSubmit}>
+                <NameCont>
                     <TextField
                         required
                         variant="outlined"
-                        className={classes.root}
+                        className={`${classes.root} ${classes.name}`}
                         id="first-name"
                         label="First name"
                         name="firstName"
                         onChange={textChange}
                         value={formData.firstName}
                     />
-                    <PlaceHolder/>
                     <TextField
                         required
                         variant="outlined"
-                        className={classes.root}
+                        className={`${classes.root} ${classes.name}`}
                         id="last-name"
                         label="Last name"
                         name="lastName"
                         onChange={textChange}
                         value={formData.lastName}
                     />
-                </div>
+                </NameCont>
                 <TextField
                     required
                     variant="outlined"
@@ -152,8 +148,7 @@ function SignUpForm() {
                 <SignUpButton
                     id={"signup-form-btn"}
                     type={"submit"}
-                    color={theme.syntax}
-                    background={theme.background}
+                    color={theme.authFormContent}
                 >
                     Sign Up
                 </SignUpButton>
