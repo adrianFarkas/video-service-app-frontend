@@ -1,13 +1,17 @@
-import React, {useContext} from 'react';
+import React, {useContext, useEffect} from 'react';
 import Comment from "./Comment";
 import {CommentContext} from "../../contexts/CommentContext";
 import styled from "styled-components";
 import {ThemeContext} from "../../contexts/ThemeContext";
 
-function CommentSection() {
+function CommentSection({videoId}) {
 
-    const {comments} = useContext(CommentContext);
+    const {comments, fetchCommentsByVideo} = useContext(CommentContext);
     const {theme} = useContext(ThemeContext);
+
+    useEffect(() => {
+        fetchCommentsByVideo(videoId);
+    }, [fetchCommentsByVideo, videoId]);
 
     const CommentsNum = styled.div`
       color: ${theme.syntax};

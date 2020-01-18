@@ -5,18 +5,15 @@ import styled from "styled-components";
 import CommentForm from "../components/comment/CommentForm";
 import CommentSection from "../components/comment/CommentSection";
 import VideoDetails from "../components/video/VideoDetails";
-import {CommentContext} from "../contexts/CommentContext";
 
 function Watch(props) {
     const videoId = props.match.params.id;
 
     const {fetchVideoById} = useContext(RootContext);
-    const {fetchCommentsByVideo} = useContext(CommentContext);
 
     useEffect(() => {
         fetchVideoById(videoId);
-        fetchCommentsByVideo(videoId);
-    }, [videoId, fetchVideoById, fetchCommentsByVideo]);
+    }, [videoId, fetchVideoById]);
 
     const Container = styled.div`
         width: 95%;
@@ -41,7 +38,7 @@ function Watch(props) {
                 <Video/>
                 <VideoDetails/>
                 <CommentForm/>
-                <CommentSection/>
+                <CommentSection videoId={videoId}/>
             </VideoSection>
         </Container>
     );
