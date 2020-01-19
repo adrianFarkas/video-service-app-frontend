@@ -1,6 +1,5 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css'
 import App from './pages/App';
 import Watch from './pages/Watch';
 import {Route, BrowserRouter as Router} from "react-router-dom";
@@ -13,6 +12,7 @@ import Login from "./pages/Login";
 import AuthContextProvider from "./contexts/AuthContext";
 import Upload from "./pages/Upload";
 import CustomNavbar from "./components/navigation/CustomNavbar";
+import './index.css'
 
 const routing = (
     <Router>

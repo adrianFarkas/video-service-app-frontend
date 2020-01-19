@@ -94,8 +94,7 @@ a, a:hover {
 
     #signup-form-cont, #login-form-cont {
         width: 100%;
-        border-left: 1px solid #6A0007;
-        border-top: 0;
+        border: none;
     }
 
     #login-form-cont {

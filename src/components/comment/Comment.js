@@ -17,7 +17,7 @@ function Comment({data}) {
 
     const CommentContainer = styled.div`
         padding: 10px 5px;
-        border-bottom: 1px solid ${theme.dividerBorder};
+        border-bottom: 1px solid ${theme.transparentSyntax};
         display: flex;
     `;
 

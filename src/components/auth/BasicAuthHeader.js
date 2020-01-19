@@ -22,7 +22,7 @@ function BasicAuthHeader({className, title, texts, buttonText, link}) {
         &:after{
             content: "";
             background-color: ${theme.authForm};
-            opacity: 0.87;
+            opacity: 0.9;
             position: absolute;
             z-index: -1;
             top: 0;
@@ -39,11 +39,9 @@ function BasicAuthHeader({className, title, texts, buttonText, link}) {
         margin: 0 auto;
         border: 2px solid ${theme.authHeaderContent};
         border-radius: 100px;
-        box-shadow: 0 36px 34px -15px ${theme.authButtonHover};
         transition: all 0.3s ease-in-out 0s;
         :hover {
             transform: translateY(-3px);
-            background-color: ${theme.authButtonHover};
             box-shadow: none;
         }
     `;

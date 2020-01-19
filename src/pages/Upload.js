@@ -1,15 +1,16 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import styled from "styled-components";
-import {colors} from "../theme";
 import UploadForm from "../components/upload/UploadForm";
+import {ThemeContext} from "../contexts/ThemeContext";
 
 function Upload() {
+    const {theme} = useContext(ThemeContext);
 
     const UploadContainer = styled.div`
         width: 80%;
         margin: 80px auto;
-        background-color: #fff;
-        box-shadow: 1px 1px 5px rgba(104,104,104,0.8);
+        background-color: ${theme.cardBg};
+        border: 1px solid ${theme.syntax};
         border-radius: 10px;
         position: relative;
         z-index: 0;    
@@ -18,16 +19,17 @@ function Upload() {
     const Title = styled.div`
         font-size: 20px;
         font-weight: 400;
-        padding: 10px;
-        color: ${colors.claret};
+        padding: 20px 10px;
+        color: ${theme.syntax};
+        text-transform: uppercase;
         margin-bottom: 20px;
-        border-bottom: 1px solid #c3c3c3;
+        border-bottom: 1px solid ${theme.transparentSyntax};
     `;
 
     return (
         <UploadContainer className={"upload-form-cont"}>
             <Title>Video uploading</Title>
-            <UploadForm />
+            <UploadForm rerender={false} />
         </UploadContainer>
     );
 }

@@ -1,12 +1,13 @@
-import React, {createRef} from 'react';
+import React, {createRef, useContext} from 'react';
 import CloudUploadIcon from '@material-ui/icons/CloudUpload';
 import Dropzone from "react-dropzone";
 import styled from "styled-components";
-import {colors} from "../../theme";
+import {ThemeContext} from "../../contexts/ThemeContext";
 
 function FileInputZone({handleDrop, file}) {
 
     const dropZoneRef = createRef();
+    const {theme} = useContext(ThemeContext);
 
     const DropContainer = styled.div`
        box-sizing: border-box;
@@ -18,6 +19,7 @@ function FileInputZone({handleDrop, file}) {
        width: 35%;
        border-width: 2px; 
        border-style: dashed;
+       color: ${theme.syntax};
        border-color: ${props => getBorderColor(props)};
        background-color: ${props => getBackgroundColor(props)};
        transition: all .3s ease-in-out 0s;
@@ -34,9 +36,10 @@ function FileInputZone({handleDrop, file}) {
 
     const BrowseButton  = styled.div`
         cursor: pointer;
-        color: #fff;
+        color: ${theme.background};
+        font-weight: bold;
         padding: 10px 30px;
-        background-color: ${colors.claret};
+        background-color: ${theme.button};
         border-radius: 8px;
         border: none;
         
@@ -45,13 +48,13 @@ function FileInputZone({handleDrop, file}) {
     const getBorderColor = (props) => {
         if (props.isDragAccept) return "rgba(0,141,255,0.3)";
         if (props.isDragReject) return "rgba(255,8,0,0.3)";
-        else return "rgba(195,195,195,0.2)"
+        else return theme.transparentSyntax;
     };
 
     const getBackgroundColor = (props) => {
         if (props.isDragAccept) return "rgba(0,141,255,0.05)";
         if (props.isDragReject) return "rgba(255,8,0,0.05)";
-        else return "rgba(235,235,235,0.2)"
+        else return null;
     };
 
     const openDialog = () => {
@@ -81,7 +84,7 @@ function FileInputZone({handleDrop, file}) {
                 <DropContainer {...getRootProps({isDragActive, isDragAccept, isDragReject})}
                                className={"drop-container"}
                 >
-                    <CloudUploadIcon style={{fontSize: "60px", color: colors.claret}}/>
+                    <CloudUploadIcon style={{fontSize: "60px", color: theme.button}}/>
                     {!isDragActive && text}
                     {isDragAccept && <Text>Drop here!</Text>}
                     {isDragReject && <Text>You can't upload this type or multiple file!</Text>}

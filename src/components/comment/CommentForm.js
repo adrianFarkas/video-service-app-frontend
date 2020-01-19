@@ -34,7 +34,7 @@ function CommentForm(props) {
                 },
             },
             "& .Mui-disabled": {
-                color: theme.disabledSyntax,
+                color: theme.transparentSyntax,
             },
         },
         button: {
@@ -48,7 +48,7 @@ function CommentForm(props) {
                 backgroundColor: theme.button,
             },
             "&:disabled": {
-                color: theme.disabledSyntax,
+                color: theme.transparentSyntax,
                 backgroundColor: theme.disabled,
             },
         }

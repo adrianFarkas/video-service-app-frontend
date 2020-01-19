@@ -1,16 +1,17 @@
-import React, {useEffect, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import styled from "styled-components";
 import Skeleton from "@material-ui/lab/Skeleton";
 import axios from "axios";
 import Fab from "@material-ui/core/Fab";
 import {Refresh} from "@material-ui/icons";
 import {makeStyles} from "@material-ui/core";
-import {colors} from "../../theme";
 import {Img} from "../../styled-components/styled";
+import {ThemeContext} from "../../contexts/ThemeContext";
 
 function ThumbnailSelector({file, selectHandler, selected}) {
     const initState = [null, null, null, null];
     const [thumbnailPreviews, setThumbnailPreviews] = useState(initState);
+    const {theme} = useContext(ThemeContext);
 
     useEffect(() => {
         if (file) getThumbnails(file);
@@ -27,9 +28,8 @@ function ThumbnailSelector({file, selectHandler, selected}) {
     `;
 
     const CustomThumbnail = styled.div`
-        height: 100px;
+        height: 90px;
         box-sizing: border-box;
-        color: rgba(0,52,205,0.8);
         cursor: pointer;
         transition: transform .5s ease-in-out 0s;
         position: relative;
@@ -60,16 +60,22 @@ function ThumbnailSelector({file, selectHandler, selected}) {
         root: {
             margin: "10px 0",
             display: !file && "none",
-            background: colors.claret,
+            background: "none",
             boxShadow: "unset",
-            color: "#fff",
+            color: theme.syntax,
+            boxSizing: "border-box",
+            border: `2px solid ${theme.syntax}`,
             "&:hover, &:active": {
-                background: colors.claret,
+                background: theme.buttonHover,
                 boxShadow: "unset",
             },
         }
     });
     const classes = useStyles();
+
+    const Wrapper = styled.div`
+       color: ${theme.syntax};
+    `;
 
     const getThumbnails = (file) => {
         const data = new FormData();
@@ -95,7 +101,7 @@ function ThumbnailSelector({file, selectHandler, selected}) {
     );
 
     return (
-        <div>
+        <Wrapper>
             <h3>Thumbnail</h3>
             <div>Please select an image that illustrates what the video contains.</div>
             <div>(Generating will start after you selected a video!)</div>
@@ -105,7 +111,7 @@ function ThumbnailSelector({file, selectHandler, selected}) {
             <ThumbnailContainer>
                 {thumbnails}
             </ThumbnailContainer>
-        </div>
+        </Wrapper>
     );
 }
 

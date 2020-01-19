@@ -1,16 +1,16 @@
-import React, {useState} from 'react';
+import React, {useContext, useState} from 'react';
 import FileInputZone from "./FileInputZone";
 import TextField from "@material-ui/core/TextField";
 import axios from "axios";
 import styled from "styled-components";
-import {colors} from "../../theme";
 import {makeStyles} from "@material-ui/core";
 import {withRouter} from "react-router-dom";
 import ThumbnailSelector from "./ThumbnailSelector";
 import Loader from "../util/Loader";
+import {ThemeContext} from "../../contexts/ThemeContext";
 
 function UploadForm(props) {
-
+    const {theme} = useContext(ThemeContext);
     const [videoFile, setVideoFile] = useState(null);
     const [selectedImageUrl, setImageUrl] = useState(null);
     const [texts, setTexts] = useState({title: "", description: ""});
@@ -19,33 +19,36 @@ function UploadForm(props) {
     const useStyles = makeStyles({
         root: {
             width: "100%",
+            color: theme.authFormContent,
+            "& label, label.Mui-focused, .MuiInputBase-root": {
+                color: theme.authFormContent,
+            },
+            '& .MuiOutlinedInput-root': {
+                '& fieldset': {
+                    borderColor: theme.authFormContent,
+                },
+                '&:hover fieldset': {
+                    borderColor: theme.authFormContent,
+                },
+                '&.Mui-focused fieldset': {
+                    borderColor: theme.authFormContent,
+                },
+            },
         }
     });
     const classes = useStyles();
 
     const SubmitButton = styled.button`
         cursor: pointer;
-        color: #fff;
         padding: 10px 40px;
         margin: 20px 0;
-        background-color: ${colors.claret};
         border-radius: 8px;
         border: none;
         position: relative;
-        z-index: 0;
-        :after{
-          content: "";
-          display: ${props => !props.disabled && "none"};
-          background: rgba(255,255,255,0.51);
-          border-radius: 8px;
-          cursor: auto;
-          position: absolute;
-          z-index: 1;
-          width: 100%;
-          height: 100%;
-          top: 0;
-          left: 0;
-        }
+        font-weight: bold;
+        z-index: ${props => props.disabled ? -1 : 0};
+        color: ${props => props.disabled ? theme.transparentSyntax : theme.background};
+        background-color: ${props => props.disabled ? theme.disabled : theme.button};
     `;
 
     const isReadyForUpload = !(videoFile && selectedImageUrl
