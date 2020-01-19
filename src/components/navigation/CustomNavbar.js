@@ -8,6 +8,7 @@ import PersonOutlineIcon from '@material-ui/icons/PersonOutline';
 import LockOpenIcon from '@material-ui/icons/LockOpen';
 import AuthButton from "../auth/AuthButton";
 import UserAvatar from "../util/UserAvatar";
+import Logo from "../util/Logo";
 
 function CustomNavbar() {
 
@@ -69,7 +70,8 @@ function CustomNavbar() {
     `;
 
     const CustomLink = styled(Link)`
-      padding: 2px;
+      padding: 3px;
+      height: 55px;
       float: left;
       display: block;
     `;
@@ -129,7 +131,7 @@ function CustomNavbar() {
             <Wrapper>
                 <Navbar>
                     <CustomLink to={"/"}>
-                        <img src="/img/logo.png" alt={"logo"} width={"100px"}/>
+                        <Logo/>
                     </CustomLink>
                     <Toggler type={"checkbox"} id={"toggler"}/>
                     <Label htmlFor={"toggler"}><Hamburger className={"hamburger"}/></Label>
