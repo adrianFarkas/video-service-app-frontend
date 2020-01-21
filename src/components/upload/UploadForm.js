@@ -78,7 +78,7 @@ function UploadForm(props) {
         data.append("description", texts.description);
         setUploading(true);
         axios.post("/upload/video", data)
-            .then(() => props.history.push("/"))
+            .then(res => props.history.push(`/video/${res.data}`))
     };
 
     const imageDataUrlToFile = (dataUrl) => {
