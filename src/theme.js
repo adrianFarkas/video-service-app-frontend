@@ -15,7 +15,25 @@ export const light = {
     logoShadow: "rgba(18,41,66,0.8)",
 };
 
-export const dark = {
+export const light2 = {
+    background: "#bdbdbe",
+    cardBg: "#a9a9aa",
+    cardBgHover: "#cececf",
+    syntax: "#524e45",
+    transparentSyntax: "rgba(82,78,69,0.6)",
+    button: "#4b473e",
+    buttonTxt: "#bdbdbe",
+    buttonHover: "rgba(82,78,69,0.15)",
+    disabled: "#aeaeaf",
+    authButton: "#524e45",
+    authForm: "#524e45",
+    authFormContent: "#524e45",
+    authHeaderContent: "#a4a4a5",
+    navBg: "#bdbdbe",
+    logoShadow: "rgba(82,78,69,0.6)",
+};
+
+export const dark1 = {
     background: "#1c1f22",
     cardBg: "#181a1e",
     cardBgHover: "#27292f",
@@ -48,4 +66,40 @@ export const dark2 = {
     authHeaderContent: "#5f2d2d",
     navBg: "#140d0a",
     logoShadow: "rgba(166,107,70,0.6)",
+};
+
+export const dark3 = {
+    background: "#1a1a1a",
+    cardBg: "#0f0f0f",
+    cardBgHover: "#282828",
+    syntax: "#82807e",
+    transparentSyntax: "rgba(215,213,211,0.6)",
+    button: "#787674",
+    buttonTxt: "#1a1a1a",
+    buttonHover: "rgba(215,213,211,0.15)",
+    disabled: "#2b2b2b",
+    authButton: "#82807e",
+    authForm: "#82807e",
+    authFormContent: "#82807e",
+    authHeaderContent: "#383634",
+    navBg: "#0f0f0f",
+    logoShadow: "rgba(215,213,211,0.6)",
+};
+
+export const dark = {
+    background: "#202530",
+    cardBg: "#171c26",
+    cardBgHover: "#262c3a",
+    syntax: "#38efe8",
+    transparentSyntax: "rgba(56,239,232,0.6)",
+    button: "#37dbd4",
+    buttonTxt: "#202530",
+    buttonHover: "rgba(56,239,232,0.15)",
+    disabled: "#2e3441",
+    authButton: "#38efe8",
+    authForm: "#38efe8",
+    authFormContent: "#38efe8",
+    authHeaderContent: "#3b424e",
+    navBg: "#171c26",
+    logoShadow: "rgba(56,239,232,0.6)",
 };
