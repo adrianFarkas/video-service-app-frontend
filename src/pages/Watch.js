@@ -7,8 +7,8 @@ import CommentSection from "../components/comment/CommentSection";
 import VideoDetails from "../components/video/VideoDetails";
 
 function Watch(props) {
+    window.scrollTo(0, 0);
     const videoId = props.match.params.id;
-
     const {fetchVideoById} = useContext(RootContext);
 
     useEffect(() => {
