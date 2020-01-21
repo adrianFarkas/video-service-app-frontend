@@ -14,7 +14,7 @@ function CustomNavbar() {
 
     const [open, setOpen] = useState(false);
     const {theme} = useContext(ThemeContext);
-    const {logOut, userData} = useContext(AuthContext);
+    const {isLoggedIn, userData, logOut} = useContext(AuthContext);
 
     const GlobalStyle = createGlobalStyle`
         body {
@@ -49,9 +49,9 @@ function CustomNavbar() {
       list-style: none;
       overflow: hidden;
       text-align: center;
-      clear: ${userData ? "none" : "both"};
-      float: ${userData ? "right" : "unset"};
-      max-height: ${userData ? "none" : "0"};
+      clear: ${isLoggedIn ? "none" : "both"};
+      float: ${isLoggedIn ? "right" : "unset"};
+      max-height: ${isLoggedIn ? "none" : "0"};
       transition: max-height .3s ease-in-out 0s;
       @media (min-width: 480px) {
         clear: none;
@@ -62,7 +62,7 @@ function CustomNavbar() {
 
     const Item = styled.div`
       padding: 12px;
-      display: ${userData ? "none" : "block"};
+      display: ${isLoggedIn ? "none" : "block"};
       @media (min-width: 480px) {
         float: left;
         width: 140px;
@@ -82,7 +82,7 @@ function CustomNavbar() {
         position: relative;
         margin: 0;
         cursor: pointer;
-        display: ${userData ? "none" : "unset"};
+        display: ${isLoggedIn ? "none" : "unset"};
         @media (min-width: 480px) {
           display: none;
         }  
@@ -111,7 +111,7 @@ function CustomNavbar() {
     const AvatarToggler = styled.div`
         padding: 10px; 
         float: left;
-        display: ${userData ? "block" : "none"};
+        display: ${isLoggedIn ? "block" : "none"};
         :hover {
            cursor: pointer;
         }
@@ -151,7 +151,7 @@ function CustomNavbar() {
                             />
                         </Item>
                         <AvatarToggler onClick={toggleDrawer(true)}>
-                            <UserAvatar user={userData} />
+                            <UserAvatar user={isLoggedIn && userData}/>
                         </AvatarToggler>
                     </ItemContainer>
                 </Navbar>

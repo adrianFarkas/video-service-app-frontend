@@ -1,4 +1,4 @@
-import React, {createContext, useCallback, useState} from 'react';
+import React, {createContext, useCallback, useEffect, useState} from 'react';
 import axios from "axios";
 
 export const AuthContext = createContext();
@@ -6,12 +6,21 @@ export const AuthContext = createContext();
 function AuthContextProvider(props) {
 
     const [userData, setUserData] = useState(null);
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
     const authUrl ="/auth";
 
     const fetchUserData = useCallback(() => {
         axios.get("/user")
-            .then(res => setUserData(res.data))
+            .then(res => {
+                setUserData(res.data);
+                setIsLoggedIn(true);
+            })
+            .catch(e => console.log(e.message))
     }, []);
+
+    useEffect(() => {
+        fetchUserData();
+    }, [fetchUserData]);
 
     const logIn = (formData) => new Promise(resolve => {
         axios.post(`${authUrl}/sign-in`, formData)
@@ -20,11 +29,14 @@ function AuthContextProvider(props) {
 
     const logOut = () => {
         axios.post(`${authUrl}/logout`)
-            .then(() => setUserData(null));
+            .then(() => {
+                setIsLoggedIn(false);
+                setUserData(null);
+            });
     };
 
     return (
-        <AuthContext.Provider value={{userData, logIn, logOut, fetchUserData}}>
+        <AuthContext.Provider value={{userData, isLoggedIn, setIsLoggedIn, logIn, logOut, fetchUserData}}>
             {props.children}
         </AuthContext.Provider>
     );

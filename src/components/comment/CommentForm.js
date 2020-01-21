@@ -10,7 +10,7 @@ import {AuthContext} from "../../contexts/AuthContext";
 function CommentForm(props) {
     const {state} = useContext(RootContext);
     const {sendComment, updateComment} = useContext(CommentContext);
-    const {userData} = useContext(AuthContext);
+    const {isLoggedIn} = useContext(AuthContext);
     const {theme} = useContext(ThemeContext);
 
     const {comment, commentId, buttonText, handleClick} = props;
@@ -77,10 +77,10 @@ function CommentForm(props) {
         <form id={"comment-form"} onSubmit={handleSubmit}>
             <TextField
                 className={classes.root}
-                label={userData ? "Comment" : "You have to be logged in to post a comment"}
+                label={isLoggedIn ? "Comment" : "You have to be logged in to post a comment"}
                 onChange={textChange}
                 value={text}
-                disabled={userData === null}
+                disabled={!isLoggedIn}
             />
             <Button className={classes.button} type="submit" disabled={isBtnDisabled}>
                 {buttonText ? buttonText : "Send"}

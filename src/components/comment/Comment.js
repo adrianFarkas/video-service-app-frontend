@@ -8,12 +8,16 @@ import CommentForm from "./CommentForm";
 import {ThemeContext} from "../../contexts/ThemeContext";
 import useAuthor from "../../hooks/useAuthor";
 import UserAvatar from "../util/UserAvatar";
+import {AuthContext} from "../../contexts/AuthContext";
 
 function Comment({data}) {
     const {id, comment, creationDate, userId} = data;
     const author = useAuthor(null, userId);
     const [editMode, setEdiMode] = useState(false);
     const {theme} = useContext(ThemeContext);
+    const {isLoggedIn, userData} = useContext(AuthContext);
+
+    const isMenuDisplayable = isLoggedIn && userData.id === userId;
 
     const CommentContainer = styled.div`
         padding: 10px 5px;
@@ -39,6 +43,10 @@ function Comment({data}) {
     const Main = styled.div`
         width: 100%;
         margin: 0 15px;
+    `;
+
+    const Menu = styled.div`
+        display: ${!isMenuDisplayable && "none"};
     `;
 
     const Cancel = styled.div`
@@ -78,7 +86,7 @@ function Comment({data}) {
                 <CreationDate>{new Date(creationDate).toDateString()}</CreationDate>
                 {description}
             </Main>
-            <div>
+            <Menu>
                 <EditMenu
                     color={theme.syntax}
                     comment={comment}
@@ -86,7 +94,7 @@ function Comment({data}) {
                     <MenuItem onClick={handleEditMode}><EditIcon fontSize={"small"}/>Edit</MenuItem>
                     <MenuItem><DeleteIcon fontSize={"small"}/>Delete</MenuItem>
                 </EditMenu>
-            </div>
+            </Menu>
         </CommentContainer>
     );
 }

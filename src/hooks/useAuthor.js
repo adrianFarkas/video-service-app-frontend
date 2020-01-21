@@ -2,7 +2,7 @@ import {useEffect, useState} from 'react';
 import axios from "axios";
 
 function useAuthor(initialState, id) {
-    const emptyUser = {firstName: "", lasName: "", profileImg: ""};
+    const emptyUser = {id:"", firstName: "", lasName: "", profileImg: ""};
     const [user, setUser] = useState(initialState ? initialState : emptyUser);
 
     useEffect(() => {
