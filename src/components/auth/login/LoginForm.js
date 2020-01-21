@@ -8,10 +8,11 @@ import {AuthContext} from "../../../contexts/AuthContext";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import MailOutlineIcon from "@material-ui/icons/MailOutline";
 import {Lock} from "@material-ui/icons";
+import HighlightOffOutlinedIcon from '@material-ui/icons/HighlightOffOutlined';
 
-function LoginForm() {
+function LoginForm(props) {
     const {theme} = useContext(ThemeContext);
-    const {logIn} = useContext(AuthContext);
+    const {logIn, fetchUserData} = useContext(AuthContext);
 
     const initialState = {
         email: "",
@@ -19,31 +20,49 @@ function LoginForm() {
     };
 
     const [formData, setFormData] = useState(initialState);
+    const [error, setError] = useState(false);
 
     const useStyles = makeStyles({
         root: {
             width: "100%",
-            color: theme.authFormContent,
-            "& label, label.Mui-focused, .MuiInputBase-root": {
+            "& .MuiInputBase-root": {
                 color: theme.authFormContent,
+            },
+            "& label, label.Mui-focused": {
+                color: !error && theme.authFormContent,
             },
             '& .MuiOutlinedInput-root': {
                 '& fieldset': {
-                    borderColor: theme.authFormContent,
+                    borderColor: !error && theme.authFormContent,
                 },
                 '&:hover fieldset': {
-                    borderColor: theme.authFormContent,
+                    borderColor: !error && theme.authFormContent,
                 },
                 '&.Mui-focused fieldset': {
-                    borderColor: theme.authFormContent,
+                    borderColor: !error && theme.authFormContent,
                 },
             },
         },
+        icon: {
+            fontSize: "30px",
+            marginRight: "10px",
+        }
     });
     const classes = useStyles();
 
     const LoginButton = styled(AuthButton)`
         width: 100%;
+    `;
+
+    const Error = styled.div`
+        display: ${error ? "flex" : "none"};
+        margin: -95px auto;
+        justify-content: center;
+        align-items: center;
+        color: #d7382a;
+        font-weight: bold;
+        font-size: 15px;
+        text-align: center;
     `;
 
     const textChange = (e) => {
@@ -54,14 +73,23 @@ function LoginForm() {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        logIn(formData);
+        logIn(formData)
+            .then(success => {
+                if (success) {
+                    fetchUserData();
+                    props.history.push("/");
+                } else
+                    setError(true);
+            });
     };
 
     return (
         <AuthFormContainer id={"login-form-cont"} borderColor={theme.authForm}>
+
             <form id={"login-form"} onSubmit={handleSubmit}>
                     <TextField
                         required
+                        error={error}
                         variant="outlined"
                         className={classes.root}
                         id="email"
@@ -73,8 +101,13 @@ function LoginForm() {
                             startAdornment: <InputAdornment position="start"><MailOutlineIcon/></InputAdornment>,
                         }}
                     />
+                    <Error>
+                        <HighlightOffOutlinedIcon className={classes.icon}/>
+                        <div>Incorrect email or password.</div>
+                    </Error>
                     <TextField
                         required
+                        error={error}
                         variant="outlined"
                         className={classes.root}
                         id="password"
