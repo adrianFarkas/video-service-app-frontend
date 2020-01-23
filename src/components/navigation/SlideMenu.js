@@ -1,12 +1,10 @@
-import React, {useContext} from 'react';
+import React, {useContext, useState} from 'react';
 import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 import makeStyles from "@material-ui/core/styles/makeStyles";
 import List from "@material-ui/core/List";
 import SettingsIcon from '@material-ui/icons/Settings';
-import ThemeSwitcher from "../util/ThemeSwitcher";
-import SettingsBrightnessIcon from '@material-ui/icons/SettingsBrightness';
 import {ThemeContext} from "../../contexts/ThemeContext";
 import {SwipeableDrawer} from "@material-ui/core";
 import CloseIcon from '@material-ui/icons/Close';
@@ -16,9 +14,12 @@ import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import Publish from "@material-ui/icons/Publish";
 import {Link} from "react-router-dom";
+import ThemeSelector from "../util/ThemeSelector";
+import PaletteIcon from '@material-ui/icons/Palette';
 
 function SlideMenu(props) {
     const {open, toggleDrawer, handleLogOut} = props;
+    const [themeSelector, setThemeSelector] = useState(false);
     const {theme} = useContext(ThemeContext);
 
     const useStyles = makeStyles({
@@ -68,10 +69,9 @@ function SlideMenu(props) {
                     <ListItemIcon><SettingsIcon className={classes.icon}/></ListItemIcon>
                     <ListItemText primary={"Settings"} />
                 </ListItem>
-                <ListItem>
-                    <ListItemIcon><SettingsBrightnessIcon className={classes.icon}/></ListItemIcon>
-                    <ListItemText primary={"Dark Theme:"} />
-                    <ThemeSwitcher/>
+                <ListItem button onClick={() => setThemeSelector(true)}>
+                    <ListItemIcon><PaletteIcon className={classes.icon}/></ListItemIcon>
+                    <ListItemText primary={"Theme"} />
                 </ListItem>
                 <Divider/>
                 <ListItem button onClick={handleLogOut}>
@@ -93,6 +93,10 @@ function SlideMenu(props) {
             >
                 {fullList}
             </SwipeableDrawer>
+            <ThemeSelector
+                open={themeSelector}
+                handleClose={() => setThemeSelector(false)}
+            />
         </div>
     );
 }
