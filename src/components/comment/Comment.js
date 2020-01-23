@@ -6,18 +6,17 @@ import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
 import CommentForm from "./CommentForm";
 import {ThemeContext} from "../../contexts/ThemeContext";
-import useAuthor from "../../hooks/useAuthor";
 import UserAvatar from "../util/UserAvatar";
 import {AuthContext} from "../../contexts/AuthContext";
+import useUserName from "../../hooks/useUserName";
 
 function Comment({data}) {
-    const {id, comment, creationDate, userId} = data;
-    const author = useAuthor(null, userId);
+    const {id, comment, creationDate, author} = data;
     const [editMode, setEdiMode] = useState(false);
     const {theme} = useContext(ThemeContext);
     const {isLoggedIn, userData} = useContext(AuthContext);
 
-    const isMenuDisplayable = isLoggedIn && userData.id === userId;
+    const isMenuDisplayable = isLoggedIn && userData.id === author.id;
 
     const CommentContainer = styled.div`
         padding: 10px 5px;
@@ -80,9 +79,9 @@ function Comment({data}) {
 
     return (
         <CommentContainer>
-            <UserAvatar user={author}/>
+            <UserAvatar user={author && author}/>
             <Main>
-                <Name>{`${author.firstName} ${author.lastName}`}</Name>
+                <Name>{useUserName(author)}</Name>
                 <CreationDate>{new Date(creationDate).toDateString()}</CreationDate>
                 {description}
             </Main>

@@ -6,13 +6,12 @@ import {Img} from "../../styled-components/styled"
 import UserAvatar from "../util/UserAvatar";
 import {makeStyles} from "@material-ui/styles";
 import Tooltip from "@material-ui/core/Tooltip";
-import useAuthor from "../../hooks/useAuthor";
+import useUserName from "../../hooks/useUserName";
 
 function VideoLinkCard(props) {
     const {theme} = useContext(ThemeContext);
 
-    const {id, title, thumbnailLink, userId, creationDate} = props.video;
-    const author = useAuthor({firstName: " ", lastName: "", profileImg: ""}, userId);
+    const {id, title, thumbnailLink, author, creationDate} = props.video;
 
     const useStyle = makeStyles( {
         root: {
@@ -77,7 +76,7 @@ function VideoLinkCard(props) {
                     <Tooltip title={title} placement="bottom" classes={{tooltip: classes.tooltip}}>
                         <Title>{title}</Title>
                     </Tooltip>
-                    <User to={"/"}>{`${author.firstName} ${author.lastName}`}</User>
+                    <User to={"/"}>{useUserName(author)}</User>
                     <Text>{new Date(creationDate).toDateString()}</Text>
                 </Texts>
             </Details>

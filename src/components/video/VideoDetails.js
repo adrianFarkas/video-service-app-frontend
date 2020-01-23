@@ -9,15 +9,14 @@ import {makeStyles} from "@material-ui/core";
 import {Link} from "react-router-dom";
 import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
-import useAuthor from "../../hooks/useAuthor";
 import UserAvatar from "../util/UserAvatar";
+import useUserName from "../../hooks/useUserName";
 
 function VideoDetails() {
 
     const {theme} = useContext(ThemeContext);
     const {state} = useContext(RootContext);
-    const {title, description, creationDate, userId} = state.selectedVideo;
-    const author = useAuthor(null, userId);
+    const {title, description, creationDate, author} = state.selectedVideo;
     const [showMore, setShowMore] = useState(false);
 
     const BasicDetails = styled.div`
@@ -111,8 +110,8 @@ function VideoDetails() {
             </BasicDetails>
             <DescriptionContainer>
                 <User>
-                    <UserAvatar className={classes.avatar} user={author}/>
-                    <Name to={"/"}>{`${author.firstName} ${author.lastName}`}</Name>
+                    <UserAvatar className={classes.avatar} user={author && author}/>
+                    <Name to={"/"}>{useUserName(author)}</Name>
                 </User>
                 <Description>
                     {description}
