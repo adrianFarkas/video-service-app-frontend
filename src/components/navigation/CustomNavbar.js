@@ -22,6 +22,19 @@ function CustomNavbar() {
         body {
           background-color: ${theme.background} !important;
         }
+        ::-webkit-scrollbar {
+            width: 2px;
+            background: ${theme.cardBg};
+            margin-top: 62px;
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: ${theme.transparentSyntax};
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: ${theme.syntax};
+        }
     `;
 
     const Wrapper = styled.div`
