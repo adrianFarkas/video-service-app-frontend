@@ -1,4 +1,4 @@
-import React, {useContext, useState} from 'react';
+import React, {createRef, useContext, useState} from 'react';
 import styled, {createGlobalStyle} from "styled-components";
 import {Link} from "react-router-dom";
 import SlideMenu from "./SlideMenu";
@@ -15,6 +15,8 @@ function CustomNavbar() {
     const [open, setOpen] = useState(false);
     const {theme} = useContext(ThemeContext);
     const {isLoggedIn, userData, logOut} = useContext(AuthContext);
+
+    const inputRef = createRef();
 
     const GlobalStyle = createGlobalStyle`
         body {
@@ -53,7 +55,7 @@ function CustomNavbar() {
       float: ${isLoggedIn ? "right" : "unset"};
       max-height: ${isLoggedIn ? "none" : "0"};
       transition: max-height .3s ease-in-out 0s;
-      @media (min-width: 480px) {
+      @media (min-width: 550px) {
         clear: none;
         float: right;
         max-height: none;
@@ -63,7 +65,7 @@ function CustomNavbar() {
     const Item = styled.div`
       padding: 12px;
       display: ${isLoggedIn ? "none" : "block"};
-      @media (min-width: 480px) {
+      @media (min-width: 550px) {
         float: left;
         width: 140px;
       }
@@ -83,7 +85,7 @@ function CustomNavbar() {
         margin: 0;
         cursor: pointer;
         display: ${isLoggedIn ? "none" : "unset"};
-        @media (min-width: 480px) {
+        @media (min-width: 550px) {
           display: none;
         }  
     `;
@@ -125,6 +127,11 @@ function CustomNavbar() {
         setOpen(open);
     };
 
+    const closeNavbar = () => {
+        const input = inputRef.current;
+        input.checked = false;
+    };
+
     return (
         <div>
             <GlobalStyle/>
@@ -133,17 +140,17 @@ function CustomNavbar() {
                     <CustomLink to={"/"}>
                         <Logo/>
                     </CustomLink>
-                    <Toggler type={"checkbox"} id={"toggler"}/>
+                    <Toggler type={"checkbox"} id={"toggler"} ref={inputRef}/>
                     <Label htmlFor={"toggler"}><Hamburger className={"hamburger"}/></Label>
                     <ItemContainer className={"menu"}>
-                        <Item id={"login-btn"}>
+                        <Item id={"login-btn"} onClick={closeNavbar}>
                             <AuthButton
                                 url={"/sign-in"}
                                 text={"Login"}
                                 IconComponent={<LockOpenIcon/>}
                             />
                         </Item>
-                        <Item id={"reg-btn"}>
+                        <Item id={"reg-btn"} onClick={closeNavbar}>
                             <AuthButton
                                 url={"/sign-up"}
                                 text={"Sign Up"}
