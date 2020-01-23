@@ -51,6 +51,11 @@ a, a:hover {
     justify-content: space-between;
 }
 
+#signup-container,
+#login-container  {
+    -webkit-box-reflect: below 8px -webkit-gradient(linear, right top, right bottom, from(transparent), to(rgba(0, 0, 0, 0.1)));
+}
+
 @media (max-width: 1024px) {
     #signup-container, #login-container {
         width: 100%;
@@ -77,10 +82,12 @@ a, a:hover {
     #signup-container, #login-container  {
         flex-direction: column;
         width: 100%;
+        -webkit-box-reflect: unset;
     }
 
     #auth-header {
         width: 100%;
+        border-radius: unset !important;
     }
 
     #signup-form-cont, #login-form-cont {
