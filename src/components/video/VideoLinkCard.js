@@ -6,7 +6,7 @@ import {Img} from "../../styled-components/styled"
 import UserAvatar from "../util/UserAvatar";
 import {makeStyles} from "@material-ui/styles";
 import Tooltip from "@material-ui/core/Tooltip";
-import useUserName from "../../hooks/useUserName";
+import {getElapsedTime, getUserName} from "../../util/util";
 
 function VideoLinkCard(props) {
     const {theme} = useContext(ThemeContext);
@@ -76,8 +76,8 @@ function VideoLinkCard(props) {
                     <Tooltip title={title} placement="bottom" classes={{tooltip: classes.tooltip}}>
                         <Title>{title}</Title>
                     </Tooltip>
-                    <User to={"/"}>{useUserName(author)}</User>
-                    <Text>{new Date(creationDate).toDateString()}</Text>
+                    <User to={"/"}>{getUserName(author)}</User>
+                    <Text>{getElapsedTime(creationDate)}</Text>
                 </Texts>
             </Details>
         </LinkCard>

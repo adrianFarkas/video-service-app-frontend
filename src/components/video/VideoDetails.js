@@ -10,7 +10,7 @@ import {Link} from "react-router-dom";
 import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
 import UserAvatar from "../util/UserAvatar";
-import useUserName from "../../hooks/useUserName";
+import {getUserName} from "../../util/util";
 
 function VideoDetails() {
 
@@ -111,7 +111,7 @@ function VideoDetails() {
             <DescriptionContainer>
                 <User>
                     <UserAvatar className={classes.avatar} user={author && author}/>
-                    <Name to={"/"}>{useUserName(author)}</Name>
+                    <Name to={"/"}>{getUserName(author)}</Name>
                 </User>
                 <Description>
                     {description}

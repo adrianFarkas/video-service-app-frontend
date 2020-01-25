@@ -8,7 +8,7 @@ import CommentForm from "./CommentForm";
 import {ThemeContext} from "../../contexts/ThemeContext";
 import UserAvatar from "../util/UserAvatar";
 import {AuthContext} from "../../contexts/AuthContext";
-import useUserName from "../../hooks/useUserName";
+import {getUserName} from "../../util/util";
 
 function Comment({data}) {
     const {id, comment, creationDate, author} = data;
@@ -81,7 +81,7 @@ function Comment({data}) {
         <CommentContainer>
             <UserAvatar user={author && author}/>
             <Main>
-                <Name>{useUserName(author)}</Name>
+                <Name>{getUserName(author)}</Name>
                 <CreationDate>{new Date(creationDate).toDateString()}</CreationDate>
                 {description}
             </Main>
