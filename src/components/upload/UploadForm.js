@@ -1,13 +1,14 @@
 import React, {useContext, useState} from 'react';
 import FileInputZone from "./FileInputZone";
 import TextField from "@material-ui/core/TextField";
-import axios from "axios";
 import styled from "styled-components";
 import {makeStyles} from "@material-ui/core";
 import {withRouter} from "react-router-dom";
 import ThumbnailSelector from "./ThumbnailSelector";
-import Loader from "../util/Loader";
+import Progress from "../util/Progress";
 import {ThemeContext} from "../../contexts/ThemeContext";
+import {upload} from "../../util/axios-handler";
+import {dataUrlToFile} from "../../util/util";
 
 function UploadForm(props) {
     const {theme} = useContext(ThemeContext);
@@ -15,6 +16,7 @@ function UploadForm(props) {
     const [selectedImageUrl, setImageUrl] = useState(null);
     const [texts, setTexts] = useState({title: "", description: ""});
     const [isUploading, setUploading] = useState(false);
+    const [uploadStatus, setUploadStatus] = useState(0);
 
     const useStyles = makeStyles({
         root: {
@@ -71,23 +73,14 @@ function UploadForm(props) {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        const data = new FormData();
-        data.append("video", videoFile);
-        data.append("thumbnail", imageDataUrlToFile(selectedImageUrl));
-        data.append("title", texts.title);
-        data.append("description", texts.description);
+        const imageFile = dataUrlToFile(selectedImageUrl, "image/jpeg");
         setUploading(true);
-        axios.post("/upload/video", data)
+        upload(videoFile, imageFile, texts.title, texts.description, onProgress)
             .then(res => props.history.push(`/video/${res.data}`))
     };
 
-    const imageDataUrlToFile = (dataUrl) => {
-        let byteString = atob(dataUrl.split(',')[1]),
-            n = byteString.length, u8arr = new Uint8Array(n);
-        while(n--){
-            u8arr[n] = byteString.charCodeAt(n);
-        }
-        return new File([new Blob([u8arr])], `${texts.title}.jpg`, {type: "image/jpeg"});
+    const onProgress = (total, loaded) => {
+        setUploadStatus(Math.round( (loaded * 100) / total));
     };
 
     return (
@@ -128,10 +121,10 @@ function UploadForm(props) {
                 />
                 <SubmitButton type={"submit"} disabled={isReadyForUpload}>Upload</SubmitButton>
             </form>
-            <Loader isLoading={isUploading}>
+            <Progress open={isUploading} value={uploadStatus}>
                 <div>Upload in progress...</div>
                 <div>Please wait!</div>
-            </Loader>
+            </Progress>
         </div>
     );
 }

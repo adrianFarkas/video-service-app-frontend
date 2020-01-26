@@ -18,3 +18,12 @@ export const getElapsedTime = (date) => {
 };
 
 export const getUserName = (user) => user ? `${user.firstName} ${user.lastName}` : "";
+
+export const dataUrlToFile = (dataUrl, type, name) => {
+    let byteString = atob(dataUrl.split(',')[1]),
+        n = byteString.length, u8arr = new Uint8Array(n);
+    while(n--){
+        u8arr[n] = byteString.charCodeAt(n);
+    }
+    return new File([new Blob([u8arr])], name ? name : "file", {type});
+};

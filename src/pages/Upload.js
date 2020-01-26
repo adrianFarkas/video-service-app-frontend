@@ -12,7 +12,6 @@ function Upload() {
         background-color: ${theme.cardBg};
         border: 1px solid ${theme.syntax};
         border-radius: 10px;
-        position: relative;
         z-index: 0;    
      `;
 
@@ -29,7 +28,7 @@ function Upload() {
     return (
         <UploadContainer className={"upload-form-cont"}>
             <Title>Video uploading</Title>
-            <UploadForm rerender={false} />
+            <UploadForm/>
         </UploadContainer>
     );
 }
