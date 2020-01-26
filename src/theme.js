@@ -129,6 +129,44 @@ export const messenger = {
     logoShadow: "rgba(31,115,187,0.6)",
 };
 
+export const hmm = {
+    background: "#7c5377",
+    transparentBackground: "rgba(124,83,119,0.9)",
+    cardBg: "#6e4769",
+    cardBgHover: "#82597d",
+    syntax: "#eed2dc",
+    transparentSyntax: "rgba(238,210,220,0.6)",
+    button: "#eed2dc",
+    buttonTxt: "#7c5377",
+    buttonHover: "rgba(238,210,220,0.15)",
+    disabled: "#9b7096",
+    authButton: "#eed2dc",
+    authForm: "#dcb9c5",
+    authFormContent: "#eed2dc",
+    authHeaderContent: "#91658c",
+    navBg: "#6e4769",
+    logoShadow: "rgba(238,210,220,0.6)",
+};
+
+export const nature = {
+    background: "#131913",
+    transparentBackground: "rgba(19,25,19,0.9)",
+    cardBg: "#111411",
+    cardBgHover: "#1d231d",
+    syntax: "#608950",
+    transparentSyntax: "rgba(96,137,80,0.6)",
+    button: "#5b824b",
+    buttonTxt: "#181e18",
+    buttonHover: "rgba(96,137,80,0.15)",
+    disabled: "#1c231c",
+    authButton: "#608950",
+    authForm: "#608950",
+    authFormContent: "#608950",
+    authHeaderContent: "#212d21",
+    navBg: "#111411",
+    logoShadow: "rgba(96,137,80,0.6)",
+};
+
 export const themes = {
     "default": {
         name: "default",
@@ -165,5 +203,15 @@ export const themes = {
         name: "messenger",
         scheme: messenger,
         img: "theme7.png"
-    }
+    },
+    "hmm": {
+        name: "hmm",
+        scheme: hmm,
+        img: "theme8.png"
+    },
+    "nature": {
+        name: "nature",
+        scheme: nature,
+        img: "theme9.png"
+    },
 };
