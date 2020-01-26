@@ -10,6 +10,53 @@ import Zoom from "@material-ui/core/Zoom";
 import CloseIcon from "@material-ui/icons/Close";
 import IconButton from "@material-ui/core/IconButton";
 
+const Wrapper = styled.div`
+    width: 50%;
+    @media (max-width: 900px) {
+        width: 100%;
+        margin: 5px;
+    }
+`;
+
+const Selector = styled.div`
+    overflow: auto;
+    max-height: 85vh;
+    border: 2px solid ${props => props.syntax};
+    background-color: ${props => props.transparentBackground};
+    color: ${props => props.syntax};
+    padding: 15px;
+    border-radius: 10px;
+    ::-webkit-scrollbar {
+        display: none;
+    }
+`;
+
+const Title = styled.div`
+    font-size: 30px;
+`;
+
+const Head = styled.div`
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    padding-bottom: 15px;
+    color: ${props => props.syntax};
+    border-bottom: 1px solid ${props => props.transparentSyntax};
+`;
+
+const Themes = styled.div`
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 20px;
+    @media (max-width: 768px) {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    @media (max-width: 500px) {
+        grid-template-columns: repeat(1, 1fr);
+    }
+`;
+
 function ThemeSelector({open, handleClose}) {
     const {theme} = useContext(ThemeContext);
 
@@ -21,52 +68,9 @@ function ThemeSelector({open, handleClose}) {
         },
         icon: {
             color: theme.syntax,
-        }
+        },
     });
     const classes = useStyles();
-
-    const Selector = styled.div`
-        width: 50%;
-        max-height: 85vh;
-        overflow: auto;
-        border: 2px solid ${theme.syntax};
-        background-color: ${theme.transparentBackground};
-        padding: 15px;
-        border-radius: 10px;
-        color: ${theme.syntax};
-        ::-webkit-scrollbar {
-            display: none;
-        }
-        @media (max-width: 900px) {
-            width: 100%;
-            margin: 5px;
-        }
-    `;
-
-    const Title = styled.div`
-        font-size: 30px;
-    `;
-
-    const Head = styled.div`
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        margin-bottom: 20px;
-        padding-bottom: 15px;
-        border-bottom: 1px solid ${theme.transparentSyntax};
-    `;
-
-    const Themes = styled.div`
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        grid-gap: 20px;
-        @media (max-width: 768px) {
-            grid-template-columns: repeat(2, 1fr);
-        }
-        @media (max-width: 500px) {
-            grid-template-columns: repeat(1, 1fr);
-        }
-    `;
 
     return (
         <Modal
@@ -80,17 +84,19 @@ function ThemeSelector({open, handleClose}) {
             }}
         >
             <Zoom in={open}>
-                <Selector>
-                    <Head>
-                        <Title>Select your theme</Title>
-                        <IconButton className={classes.icon} onClick={handleClose}>
-                            <CloseIcon/>
-                        </IconButton>
-                    </Head>
-                    <Themes>
-                        {Object.values(themes).map((v, i) => <Theme key={i} {...v}/>)}
-                    </Themes>
-                </Selector>
+                <Wrapper>
+                    <Selector className={"transition"} {...theme}>
+                        <Head className={"transition"} {...theme}>
+                            <Title>Select your theme</Title>
+                            <IconButton className={classes.icon} onClick={handleClose}>
+                                <CloseIcon/>
+                            </IconButton>
+                        </Head>
+                        <Themes>
+                            {Object.values(themes).map((v, i) => <Theme key={i} {...v}/>)}
+                        </Themes>
+                    </Selector>
+                </Wrapper>
             </Zoom>
         </Modal>
     );

@@ -9,55 +9,73 @@ import {makeStyles} from "@material-ui/core";
 import {Link} from "react-router-dom";
 import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
+import {AuthContext} from "../../contexts/AuthContext";
 import UserAvatar from "../util/UserAvatar";
 import {getUserName} from "../../util/util";
+
+const BasicDetails = styled.div`
+    margin-top: 15px;
+    padding: 0 5px;
+    border-bottom: 1px solid ${props => props.transparentSyntax};
+    color: ${props => props.syntax};
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+`;
+
+const Title = styled.div`
+    font-size: 28px;
+    width: 100%;
+`;
+
+const CreationDate = styled.div`
+    font-size: 15px;
+    margin: 10px 0 0;
+`;
+
+const Rating = styled.div`
+    display: flex;
+    align-items: center;
+`;
+
+const DescriptionContainer = styled.div`
+    padding: 15px 5px 10px;
+    border-bottom: 1px solid ${props => props.transparentSyntax};
+    color: ${props => props.syntax};
+`;
+
+const User = styled.div`
+    display: flex;
+    align-items: flex-start;
+`;
+
+const Description = styled.div`
+    font-size: 18px;
+    margin-left: 50px;
+    white-space: pre-wrap;
+    max-height: ${props => !props.more && "40px"};
+    overflow: ${props => !props.more && "hidden"};
+`;
+
+const Name = styled(Link)`
+    margin: 6px 0;
+    font-size: 15px;
+    font-weight: bold;
+`;
 
 function VideoDetails() {
 
     const {theme} = useContext(ThemeContext);
     const {state} = useContext(RootContext);
+    const {isLoggedIn} = useContext(AuthContext);
     const {title, description, creationDate, author} = state.selectedVideo;
     const [showMore, setShowMore] = useState(false);
-
-    const BasicDetails = styled.div`
-        margin-top: 15px;
-        padding: 0 5px;
-        border-bottom: 1px solid ${theme.transparentSyntax};
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: space-between;
-    `;
-
-    const Title = styled.div`
-        font-size: 28px;
-        width: 100%;
-        color: ${theme.syntax};
-    `;
-
-    const CreationDate = styled.div`
-        font-size: 15px;
-        color: ${theme.syntax};
-        margin: 10px 0 0;
-    `;
-
-    const Rating = styled.div`
-        display: flex;
-        align-items: center;
-    `
-
-    const Rate = styled.div`
-        color: ${theme.syntax};
-    `;
-    const DescriptionContainer = styled.div`
-      padding: 15px 5px 10px;
-      border-bottom: 1px solid ${theme.transparentSyntax};
-    `;
 
     const useStyle = makeStyles({
         icon: {
             color: theme.syntax,
             "&:disabled": {
-                color: theme.syntax,
+                color: theme.disabled,
             },
         },
         toggler: {
@@ -70,50 +88,28 @@ function VideoDetails() {
     });
     const classes = useStyle();
 
-    const User = styled.div`
-      display: flex;
-      align-items: flex-start;
-    `;
-
-    const Description = styled.div`
-        color: ${theme.syntax};
-        font-size: 18px;
-        margin-left: 50px;
-        white-space: pre-wrap;
-        max-height: ${!showMore && "40px"};
-        overflow: ${!showMore && "hidden"};
-        transition: all .5s ease-in-out 0s;
-    `;
-
-    const Name = styled(Link)`
-      margin: 6px 0;
-      color: ${theme.syntax};
-      font-size: 15px;
-      font-weight: bold;
-    `;
-
     return (
         <div>
-            <BasicDetails>
+            <BasicDetails {...theme} className={"transition"}>
                 <Title>{title}</Title>
                 <CreationDate>{new Date(creationDate).toDateString()}</CreationDate>
                 <Rating>
-                    <IconButton className={classes.icon} disabled>
+                    <IconButton className={classes.icon} disabled={!isLoggedIn}>
                         <ThumbUpIcon/>
                     </IconButton>
-                    <Rate>10k</Rate>
-                    <IconButton className={classes.icon} disabled>
+                    <div>10k</div>
+                    <IconButton className={classes.icon} disabled={!isLoggedIn}>
                         <ThumbDownIcon/>
                     </IconButton>
-                    <Rate>1k</Rate>
+                    <div>1k</div>
                 </Rating>
             </BasicDetails>
-            <DescriptionContainer>
+            <DescriptionContainer {...theme} className={"transition"}>
                 <User>
                     <UserAvatar className={classes.avatar} user={author && author}/>
                     <Name to={"/"}>{getUserName(author)}</Name>
                 </User>
-                <Description>
+                <Description more={showMore}>
                     {description}
                 </Description>
                     <IconButton

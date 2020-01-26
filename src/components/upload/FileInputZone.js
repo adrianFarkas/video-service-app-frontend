@@ -4,58 +4,58 @@ import Dropzone from "react-dropzone";
 import styled from "styled-components";
 import {ThemeContext} from "../../contexts/ThemeContext";
 
+const DropContainer = styled.div`
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    text-align: center; 
+    align-items: center;
+    width: 35%;
+    border-width: 2px; 
+    border-style: dashed;
+    color: ${props => props.syntax};
+    border-color: ${props => getBorderColor(props)};
+    background-color: ${props => getBackgroundColor(props)};
+    transition: all .5s;
+`;
+
+const Text = styled.div`
+    width: 80%;
+    height: 40px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    margin: 15px;
+`;
+
+const BrowseButton  = styled.div`
+    cursor: pointer;
+    color: ${props => props.background};
+    font-weight: bold;
+    padding: 10px 30px;
+    background-color: ${props => props.button};
+    border-radius: 8px;
+    border: none;
+    transition: all .5s;
+`;
+
+const getBorderColor = (props) => {
+    if (props.isDragAccept) return "rgba(0,141,255,0.3)";
+    if (props.isDragReject) return "rgba(255,8,0,0.3)";
+    else return props.transparentSyntax;
+};
+
+const getBackgroundColor = (props) => {
+    if (props.isDragAccept) return "rgba(0,141,255,0.05)";
+    if (props.isDragReject) return "rgba(255,8,0,0.05)";
+    else return null;
+};
+
 function FileInputZone({handleDrop, file}) {
 
     const dropZoneRef = createRef();
     const {theme} = useContext(ThemeContext);
-
-    const DropContainer = styled.div`
-       box-sizing: border-box;
-       display: flex;
-       flex-direction: column;
-       justify-content: space-around;
-       text-align: center; 
-       align-items: center;
-       width: 35%;
-       border-width: 2px; 
-       border-style: dashed;
-       color: ${theme.syntax};
-       border-color: ${props => getBorderColor(props)};
-       background-color: ${props => getBackgroundColor(props)};
-       transition: all .3s ease-in-out 0s;
-    `;
-
-    const Text = styled.div`
-      width: 80%;
-      height: 40px;
-      text-overflow: ellipsis;
-      white-space: nowrap;
-      overflow: hidden;
-      margin: 15px;
-    `;
-
-    const BrowseButton  = styled.div`
-        cursor: pointer;
-        color: ${theme.background};
-        font-weight: bold;
-        padding: 10px 30px;
-        background-color: ${theme.button};
-        border-radius: 8px;
-        border: none;
-        
-    `;
-
-    const getBorderColor = (props) => {
-        if (props.isDragAccept) return "rgba(0,141,255,0.3)";
-        if (props.isDragReject) return "rgba(255,8,0,0.3)";
-        else return theme.transparentSyntax;
-    };
-
-    const getBackgroundColor = (props) => {
-        if (props.isDragAccept) return "rgba(0,141,255,0.05)";
-        if (props.isDragReject) return "rgba(255,8,0,0.05)";
-        else return null;
-    };
 
     const openDialog = () => {
         if (dropZoneRef.current) {
@@ -83,12 +83,13 @@ function FileInputZone({handleDrop, file}) {
             {({getRootProps, getInputProps, isDragActive, isDragAccept, isDragReject}) => (
                 <DropContainer {...getRootProps({isDragActive, isDragAccept, isDragReject})}
                                className={"drop-container"}
+                               {...theme}
                 >
                     <CloudUploadIcon style={{fontSize: "60px", color: theme.button}}/>
                     {!isDragActive && text}
                     {isDragAccept && <Text>Drop here!</Text>}
                     {isDragReject && <Text>You can't upload this type or multiple file!</Text>}
-                    <BrowseButton onClick={openDialog}>Browse</BrowseButton>
+                    <BrowseButton {...theme} onClick={openDialog}>Browse</BrowseButton>
                     <input id={"input"} {...getInputProps()}/>
                 </DropContainer>
             )}

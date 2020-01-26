@@ -13,10 +13,15 @@ body {
 a, a:hover {
     text-decoration: none;
     font-family: sans-serif;
+    color: unset;
 }
 
 *:focus {
     outline: none !important;
+}
+
+.transition {
+    transition: all .5s;
 }
 
 #comment-form {

@@ -16,9 +16,9 @@ function UserAvatar({user, className}) {
     if (user) {
         const {profileImg, firstName} = user;
         if (profileImg) {
-            return <Avatar className={`${className} ${classes.root}`} src={profileImg}/>
+            return <Avatar className={`${className} ${classes.root} transition`} src={profileImg}/>
         } else if (firstName.length > 0) {
-            return <Avatar className={`${className} ${classes.root}`}>{firstName.charAt(0)}</Avatar>
+            return <Avatar className={`${className} ${classes.root} transition`}>{firstName.charAt(0)}</Avatar>
         }
     }
     return <Avatar src={"/img/avatar.png"} className={className}/>;

@@ -24,9 +24,11 @@ function CommentForm(props) {
             width: "100%",
             "& label, label.Mui-focused, .MuiInputBase-root": {
                 color: theme.syntax,
+                transition: "all .5s"
             },
             "& .MuiInput-underline:after, .MuiInput-underline:before": {
-              borderBottomColor: theme.syntax,
+                borderBottomColor: theme.syntax,
+                transition: "all .5s"
             },
             "& .MuiInput-underline": {
                 '&:hover:before': {
@@ -44,6 +46,7 @@ function CommentForm(props) {
             padding: "3px 25px",
             margin: "10px 0",
             float: "right",
+            transition: "all .5s",
             "&:hover" : {
                 backgroundColor: theme.button,
             },

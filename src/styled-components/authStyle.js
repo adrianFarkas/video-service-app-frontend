@@ -7,6 +7,8 @@ export const AuthContainer = styled.div`
     min-height: 450px;
     margin: 60px auto 0;
     display: flex;
+    z-index: 4;
+    position: relative;
 `;
 
 export const AuthFormContainer = styled.div`
