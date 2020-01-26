@@ -24,6 +24,11 @@ const rootReducer = (state, action) => {
             return [
                 ...state
             ];
+        case "DELETE_COMMENT":
+            const newState = state.filter(c => c.id !== action.id);
+            return [
+                ...newState
+            ];
         default:
             return state;
 

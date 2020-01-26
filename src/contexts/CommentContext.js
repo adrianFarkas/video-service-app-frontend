@@ -34,8 +34,15 @@ function CommentContextProvider(props) {
             });
     };
 
+    const deleteComment = (id) => {
+        axios.delete(url + id)
+            .then(() =>
+                dispatch({type: "DELETE_COMMENT", id})
+            );
+    };
+
     return (
-        <CommentContext.Provider value={{comments, dispatch, fetchCommentsByVideo, sendComment, updateComment}}>
+        <CommentContext.Provider value={{comments, dispatch, fetchCommentsByVideo, sendComment, updateComment, deleteComment}}>
             {props.children}
         </CommentContext.Provider>
     );

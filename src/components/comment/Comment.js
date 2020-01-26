@@ -9,12 +9,14 @@ import {ThemeContext} from "../../contexts/ThemeContext";
 import UserAvatar from "../util/UserAvatar";
 import {AuthContext} from "../../contexts/AuthContext";
 import {getUserName} from "../../util/util";
+import {CommentContext} from "../../contexts/CommentContext";
 
 function Comment({data}) {
     const {id, comment, creationDate, author} = data;
     const [editMode, setEdiMode] = useState(false);
     const {theme} = useContext(ThemeContext);
     const {isLoggedIn, userData} = useContext(AuthContext);
+    const {deleteComment} = useContext(CommentContext);
 
     const isMenuDisplayable = isLoggedIn && userData.id === author.id;
 
@@ -63,6 +65,10 @@ function Comment({data}) {
         setEdiMode(!editMode)
     };
 
+    const removeComment = () => {
+        deleteComment(id);
+    };
+
     const description = editMode ?
         <div style={{position: "relative"}}>
             <CommentForm
@@ -91,7 +97,7 @@ function Comment({data}) {
                     comment={comment}
                 >
                     <MenuItem onClick={handleEditMode}><EditIcon fontSize={"small"}/>Edit</MenuItem>
-                    <MenuItem><DeleteIcon fontSize={"small"}/>Delete</MenuItem>
+                    <MenuItem onClick={removeComment}><DeleteIcon fontSize={"small"}/>Delete</MenuItem>
                 </EditMenu>
             </Menu>
         </CommentContainer>
