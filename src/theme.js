@@ -167,6 +167,63 @@ export const nature = {
     logoShadow: "rgba(96,137,80,0.6)",
 };
 
+export const poison = {
+    background: "#181530",
+    transparentBackground: "rgba(24,21,48,0.9)",
+    cardBg: "#131326",
+    cardBgHover: "#271640",
+    syntax: "#f666f0",
+    transparentSyntax: "rgba(246,102,240,0.6)",
+    button: "#f666f0",
+    buttonTxt: "#181530",
+    buttonHover: "rgba(246,102,240,0.15)",
+    disabled: "#1e1b5a",
+    authButton: "#f666f0",
+    authForm: "#f666f0",
+    authFormContent: "#f666f0",
+    authHeaderContent: "#262287",
+    navBg: "#131326",
+    logoShadow: "rgba(246,102,240,0.6)",
+};
+
+export const sunset = {
+    background: "#deb873",
+    transparentBackground: "rgba(222,184,115,0.9)",
+    cardBg: "#d2ad69",
+    cardBgHover: "#cba468",
+    syntax: "#6e4532",
+    transparentSyntax: "rgba(110,69,50,0.6)",
+    button: "#6e4532",
+    buttonTxt: "#deb873",
+    buttonHover: "rgba(110,69,50,0.15)",
+    disabled: "#cca969",
+    authButton: "#6e4532",
+    authForm: "#6e4532",
+    authFormContent: "#6e4532",
+    authHeaderContent: "#c39e62",
+    navBg: "#d2ad69",
+    logoShadow: "rgba(110,69,50,0.6)",
+};
+
+export const ocean = {
+    background: "#53c3e8",
+    transparentBackground: "rgba(83,195,232,0.9)",
+    cardBg: "#52b3d7",
+    cardBgHover: "#51a5c8",
+    syntax: "#1f4d77",
+    transparentSyntax: "rgba(31,77,119,0.6)",
+    button: "#1f4d77",
+    buttonTxt: "#53c3e8",
+    buttonHover: "rgba(31,77,119,0.15)",
+    disabled: "#52aed2",
+    authButton: "#1f4d77",
+    authForm: "#1f4d77",
+    authFormContent: "#1f4d77",
+    authHeaderContent: "#4caacd",
+    navBg: "#52b3d7",
+    logoShadow: "rgba(31,77,119,0.6)",
+};
+
 export const themes = {
     "default": {
         name: "default",
@@ -193,7 +250,6 @@ export const themes = {
         scheme: yaay,
         img: "theme4.png"
     },
-
     "home": {
         name: "home",
         scheme: home,
@@ -213,5 +269,20 @@ export const themes = {
         name: "nature",
         scheme: nature,
         img: "theme9.png"
+    },
+    "poison": {
+        name: "poison",
+        scheme: poison,
+        img: "theme10.png"
+    },
+    "sunset": {
+        name: "sunset",
+        scheme: sunset,
+        img: "theme11.png"
+    },
+    "ocean": {
+        name: "ocean",
+        scheme: ocean,
+        img: "theme12.png"
     },
 };
