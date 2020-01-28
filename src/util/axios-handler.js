@@ -44,3 +44,8 @@ export const deleteRate = (videoId) => {
     return axios.delete(`/rates/video?id=${videoId}`)
         .then(res => Promise.resolve(res.data))
 };
+
+export const sendVerification = (token) => {
+   return axios.get(`/auth/verify?token=${token}`)
+       .then(res => Promise.resolve(res.data))
+};
