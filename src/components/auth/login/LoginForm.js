@@ -12,7 +12,7 @@ import HighlightOffOutlinedIcon from '@material-ui/icons/HighlightOffOutlined';
 
 function LoginForm(props) {
     const {theme} = useContext(ThemeContext);
-    const {logIn, fetchUserData} = useContext(AuthContext);
+    const {logIn} = useContext(AuthContext);
 
     const initialState = {
         email: "",
@@ -74,13 +74,7 @@ function LoginForm(props) {
     const handleSubmit = (e) => {
         e.preventDefault();
         logIn(formData)
-            .then(success => {
-                if (success) {
-                    fetchUserData();
-                    props.history.push("/");
-                } else
-                    setError(true);
-            });
+            .catch(() => setError(true))
     };
 
     return (

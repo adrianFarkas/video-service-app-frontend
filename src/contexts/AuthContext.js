@@ -1,5 +1,6 @@
 import React, {createContext, useCallback, useEffect, useState} from 'react';
 import axios from "axios";
+import {withRouter} from "react-router";
 
 export const AuthContext = createContext();
 
@@ -22,16 +23,22 @@ function AuthContextProvider(props) {
         fetchUserData();
     }, [fetchUserData]);
 
-    const logIn = (formData) => new Promise(resolve => {
-        axios.post(`${authUrl}/sign-in`, formData)
-            .then(res => resolve(res.data))
-    });
+    const logIn = (formData) => {
+        return axios.post(`${authUrl}/sign-in`, formData)
+            .then(res  => {
+                if (!res.data)
+                    return Promise.reject(res.data);
+                fetchUserData();
+                props.history.push("/");
+            })
+    };
 
     const logOut = () => {
         axios.post(`${authUrl}/logout`)
             .then(() => {
                 setIsLoggedIn(false);
                 setUserData(null);
+                props.history.push("/");
             });
     };
 
@@ -42,4 +49,4 @@ function AuthContextProvider(props) {
     );
 }
 
-export default AuthContextProvider;
+export default withRouter(AuthContextProvider);
