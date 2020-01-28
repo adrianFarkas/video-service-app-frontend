@@ -24,3 +24,23 @@ export const upload = (videoFile, imageFile, title, description, onProgress) => 
                 )
         })
 });
+
+export const getCountOfRates = (videoId) => {
+    return axios.get(`/rates/video/count?id=${videoId}`)
+        .then(res => Promise.resolve(res.data))
+};
+
+export const getAuthenticatedUserRate = (videoId) => {
+    return axios.get(`/rates/user/video?id=${videoId}`)
+        .then(res => Promise.resolve(res.data))
+};
+
+export const sendRate = (videoId, rate) => {
+    return axios.post(`/rates/video?id=${videoId}&rate=${rate}`)
+        .then(res => Promise.resolve(res.data))
+};
+
+export const deleteRate = (videoId) => {
+    return axios.delete(`/rates/video?id=${videoId}`)
+        .then(res => Promise.resolve(res.data))
+};
