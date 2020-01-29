@@ -38,8 +38,6 @@ function SignUpForm() {
     const [confirmPasswordValidation, setConfirmPasswordValidation] = useState(validationState);
     const isEverythingValid = !emailValidation.invalid && !passwordValidation.invalid && !confirmPasswordValidation.invalid;
 
-    const confirmPassInput = createRef();
-
     const useStyles = makeStyles({
         root: {
             width: "100%",
@@ -119,7 +117,7 @@ function SignUpForm() {
         if (password && !isPasswordValid(password))
             setPasswordValidation({text: errorMessage.passwordInvalid, invalid: true});
         else setPasswordValidation(validationState);
-        triggerPasswordMatch();
+        checkPasswordsMatch();
     };
 
     const checkPasswordsMatch = () => {
@@ -129,9 +127,10 @@ function SignUpForm() {
         else setConfirmPasswordValidation(validationState);
     };
 
-    const triggerPasswordMatch = () => {
-        confirmPassInput.current.focus();
-        confirmPassInput.current.blur();
+    const handleEnterSubmit = (e) => {
+        if (e.key === "Enter") {
+            checkPasswordsMatch();
+        }
     };
 
     if (registered) {
@@ -217,7 +216,7 @@ function SignUpForm() {
                     value={formData.confirmationPassword}
                     autoComplete="off"
                     onBlur={checkPasswordsMatch}
-                    inputRef={confirmPassInput}
+                    onKeyPress={handleEnterSubmit}
                 />
                 <SignUpButton
                     id={"signup-form-btn"}
