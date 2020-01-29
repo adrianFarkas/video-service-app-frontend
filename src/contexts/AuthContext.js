@@ -45,8 +45,13 @@ function AuthContextProvider(props) {
             });
     };
 
+    const signUp = (data) => {
+        return axios.post("/auth/sign-up", data)
+            .then(res => Promise.resolve(res.data))
+    };
+
     return (
-        <AuthContext.Provider value={{userData, isLoggedIn, setIsLoggedIn, logIn, logOut, fetchUserData}}>
+        <AuthContext.Provider value={{userData, isLoggedIn, setIsLoggedIn, logIn, logOut, signUp, fetchUserData}}>
             {props.children}
         </AuthContext.Provider>
     );
