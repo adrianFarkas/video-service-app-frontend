@@ -17,6 +17,7 @@ export const AuthFormContainer = styled.div`
     box-sizing: border-box;
     border-radius: 5px;
     padding: 30px;
+    position: relative;
 `;
 
 export const AuthButton = styled.button`

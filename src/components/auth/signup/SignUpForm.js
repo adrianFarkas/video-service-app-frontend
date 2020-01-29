@@ -1,20 +1,27 @@
-import React, {createRef, useContext, useState} from 'react';
+import React, {useContext, useState} from 'react';
 import TextField from "@material-ui/core/TextField";
 import styled from "styled-components";
 import {makeStyles} from "@material-ui/core";
 import {ThemeContext} from "../../../contexts/ThemeContext";
-import axios from "axios";
 import {AuthButton, AuthFormContainer} from "../../../styled-components/authStyle";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import MailOutlineIcon from '@material-ui/icons/MailOutline';
 import {Lock} from "@material-ui/icons";
 import {checkEmailExists, isEmailValid, isPasswordValid, isPasswordMatch, errorMessage} from "../../../util/validation";
-import PopupAlert from "../../util/PopupAlert";
+import {Redirect} from "react-router";
+import Loader from "../../util/Loader";
+import {AuthContext} from "../../../contexts/AuthContext";
+
+const CustomLoader = styled(Loader)`
+    border-radius: 5px;
+    display: ${props => !props.show && "none"};
+`;
 
 function SignUpForm() {
     const {theme} = useContext(ThemeContext);
-    const url = "/auth/sign-up";
-    const [alert, setAlert] = useState(false);
+    const {signUp} = useContext(AuthContext);
+    const [registered, setRegistered] = useState(false);
+    const [loading, setLoading] = useState(false);
 
     const initialState = {
         firstName: "",
@@ -30,8 +37,6 @@ function SignUpForm() {
     const [passwordValidation, setPasswordValidation] = useState(validationState);
     const [confirmPasswordValidation, setConfirmPasswordValidation] = useState(validationState);
     const isEverythingValid = !emailValidation.invalid && !passwordValidation.invalid && !confirmPasswordValidation.invalid;
-
-    const confirmPassInput = createRef();
 
     const useStyles = makeStyles({
         root: {
@@ -82,13 +87,9 @@ function SignUpForm() {
         if (isEverythingValid) {
             let {firstName, lastName, email, password} = formData;
             const userData = {firstName, lastName, email, password};
-            axios.post(url, userData)
-                .then(res => {
-                    if (res.status === 200) {
-                        setAlert(true);
-                        setFormData(initialState);
-                    }
-                })
+            setLoading(true);
+            signUp(userData)
+                .then(res => res.success && setRegistered(true))
         }
     };
 
@@ -116,7 +117,7 @@ function SignUpForm() {
         if (password && !isPasswordValid(password))
             setPasswordValidation({text: errorMessage.passwordInvalid, invalid: true});
         else setPasswordValidation(validationState);
-        triggerPasswordMatch();
+        checkPasswordsMatch();
     };
 
     const checkPasswordsMatch = () => {
@@ -126,10 +127,18 @@ function SignUpForm() {
         else setConfirmPasswordValidation(validationState);
     };
 
-    const triggerPasswordMatch = () => {
-        confirmPassInput.current.focus();
-        confirmPassInput.current.blur();
+    const handleEnterSubmit = (e) => {
+        if (e.key === "Enter") {
+            checkPasswordsMatch();
+        }
     };
+
+    if (registered) {
+        return <Redirect to={{
+            pathname: "/sign-in",
+            state: {registered: true}
+        }}/>
+    }
 
     return (
         <AuthFormContainer id={"signup-form-cont"} borderColor={theme.authForm}>
@@ -207,7 +216,7 @@ function SignUpForm() {
                     value={formData.confirmationPassword}
                     autoComplete="off"
                     onBlur={checkPasswordsMatch}
-                    inputRef={confirmPassInput}
+                    onKeyPress={handleEnterSubmit}
                 />
                 <SignUpButton
                     id={"signup-form-btn"}
@@ -217,7 +226,7 @@ function SignUpForm() {
                     Sign Up
                 </SignUpButton>
             </form>
-            <PopupAlert open={alert} handleClose={() => setAlert(false)}/>
+            <CustomLoader show={loading}/>
         </AuthFormContainer>
     );
 }

@@ -38,7 +38,7 @@ function EditMenu({children, color}) {
                     <Grow {...TransitionProps}>
                         <Paper>
                             <ClickAwayListener onClickAway={handleClose}>
-                                <MenuList autoFocusItem={open} id="menu-list-grow">
+                                <MenuList autoFocusItem={open} id="menu-list-grow" onClick={handleClose}>
                                     {children}
                                 </MenuList>
                             </ClickAwayListener>

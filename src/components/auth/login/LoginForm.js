@@ -1,4 +1,4 @@
-import React, {useContext, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import TextField from "@material-ui/core/TextField";
 import {makeStyles} from "@material-ui/core";
 import {ThemeContext} from "../../../contexts/ThemeContext";
@@ -9,8 +9,9 @@ import InputAdornment from "@material-ui/core/InputAdornment";
 import MailOutlineIcon from "@material-ui/icons/MailOutline";
 import {Lock} from "@material-ui/icons";
 import HighlightOffOutlinedIcon from '@material-ui/icons/HighlightOffOutlined';
+import PopupAlert from "../../util/PopupAlert";
 
-function LoginForm(props) {
+function LoginForm({location, history}) {
     const {theme} = useContext(ThemeContext);
     const {logIn} = useContext(AuthContext);
 
@@ -19,8 +20,21 @@ function LoginForm(props) {
         password: ""
     };
 
+    const [fromRegistration, setFromRegistration] = useState(false);
     const [formData, setFormData] = useState(initialState);
-    const [error, setError] = useState(false);
+    const [errorMsg, setErrorMsg] = useState(null);
+
+    useEffect(() => {
+        checkIfFromRegistered();
+    });
+
+    const checkIfFromRegistered = () => {
+        let state = location.state;
+        if (state && state.registered) {
+            setFromRegistration(state.registered);
+            history.replace({ pathname: "/sign-in", state: undefined })
+        }
+    };
 
     const useStyles = makeStyles({
         root: {
@@ -29,17 +43,17 @@ function LoginForm(props) {
                 color: theme.authFormContent,
             },
             "& label, label.Mui-focused": {
-                color: !error && theme.authFormContent,
+                color: !errorMsg && theme.authFormContent,
             },
             '& .MuiOutlinedInput-root': {
                 '& fieldset': {
-                    borderColor: !error && theme.authFormContent,
+                    borderColor: !errorMsg && theme.authFormContent,
                 },
                 '&:hover fieldset': {
-                    borderColor: !error && theme.authFormContent,
+                    borderColor: !errorMsg && theme.authFormContent,
                 },
                 '&.Mui-focused fieldset': {
-                    borderColor: !error && theme.authFormContent,
+                    borderColor: !errorMsg && theme.authFormContent,
                 },
             },
         },
@@ -55,7 +69,7 @@ function LoginForm(props) {
     `;
 
     const Error = styled.div`
-        display: ${error ? "flex" : "none"};
+        display: ${errorMsg ? "flex" : "none"};
         margin: -95px auto;
         justify-content: center;
         align-items: center;
@@ -74,7 +88,7 @@ function LoginForm(props) {
     const handleSubmit = (e) => {
         e.preventDefault();
         logIn(formData)
-            .catch(() => setError(true))
+            .catch(msg => setErrorMsg(msg));
     };
 
     return (
@@ -83,7 +97,7 @@ function LoginForm(props) {
             <form id={"login-form"} onSubmit={handleSubmit}>
                     <TextField
                         required
-                        error={error}
+                        error={errorMsg && true}
                         variant="outlined"
                         className={classes.root}
                         id="email"
@@ -97,11 +111,11 @@ function LoginForm(props) {
                     />
                     <Error>
                         <HighlightOffOutlinedIcon className={classes.icon}/>
-                        <div>Incorrect email or password.</div>
+                        <div>{errorMsg}</div>
                     </Error>
                     <TextField
                         required
-                        error={error}
+                        error={errorMsg && true}
                         variant="outlined"
                         className={classes.root}
                         id="password"
@@ -123,6 +137,7 @@ function LoginForm(props) {
                     Login
                 </LoginButton>
             </form>
+            <PopupAlert open={fromRegistration} handleClose={() => setFromRegistration(false)} />
         </AuthFormContainer>
     );
 }

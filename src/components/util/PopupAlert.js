@@ -47,7 +47,7 @@ function PopupAlert({open, handleClose}) {
             message={
                 <Content>
                     <CheckCircleOutlineIcon className={classes.icon}/>
-                    <div>You registered successfully!</div>
+                    <div>You registered successfully! Please verify your email before login.</div>
                 </Content>
             }
             action={

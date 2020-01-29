@@ -26,8 +26,11 @@ function AuthContextProvider(props) {
     const logIn = (formData) => {
         return axios.post(`${authUrl}/sign-in`, formData)
             .then(res  => {
-                if (!res.data)
-                    return Promise.reject(res.data);
+                const result = res.data;
+                if (result["correct"] === false)
+                    return Promise.reject("Incorrect email or password.");
+                if (result["enabled"] === false)
+                    return Promise.reject("Your account has not been verified yet.");
                 fetchUserData();
                 props.history.push("/");
             })
@@ -42,8 +45,18 @@ function AuthContextProvider(props) {
             });
     };
 
+    const signUp = (data) => {
+        return axios.post("/auth/sign-up", data)
+            .then(res => Promise.resolve(res.data))
+    };
+
+    const sendVerification = (token) => {
+        return axios.get(`/auth/verify?token=${token}`)
+            .then(res => Promise.resolve(res.data))
+    };
+
     return (
-        <AuthContext.Provider value={{userData, isLoggedIn, setIsLoggedIn, logIn, logOut, fetchUserData}}>
+        <AuthContext.Provider value={{userData, isLoggedIn, setIsLoggedIn, logIn, logOut, signUp, sendVerification, fetchUserData}}>
             {props.children}
         </AuthContext.Provider>
     );
