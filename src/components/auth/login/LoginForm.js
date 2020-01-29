@@ -20,8 +20,21 @@ function LoginForm({location, history}) {
         password: ""
     };
 
+    const [fromRegistration, setFromRegistration] = useState(false);
     const [formData, setFormData] = useState(initialState);
     const [errorMsg, setErrorMsg] = useState(null);
+
+    useEffect(() => {
+        checkIfFromRegistered();
+    });
+
+    const checkIfFromRegistered = () => {
+        let state = location.state;
+        if (state && state.registered) {
+            setFromRegistration(state.registered);
+            history.replace({ pathname: "/sign-in", state: undefined })
+        }
+    };
 
     const useStyles = makeStyles({
         root: {
@@ -124,6 +137,7 @@ function LoginForm({location, history}) {
                     Login
                 </LoginButton>
             </form>
+            <PopupAlert open={fromRegistration} handleClose={() => setFromRegistration(false)} />
         </AuthFormContainer>
     );
 }
