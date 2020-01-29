@@ -1,4 +1,4 @@
-import React, {createContext, useReducer, useEffect, useCallback} from 'react';
+import React, {createContext, useReducer, useCallback} from 'react';
 import rootReducer from "../reducers/rootReducer";
 import axios from "axios";
 
@@ -14,14 +14,13 @@ function RootContextProvider(props) {
 
     const [state, dispatch] = useReducer(rootReducer, initialState);
 
-    useEffect(() => {
+    const fetchAllVideos = useCallback(() => {
         axios.get(baseUrlVideo)
             .then(res => {
                 const data = res.data;
                 dispatch({type: "STORE_VIDEOS", data})
             });
     }, []);
-
 
     const fetchVideoById = useCallback(id => {
         axios.get(baseUrlVideo + id)
@@ -32,7 +31,7 @@ function RootContextProvider(props) {
     }, []);
 
     return (
-        <RootContext.Provider value={{state, dispatch, fetchVideoById}}>
+        <RootContext.Provider value={{state, dispatch, fetchAllVideos, fetchVideoById}}>
             {props.children}
         </RootContext.Provider>
     );

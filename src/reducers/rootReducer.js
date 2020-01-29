@@ -18,17 +18,16 @@ const rootReducer = (state, action) => {
             return [
                 ...action.data
             ];
-        case "SWITCH_THEME":
-            return {
-                ...state,
-                isLightTheme: action.checked
-            };
         case "UPDATE_COMMENTS":
-            const comments = state.filter(r => r.id !== action.data.id);
-
+            const updated = action.data;
+            state.map(c => c.id === updated.id ? c.comment = updated.comment: c);
             return [
-                action.data,
-                ...comments
+                ...state
+            ];
+        case "DELETE_COMMENT":
+            const newState = state.filter(c => c.id !== action.id);
+            return [
+                ...newState
             ];
         default:
             return state;

@@ -4,6 +4,12 @@ import {CommentContext} from "../../contexts/CommentContext";
 import styled from "styled-components";
 import {ThemeContext} from "../../contexts/ThemeContext";
 
+const CommentsNum = styled.div`
+    color: ${props => props.syntax};
+    padding: 5px 5px 10px;
+    border-bottom: 1px solid ${props => props.transparentSyntax};
+`;
+
 function CommentSection({videoId}) {
 
     const {comments, fetchCommentsByVideo} = useContext(CommentContext);
@@ -13,19 +19,13 @@ function CommentSection({videoId}) {
         fetchCommentsByVideo(videoId);
     }, [fetchCommentsByVideo, videoId]);
 
-    const CommentsNum = styled.div`
-      color: ${theme.syntax};
-      padding: 5px 5px 10px;
-      border-bottom: 1px solid ${theme.dividerBorder};
-    `;
-
     const recommendations = comments ?
         comments.map((r, i) => <Comment key={i} data={r}/>)
-        : <div>Loading...</div>;
+        : null;
 
     return (
         <div>
-            <CommentsNum>{comments.length} Comment</CommentsNum>
+            <CommentsNum {...theme} className={"transition"}>{comments.length} Comment</CommentsNum>
             <div>
                 {recommendations}
             </div>

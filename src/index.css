@@ -10,27 +10,18 @@ body {
     font-family: sans-serif;
 }
 
-::-webkit-scrollbar {
-    width: 3px;
-    background: white;
-    margin-top: 62px;
-}
-
-::-webkit-scrollbar-thumb {
-    background: #888;
-}
-
-::-webkit-scrollbar-thumb:hover {
-    background: #696969;
-}
-
 a, a:hover {
     text-decoration: none;
     font-family: sans-serif;
+    color: unset;
 }
 
 *:focus {
     outline: none !important;
+}
+
+.transition {
+    transition: all .5s;
 }
 
 #comment-form {
@@ -60,6 +51,16 @@ a, a:hover {
     justify-content: space-around;
 }
 
+#signup-name {
+    display: flex;
+    justify-content: space-between;
+}
+
+#signup-container,
+#login-container  {
+    -webkit-box-reflect: below 8px -webkit-gradient(linear, right top, right bottom, from(transparent), to(rgba(0, 0, 0, 0.1)));
+}
+
 @media (max-width: 1024px) {
     #signup-container, #login-container {
         width: 100%;
@@ -86,16 +87,17 @@ a, a:hover {
     #signup-container, #login-container  {
         flex-direction: column;
         width: 100%;
+        -webkit-box-reflect: unset;
     }
 
     #auth-header {
         width: 100%;
+        border-radius: unset !important;
     }
 
     #signup-form-cont, #login-form-cont {
         width: 100%;
-        border-left: 1px solid #6A0007;
-        border-top: 0;
+        border: none;
     }
 
     #login-form-cont {

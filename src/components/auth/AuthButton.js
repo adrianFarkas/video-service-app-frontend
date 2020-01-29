@@ -10,7 +10,7 @@ function AuthButton({id, text, url, IconComponent}) {
         display: flex;
         justify-content: center;
         box-sizing: border-box;
-        border: 2px solid ${theme.authButton};
+        border: 2px solid ${theme.syntax};
         padding: 6px 0;
         width: 100%;
         font-size: 16px;
@@ -20,7 +20,7 @@ function AuthButton({id, text, url, IconComponent}) {
         @media (min-width: 1024px){
           :hover {
               transform: translateY(-2px);
-              background-color: ${theme.authButtonHover};
+              background-color: ${theme.buttonHover};
           }
         }
         & .MuiSvgIcon-root {

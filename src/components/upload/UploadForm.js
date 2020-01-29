@@ -1,52 +1,54 @@
 import React, {useState} from 'react';
 import FileInputZone from "./FileInputZone";
 import TextField from "@material-ui/core/TextField";
-import axios from "axios";
 import styled from "styled-components";
-import {colors} from "../../theme";
 import {makeStyles} from "@material-ui/core";
 import {withRouter} from "react-router-dom";
 import ThumbnailSelector from "./ThumbnailSelector";
-import Loader from "../util/Loader";
+import Progress from "../util/Progress";
+import {upload} from "../../util/axios-handler";
+import {dataUrlToFile} from "../../util/util";
 
-function UploadForm(props) {
+const SubmitButton = styled.button`
+    padding: 10px 40px;
+    margin: 20px 0;
+    border-radius: 8px;
+    border: none;
+    font-weight: bold;
+    cursor: ${props => props.disabled ? "unset" : "pointer"};
+    color: ${props => props.disabled ? props.theme.transparentSyntax : props.theme.background};
+    background-color: ${props => props.disabled ? props.theme.disabled : props.theme.button};
+`;
 
+function UploadForm({theme, history}) {
     const [videoFile, setVideoFile] = useState(null);
     const [selectedImageUrl, setImageUrl] = useState(null);
     const [texts, setTexts] = useState({title: "", description: ""});
     const [isUploading, setUploading] = useState(false);
+    const [uploadStatus, setUploadStatus] = useState(0);
 
     const useStyles = makeStyles({
         root: {
             width: "100%",
+            "& label, label.Mui-focused, .MuiInputBase-root": {
+                color: theme.authFormContent,
+                transition: "all .5s"
+            },
+            '& .MuiOutlinedInput-root': {
+                '& fieldset': {
+                    borderColor: theme.authFormContent,
+                    transition: "all .5s"
+                },
+                '&:hover fieldset': {
+                    borderColor: theme.authFormContent,
+                },
+                '&.Mui-focused fieldset': {
+                    borderColor: theme.authFormContent,
+                },
+            },
         }
     });
     const classes = useStyles();
-
-    const SubmitButton = styled.button`
-        cursor: pointer;
-        color: #fff;
-        padding: 10px 40px;
-        margin: 20px 0;
-        background-color: ${colors.claret};
-        border-radius: 8px;
-        border: none;
-        position: relative;
-        z-index: 0;
-        :after{
-          content: "";
-          display: ${props => !props.disabled && "none"};
-          background: rgba(255,255,255,0.51);
-          border-radius: 8px;
-          cursor: auto;
-          position: absolute;
-          z-index: 1;
-          width: 100%;
-          height: 100%;
-          top: 0;
-          left: 0;
-        }
-    `;
 
     const isReadyForUpload = !(videoFile && selectedImageUrl
         && texts.title !== "" && texts.description !== "");
@@ -68,23 +70,14 @@ function UploadForm(props) {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        const data = new FormData();
-        data.append("video", videoFile);
-        data.append("thumbnail", imageDataUrlToFile(selectedImageUrl));
-        data.append("title", texts.title);
-        data.append("description", texts.description);
+        const imageFile = dataUrlToFile(selectedImageUrl, "image/jpeg");
         setUploading(true);
-        axios.post("/upload/video", data)
-            .then(() => props.history.push("/"))
+        upload(videoFile, imageFile, texts.title, texts.description, onProgress)
+            .then(res => history.push(`/video/${res.data}`))
     };
 
-    const imageDataUrlToFile = (dataUrl) => {
-        let byteString = atob(dataUrl.split(',')[1]),
-            n = byteString.length, u8arr = new Uint8Array(n);
-        while(n--){
-            u8arr[n] = byteString.charCodeAt(n);
-        }
-        return new File([new Blob([u8arr])], `${texts.title}.jpg`, {type: "image/jpeg"});
+    const onProgress = (total, loaded) => {
+        setUploadStatus(Math.round( (loaded * 100) / total));
     };
 
     return (
@@ -123,12 +116,19 @@ function UploadForm(props) {
                     selectHandler={selectImg}
                     selected={selectedImageUrl}
                 />
-                <SubmitButton type={"submit"} disabled={isReadyForUpload}>Upload</SubmitButton>
+                <SubmitButton
+                    className={"transition"}
+                    type={"submit"}
+                    theme={theme}
+                    disabled={isReadyForUpload}
+                >
+                    Upload
+                </SubmitButton>
             </form>
-            <Loader isLoading={isUploading}>
+            <Progress open={isUploading} value={uploadStatus}>
                 <div>Upload in progress...</div>
                 <div>Please wait!</div>
-            </Loader>
+            </Progress>
         </div>
     );
 }

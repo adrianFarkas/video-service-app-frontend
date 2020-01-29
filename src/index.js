@@ -1,18 +1,18 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css'
 import App from './pages/App';
 import Watch from './pages/Watch';
 import {Route, BrowserRouter as Router} from "react-router-dom";
 import RootContextProvider from "./contexts/RootContext";
 import ThemeContextProvider from "./contexts/ThemeContext";
 import CommentContextProvider from "./contexts/CommentContext";
-import Test from "./components/Test";
 import SignUp from "./pages/SignUp";
 import Login from "./pages/Login";
 import AuthContextProvider from "./contexts/AuthContext";
 import Upload from "./pages/Upload";
 import CustomNavbar from "./components/navigation/CustomNavbar";
+import Verify from "./pages/Verify";
+import './index.css'
 
 const routing = (
     <Router>
@@ -27,7 +27,7 @@ const routing = (
                     <Route path="/sign-up" component={SignUp}/>
                     <Route path="/sign-in" component={Login}/>
                     <Route path="/upload" component={Upload}/>
-                    <Route path="/test" component={Test}/>
+                    <Route path="/verify" component={Verify}/>
                 </ThemeContextProvider>
             </RootContextProvider>
         </AuthContextProvider>
