@@ -5,7 +5,8 @@ import DoneIcon from '@material-ui/icons/Done';
 import CloseIcon from '@material-ui/icons/Close';
 import {ThemeContext} from "../contexts/ThemeContext";
 import {Link} from "react-router-dom";
-import CircularProgress from "@material-ui/core/CircularProgress";
+import Loader from "../components/util/Loader";
+import {AuthContext} from "../contexts/AuthContext";
 
 const Container = styled.div`
    width: 100%;
@@ -15,7 +16,8 @@ const Container = styled.div`
 
 const Card = styled.div`
   width: 600px;
-  //min-height: 400px;
+  position: relative;
+  min-height: 400px;
   margin: 40px 5px;
   padding: 30px;
   display: flex;
@@ -58,14 +60,9 @@ const Login = styled(Link)`
   }
 `;
 
-const Loading = styled.div`
-  width: 100%;
-  height: 300px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+const Loading = styled(Loader)`
+    border-radius: 20px;
   & .MuiCircularProgress-root {
-    color: ${props => props.color};
     width: 60px !important;
     height: 60px !important;
   }
@@ -73,6 +70,7 @@ const Loading = styled.div`
 
 function Verify({location, history}) {
     const {theme} = useContext(ThemeContext);
+    const {sendVerification} = useContext(AuthContext);
     let [seconds, setSeconds] = useState(5);
     let [verified, setVerified] = useState(null);
     const query = new URLSearchParams(location.search);
@@ -95,7 +93,6 @@ function Verify({location, history}) {
                 setTimeout(() => {
                     history.push("/sign-in")
                 }, 5000);
-
             })
     }, [confirmationToken, counter, history]);
 
@@ -103,9 +100,7 @@ function Verify({location, history}) {
         return (
             <Container>
                 <Card {...theme}>
-                    <Loading color={theme.syntax}>
-                        <CircularProgress />
-                    </Loading>
+                    <Loading/>
                 </Card>
             </Container>
         );

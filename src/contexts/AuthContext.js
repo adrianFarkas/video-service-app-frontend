@@ -50,8 +50,13 @@ function AuthContextProvider(props) {
             .then(res => Promise.resolve(res.data))
     };
 
+    const sendVerification = (token) => {
+        return axios.get(`/auth/verify?token=${token}`)
+            .then(res => Promise.resolve(res.data))
+    };
+
     return (
-        <AuthContext.Provider value={{userData, isLoggedIn, setIsLoggedIn, logIn, logOut, signUp, fetchUserData}}>
+        <AuthContext.Provider value={{userData, isLoggedIn, setIsLoggedIn, logIn, logOut, signUp, sendVerification, fetchUserData}}>
             {props.children}
         </AuthContext.Provider>
     );
