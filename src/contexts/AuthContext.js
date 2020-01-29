@@ -26,8 +26,11 @@ function AuthContextProvider(props) {
     const logIn = (formData) => {
         return axios.post(`${authUrl}/sign-in`, formData)
             .then(res  => {
-                if (!res.data)
-                    return Promise.reject(res.data);
+                const result = res.data;
+                if (result["correct"] === false)
+                    return Promise.reject("Incorrect email or password.");
+                if (result["enabled"] === false)
+                    return Promise.reject("Your account has not been verified yet.");
                 fetchUserData();
                 props.history.push("/");
             })
