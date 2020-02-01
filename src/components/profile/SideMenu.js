@@ -1,4 +1,4 @@
-import React, {useContext} from 'react';
+import React, {useContext, useState} from 'react';
 import AddAPhotoIcon from "@material-ui/icons/AddAPhoto";
 import VideoLibraryIcon from "@material-ui/icons/VideoLibrary";
 import SettingsIcon from "@material-ui/icons/Settings";
@@ -8,6 +8,7 @@ import {ThemeContext} from "../../contexts/ThemeContext";
 import MenuItem from "./MenuItem";
 import {UserContext} from "../../contexts/UserContext";
 import {getUserName} from "../../util/util";
+import ProfileImgSelector from "../util/ProfileImgSelector";
 
 const Wrapper = styled.div`
     padding-right: 300px;
@@ -97,6 +98,7 @@ const Name = styled.div`
 function SideMenu(props) {
     const {theme} = useContext(ThemeContext);
     const {userData} = useContext(UserContext);
+    const [open, setOpen] = useState(false);
 
     const image = userData && (
         userData.profileImg ?
@@ -112,7 +114,7 @@ function SideMenu(props) {
                 <UserDetails id={"profile-user"} color={theme.syntax}>
                     <ProfilePicture id={"profile-picture"} color={theme.syntax}>
                         {image}
-                        <ChangeImg id={"change-picture"} {...theme}>
+                        <ChangeImg id={"change-picture"} {...theme} onClick={() => setOpen(true)}>
                             <AddAPhotoIcon/>
                         </ChangeImg>
                     </ProfilePicture>
@@ -125,6 +127,7 @@ function SideMenu(props) {
                     <MenuItem to={"/profile"} text={"Lorem"} IconComponent={HelpIcon} />
                 </MenuItems>
             </Menu>
+            <ProfileImgSelector open={open} handleClose={() => setOpen(false)}/>
         </Wrapper>
     );
 }

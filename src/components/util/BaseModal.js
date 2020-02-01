@@ -28,6 +28,7 @@ const Selector = styled.div`
     color: ${props => props.syntax};
     padding: 15px;
     border-radius: 10px;
+    position: relative;
     ::-webkit-scrollbar {
         display: none;
     }

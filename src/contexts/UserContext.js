@@ -55,13 +55,18 @@ function UserContextProvider(props) {
             .then(res => Promise.resolve(res.data))
     };
 
-    const changeProfileImg = (img) => {
-        setUserData({...userData, profileImg: img})
+    const changeProfilePicture = (data) => {
+        return axios.put("/change/picture", data)
+            .then(res => {
+                const imgLink = res.data;
+                setUserData({...userData, profileImg: imgLink});
+                return Promise.resolve("success")
+            });
     };
 
     return (
         <UserContext.Provider
-            value={{userData, isLoggedIn, setIsLoggedIn, logIn, logOut, signUp, sendVerification, fetchUserData, changeProfileImg}}
+            value={{userData, isLoggedIn, setIsLoggedIn, logIn, logOut, signUp, sendVerification, fetchUserData, changeProfilePicture}}
         >
             {props.children}
         </UserContext.Provider>
