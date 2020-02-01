@@ -3,7 +3,7 @@ import styled, {createGlobalStyle} from "styled-components";
 import {Link} from "react-router-dom";
 import SlideMenu from "./SlideMenu";
 import {ThemeContext} from "../../contexts/ThemeContext";
-import {AuthContext} from "../../contexts/AuthContext";
+import {UserContext} from "../../contexts/UserContext";
 import PersonOutlineIcon from '@material-ui/icons/PersonOutline';
 import LockOpenIcon from '@material-ui/icons/LockOpen';
 import AuthButton from "../auth/AuthButton";
@@ -127,7 +127,7 @@ function CustomNavbar() {
 
     const [open, setOpen] = useState(false);
     const {theme} = useContext(ThemeContext);
-    const {isLoggedIn, userData, logOut} = useContext(AuthContext);
+    const {isLoggedIn, userData, logOut} = useContext(UserContext);
 
     const inputRef = createRef();
 

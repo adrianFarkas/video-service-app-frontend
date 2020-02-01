@@ -2,9 +2,9 @@ import React, {createContext, useCallback, useEffect, useState} from 'react';
 import axios from "axios";
 import {withRouter} from "react-router";
 
-export const AuthContext = createContext();
+export const UserContext = createContext();
 
-function AuthContextProvider(props) {
+function UserContextProvider(props) {
 
     const [userData, setUserData] = useState(null);
     const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -55,11 +55,17 @@ function AuthContextProvider(props) {
             .then(res => Promise.resolve(res.data))
     };
 
+    const changeProfileImg = (img) => {
+        setUserData({...userData, profileImg: img})
+    };
+
     return (
-        <AuthContext.Provider value={{userData, isLoggedIn, setIsLoggedIn, logIn, logOut, signUp, sendVerification, fetchUserData}}>
+        <UserContext.Provider
+            value={{userData, isLoggedIn, setIsLoggedIn, logIn, logOut, signUp, sendVerification, fetchUserData, changeProfileImg}}
+        >
             {props.children}
-        </AuthContext.Provider>
+        </UserContext.Provider>
     );
 }
 
-export default withRouter(AuthContextProvider);
+export default withRouter(UserContextProvider);

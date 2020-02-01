@@ -4,7 +4,7 @@ import {makeStyles} from "@material-ui/core";
 import {ThemeContext} from "../../../contexts/ThemeContext";
 import {AuthButton, AuthFormContainer} from "../../../styled-components/authStyle";
 import styled from "styled-components";
-import {AuthContext} from "../../../contexts/AuthContext";
+import {UserContext} from "../../../contexts/UserContext";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import MailOutlineIcon from "@material-ui/icons/MailOutline";
 import {Lock} from "@material-ui/icons";
@@ -13,7 +13,7 @@ import PopupAlert from "../../util/PopupAlert";
 
 function LoginForm({location, history}) {
     const {theme} = useContext(ThemeContext);
-    const {logIn} = useContext(AuthContext);
+    const {logIn} = useContext(UserContext);
 
     const initialState = {
         email: "",

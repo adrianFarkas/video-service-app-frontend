@@ -10,7 +10,7 @@ import {Lock} from "@material-ui/icons";
 import {checkEmailExists, isEmailValid, isPasswordValid, isPasswordMatch, errorMessage} from "../../../util/validation";
 import {Redirect} from "react-router";
 import Loader from "../../util/Loader";
-import {AuthContext} from "../../../contexts/AuthContext";
+import {UserContext} from "../../../contexts/UserContext";
 
 const CustomLoader = styled(Loader)`
     border-radius: 5px;
@@ -19,7 +19,7 @@ const CustomLoader = styled(Loader)`
 
 function SignUpForm() {
     const {theme} = useContext(ThemeContext);
-    const {signUp} = useContext(AuthContext);
+    const {signUp} = useContext(UserContext);
     const [registered, setRegistered] = useState(false);
     const [loading, setLoading] = useState(false);
 

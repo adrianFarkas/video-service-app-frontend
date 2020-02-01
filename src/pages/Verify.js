@@ -6,7 +6,7 @@ import CloseIcon from '@material-ui/icons/Close';
 import {ThemeContext} from "../contexts/ThemeContext";
 import {Link} from "react-router-dom";
 import Loader from "../components/util/Loader";
-import {AuthContext} from "../contexts/AuthContext";
+import {UserContext} from "../contexts/UserContext";
 
 const Container = styled.div`
    width: 100%;
@@ -70,7 +70,7 @@ const Loading = styled(Loader)`
 
 function Verify({location, history}) {
     const {theme} = useContext(ThemeContext);
-    const {sendVerification} = useContext(AuthContext);
+    const {sendVerification} = useContext(UserContext);
     let [seconds, setSeconds] = useState(5);
     let [verified, setVerified] = useState(null);
     const query = new URLSearchParams(location.search);

@@ -8,7 +8,7 @@ import ThemeContextProvider from "./contexts/ThemeContext";
 import CommentContextProvider from "./contexts/CommentContext";
 import SignUp from "./pages/SignUp";
 import Login from "./pages/Login";
-import AuthContextProvider from "./contexts/AuthContext";
+import UserContextProvider from "./contexts/UserContext";
 import Upload from "./pages/Upload";
 import CustomNavbar from "./components/navigation/CustomNavbar";
 import Verify from "./pages/Verify";
@@ -17,7 +17,7 @@ import './index.css'
 
 const routing = (
     <Router>
-        <AuthContextProvider>
+        <UserContextProvider>
             <RootContextProvider>
                 <ThemeContextProvider>
                     <CustomNavbar/>
@@ -32,7 +32,7 @@ const routing = (
                     <Route path="/verify" component={Verify}/>
                 </ThemeContextProvider>
             </RootContextProvider>
-        </AuthContextProvider>
+        </UserContextProvider>
     </Router>
 );
 

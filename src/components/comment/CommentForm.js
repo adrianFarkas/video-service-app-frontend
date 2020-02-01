@@ -5,12 +5,12 @@ import {RootContext} from "../../contexts/RootContext";
 import {makeStyles} from "@material-ui/core";
 import {ThemeContext} from "../../contexts/ThemeContext";
 import {CommentContext} from "../../contexts/CommentContext";
-import {AuthContext} from "../../contexts/AuthContext";
+import {UserContext} from "../../contexts/UserContext";
 
 function CommentForm(props) {
     const {state} = useContext(RootContext);
     const {sendComment, updateComment} = useContext(CommentContext);
-    const {isLoggedIn} = useContext(AuthContext);
+    const {isLoggedIn} = useContext(UserContext);
     const {theme} = useContext(ThemeContext);
 
     const {comment, commentId, buttonText, handleClick} = props;

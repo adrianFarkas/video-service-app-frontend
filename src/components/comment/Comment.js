@@ -7,7 +7,7 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import CommentForm from "./CommentForm";
 import {ThemeContext} from "../../contexts/ThemeContext";
 import UserAvatar from "../util/UserAvatar";
-import {AuthContext} from "../../contexts/AuthContext";
+import {UserContext} from "../../contexts/UserContext";
 import {getUserName} from "../../util/util";
 import {CommentContext} from "../../contexts/CommentContext";
 
@@ -55,7 +55,7 @@ function Comment({data}) {
     const {id, comment, creationDate, author} = data;
     const [editMode, setEdiMode] = useState(false);
     const {theme} = useContext(ThemeContext);
-    const {isLoggedIn, userData} = useContext(AuthContext);
+    const {isLoggedIn, userData} = useContext(UserContext);
     const {deleteComment} = useContext(CommentContext);
 
     const isMenuDisplayable = isLoggedIn && userData.id === author.id;

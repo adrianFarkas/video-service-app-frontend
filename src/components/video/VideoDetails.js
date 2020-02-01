@@ -9,7 +9,7 @@ import {makeStyles} from "@material-ui/core";
 import {Link} from "react-router-dom";
 import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
-import {AuthContext} from "../../contexts/AuthContext";
+import {UserContext} from "../../contexts/UserContext";
 import UserAvatar from "../util/UserAvatar";
 import {getUserName} from "../../util/util";
 import {deleteRate, sendRate} from "../../util/axios-handler";
@@ -71,7 +71,7 @@ function VideoDetails() {
 
     const {theme} = useContext(ThemeContext);
     const {state} = useContext(RootContext);
-    const {isLoggedIn} = useContext(AuthContext);
+    const {isLoggedIn} = useContext(UserContext);
     const {id, title, description, creationDate, author} = state.selectedVideo;
     const [showMore, setShowMore] = useState(false);
     const [rates, setRates, userRate, setUserRate] = useRates(id, isLoggedIn);

@@ -6,7 +6,7 @@ import HelpIcon from '@material-ui/icons/Help';
 import styled from "styled-components";
 import {ThemeContext} from "../../contexts/ThemeContext";
 import MenuItem from "./MenuItem";
-import {AuthContext} from "../../contexts/AuthContext";
+import {UserContext} from "../../contexts/UserContext";
 import {getUserName} from "../../util/util";
 
 const Wrapper = styled.div`
@@ -96,7 +96,7 @@ const Name = styled.div`
 
 function SideMenu(props) {
     const {theme} = useContext(ThemeContext);
-    const {userData} = useContext(AuthContext);
+    const {userData} = useContext(UserContext);
 
     const image = userData && (
         userData.profileImg ?
