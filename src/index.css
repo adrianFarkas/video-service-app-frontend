@@ -154,3 +154,61 @@ a, a:hover {
     .thumbnail-select {
     }
 }
+
+/*Responsive Profile Menu*/
+
+@media (max-width: 768px) {
+    #profile-menu-wrapper {
+        width: 100%;
+        padding: 0;
+        position: sticky;
+        top: -80px;
+    }
+
+    #profile-menu {
+        width: 100%;
+        bottom: unset;
+        align-items: unset;
+        position: unset;
+    }
+
+    #profile-user {
+        display: flex;
+        align-items: center;
+    }
+
+    #profile-picture {
+        width: 100px;
+        height: 100px;
+        margin: 0 20px 0 0;
+    }
+
+    #change-picture {
+        opacity: 1;
+        width: 30px;
+        height: 30px;
+        right: 0;
+        top: 75px;
+        left: unset;
+    }
+
+    #change-picture .MuiSvgIcon-root {
+        font-size: 15px;
+    }
+
+    #menu-items {
+        display: flex;
+        overflow-x: scroll;
+    }
+
+    .menu-item {
+        justify-content: center;
+        border-left: 0;
+        border-bottom-width: 5px;
+        border-bottom-style: solid;
+    }
+
+    .menu-item .MuiSvgIcon-root {
+        margin: 0 20px 0 0;
+    }
+}
