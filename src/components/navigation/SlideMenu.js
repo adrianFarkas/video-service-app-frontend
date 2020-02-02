@@ -57,7 +57,7 @@ function SlideMenu(props) {
                     <CloseIcon className={classes.closeIcon}/>
                 </IconButton>
                 <Divider/>
-                <ListItem button>
+                <ListItem button component={Link} to={"/profile"}>
                     <ListItemIcon><AccountCircleIcon className={classes.icon}/></ListItemIcon>
                     <ListItemText primary={"Profile"} />
                 </ListItem>
