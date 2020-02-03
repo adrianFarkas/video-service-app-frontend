@@ -20,6 +20,6 @@ This repository contains the frontend.
 
 You can check the [Backend repository](https://github.com/adrianFarkas/video-service-app) on this link.
 
-I also deployed on heroku if you van to try it by yourself.
+I also deployed on heroku if you want to try it.
 
 [Video Service](https://vidservice.herokuapp.com/)
