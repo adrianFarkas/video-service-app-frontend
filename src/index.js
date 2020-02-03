@@ -13,6 +13,7 @@ import Upload from "./pages/Upload";
 import CustomNavbar from "./components/navigation/CustomNavbar";
 import Verify from "./pages/Verify";
 import Profile from "./pages/Profile";
+import PrivateRoute from "./components/util/PrivateRoute";
 import './index.css'
 
 const routing = (
@@ -27,8 +28,8 @@ const routing = (
                     </CommentContextProvider>
                     <Route path="/sign-up" component={SignUp}/>
                     <Route path="/sign-in" component={Login}/>
-                    <Route path="/upload" component={Upload}/>
-                    <Route path="/profile/:page?" component={Profile}/>
+                    <PrivateRoute path="/upload" component={Upload}/>
+                    <PrivateRoute path="/profile/:page?" component={Profile}/>
                     <Route path="/verify" component={Verify}/>
                 </ThemeContextProvider>
             </RootContextProvider>
