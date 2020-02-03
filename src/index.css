@@ -56,11 +56,6 @@ a, a:hover {
     justify-content: space-between;
 }
 
-#signup-container,
-#login-container  {
-    -webkit-box-reflect: below 8px -webkit-gradient(linear, right top, right bottom, from(transparent), to(rgba(0, 0, 0, 0.1)));
-}
-
 @media (max-width: 1024px) {
     #signup-container, #login-container {
         width: 100%;
