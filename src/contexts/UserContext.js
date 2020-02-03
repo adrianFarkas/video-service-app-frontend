@@ -1,27 +1,27 @@
 import React, {createContext, useCallback, useEffect, useState} from 'react';
 import axios from "axios";
 import {withRouter} from "react-router";
+import useLoggedIn from "../hooks/useLoggedIn";
 
 export const UserContext = createContext();
 
 function UserContextProvider(props) {
-
     const [userData, setUserData] = useState(null);
-    const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const [isLoggedIn, setIsLoggedIn] = useLoggedIn();
     const authUrl ="/auth";
 
     const fetchUserData = useCallback(() => {
         axios.get("/user")
             .then(res => {
                 setUserData(res.data);
-                setIsLoggedIn(true);
             })
             .catch(e => console.log(e.message))
     }, []);
 
     useEffect(() => {
-        fetchUserData();
-    }, [fetchUserData]);
+        if (isLoggedIn)
+            fetchUserData();
+    }, [fetchUserData, isLoggedIn]);
 
     const logIn = (formData) => {
         return axios.post(`${authUrl}/sign-in`, formData)
@@ -31,6 +31,7 @@ function UserContextProvider(props) {
                     return Promise.reject("Incorrect email or password.");
                 if (result["enabled"] === false)
                     return Promise.reject("Your account has not been verified yet.");
+                setIsLoggedIn(true);
                 fetchUserData();
                 props.history.push("/");
             })
