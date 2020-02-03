@@ -121,8 +121,8 @@ function SideMenu(props) {
                     <Name>{getUserName(userData)}</Name>
                 </UserDetails>
                 <MenuItems id={"menu-items"} {...theme}>
-                    <MenuItem to={"/profile/videos"} text={"My Videos"} IconComponent={VideoLibraryIcon} />
-                    <MenuItem to={"/profile/settings"} text={"Settings"} IconComponent={SettingsIcon} />
+                    <MenuItem  name={"videos"} to={"/profile/videos"} text={"My Videos"} IconComponent={VideoLibraryIcon} />
+                    <MenuItem name={"settings"} to={"/profile/settings"} text={"Settings"} IconComponent={SettingsIcon} />
                     <MenuItem to={"/profile"} text={"Lorem"} IconComponent={HelpIcon} />
                     <MenuItem to={"/profile"} text={"Lorem"} IconComponent={HelpIcon} />
                 </MenuItems>

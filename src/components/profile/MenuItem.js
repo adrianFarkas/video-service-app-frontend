@@ -1,6 +1,6 @@
 import React, {useContext} from 'react';
 import styled from "styled-components";
-import {Link} from "react-router-dom";
+import {Link, useParams} from "react-router-dom";
 import {ThemeContext} from "../../contexts/ThemeContext";
 
 const CustomLink = styled(Link)`
@@ -23,9 +23,10 @@ const Item = styled.div`
     position: relative;
     cursor: pointer;
     transition: all .3s ease-in-out;
-    color: ${props => props.syntax};
     border-left: 5px solid;
+    color: ${props => props.selected ? props.cardBg : props.syntax};
     border-color: ${props => props.transparentSyntax};
+    background: ${props => props.selected && props.transparentSyntax};
     :hover {
         background: ${props => props.transparentSyntax};
         color: ${props => props.cardBg};
@@ -36,12 +37,14 @@ const Item = styled.div`
 `;
 
 
-function MenuItem({text, to, IconComponent}) {
+function MenuItem({name, text, to, IconComponent}) {
     const {theme} = useContext(ThemeContext);
+    const {page} = useParams();
 
+    const selected = name && name === page;
     return (
         <CustomLink to={to}>
-            <Item {...theme} className={"menu-item"}>
+            <Item selected={selected} {...theme} className={"menu-item"}>
                 {IconComponent && <IconComponent/>}
                 {text}
             </Item>
