@@ -1,5 +1,4 @@
 import React, {useCallback, useContext, useEffect, useState} from 'react';
-import {sendVerification} from "../util/axios-handler";
 import styled from "styled-components";
 import DoneIcon from '@material-ui/icons/Done';
 import CloseIcon from '@material-ui/icons/Close';
@@ -94,7 +93,7 @@ function Verify({location, history}) {
                     history.push("/sign-in")
                 }, 5000);
             })
-    }, [confirmationToken, counter, history]);
+    }, [confirmationToken, counter, history, sendVerification]);
 
     if (!verified)
         return (
