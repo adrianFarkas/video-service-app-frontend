@@ -4,9 +4,8 @@ import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 import makeStyles from "@material-ui/core/styles/makeStyles";
 import List from "@material-ui/core/List";
-import SettingsIcon from '@material-ui/icons/Settings';
 import {ThemeContext} from "../../contexts/ThemeContext";
-import {SwipeableDrawer} from "@material-ui/core";
+import {Drawer} from "@material-ui/core";
 import CloseIcon from '@material-ui/icons/Close';
 import IconButton from "@material-ui/core/IconButton";
 import Divider from "@material-ui/core/Divider";
@@ -65,10 +64,6 @@ function SlideMenu(props) {
                     <ListItemIcon><Publish className={classes.icon}/></ListItemIcon>
                     <ListItemText primary={"Upload"} />
                 </ListItem>
-                <ListItem button>
-                    <ListItemIcon><SettingsIcon className={classes.icon}/></ListItemIcon>
-                    <ListItemText primary={"Settings"} />
-                </ListItem>
                 <ListItem button onClick={() => setThemeSelector(true)}>
                     <ListItemIcon><PaletteIcon className={classes.icon}/></ListItemIcon>
                     <ListItemText primary={"Theme"} />
@@ -84,15 +79,14 @@ function SlideMenu(props) {
 
     return (
         <div>
-            <SwipeableDrawer
+            <Drawer
                 anchor="right"
                 open={open}
                 className={classes.root}
                 onClose={toggleDrawer(false)}
-                onOpen={toggleDrawer(true)}
             >
                 {fullList}
-            </SwipeableDrawer>
+            </Drawer>
             <ThemeSelector
                 open={themeSelector}
                 handleClose={() => setThemeSelector(false)}
