@@ -8,7 +8,7 @@ function CommentContextProvider(props) {
     const initialState = [];
     const [comments, dispatch] = useReducer(rootReducer, initialState);
 
-    const url = "/comments/";
+    const url = `${process.env.REACT_APP_BACKEND_URL}/comments/`;
 
     const fetchCommentsByVideo = useCallback(videoId => {
         axios.get(url + `?videoId=${videoId}`)
@@ -16,7 +16,7 @@ function CommentContextProvider(props) {
                 const data = res.data;
                 dispatch({type: "STORE_COMMENTS", data})
             });
-    }, []);
+    }, [url]);
 
     const sendComment = (id, comment) => {
         axios.post(url + `?videoId=${id}`, comment)

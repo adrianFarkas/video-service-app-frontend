@@ -17,7 +17,7 @@ export const isEmailValid = (email) => {
 };
 
 export const checkEmailExists = (email) => new Promise(resolve => {
-    axios.get(`/auth/exists?email=${email}`)
+    axios.get(`${process.env.REACT_APP_BACKEND_URL}/auth/exists?email=${email}`)
         .then(res => resolve(res))
 });
 

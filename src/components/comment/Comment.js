@@ -55,10 +55,10 @@ function Comment({data}) {
     const {id, comment, creationDate, author} = data;
     const [editMode, setEdiMode] = useState(false);
     const {theme} = useContext(ThemeContext);
-    const {isLoggedIn, userData} = useContext(UserContext);
+    const {userData} = useContext(UserContext);
     const {deleteComment} = useContext(CommentContext);
 
-    const isMenuDisplayable = isLoggedIn && userData.id === author.id;
+    const isMenuDisplayable = userData && userData.id === author.id;
 
     const handleEditMode = () => {
         setEdiMode(!editMode)

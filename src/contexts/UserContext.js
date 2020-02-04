@@ -8,15 +8,17 @@ export const UserContext = createContext();
 function UserContextProvider(props) {
     const [userData, setUserData] = useState(null);
     const [isLoggedIn, setIsLoggedIn] = useLoggedIn();
-    const authUrl ="/auth";
+
+    const baseUrl = process.env.REACT_APP_BACKEND_URL;
+    const authUrl =`${baseUrl}/auth`;
 
     const fetchUserData = useCallback(() => {
-        axios.get("/user")
+        axios.get(`${baseUrl}/user`)
             .then(res => {
                 setUserData(res.data);
             })
             .catch(e => console.log(e.message))
-    }, []);
+    }, [baseUrl]);
 
     useEffect(() => {
         if (isLoggedIn)
@@ -31,8 +33,8 @@ function UserContextProvider(props) {
                     return Promise.reject("Incorrect email or password.");
                 if (result["enabled"] === false)
                     return Promise.reject("Your account has not been verified yet.");
-                setIsLoggedIn(true);
                 fetchUserData();
+                setIsLoggedIn(true);
                 props.history.push("/");
             })
     };
@@ -47,17 +49,17 @@ function UserContextProvider(props) {
     };
 
     const signUp = (data) => {
-        return axios.post("/auth/sign-up", data)
+        return axios.post(`${authUrl}/sign-up`, data)
             .then(res => Promise.resolve(res.data))
     };
 
     const sendVerification = (token) => {
-        return axios.get(`/auth/verify?token=${token}`)
+        return axios.get(`${authUrl}/verify?token=${token}`)
             .then(res => Promise.resolve(res.data))
     };
 
     const changeProfilePicture = (data) => {
-        return axios.put("/change/picture", data)
+        return axios.put(`${baseUrl}/change/picture`, data)
             .then(res => {
                 const imgLink = res.data;
                 setUserData({...userData, profileImg: imgLink});

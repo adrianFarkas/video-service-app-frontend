@@ -10,7 +10,7 @@ function RootContextProvider(props) {
             selectedVideo: {},
         };
 
-    const baseUrlVideo = "/videos/";
+    const baseUrlVideo = `${process.env.REACT_APP_BACKEND_URL}/videos`;
 
     const [state, dispatch] = useReducer(rootReducer, initialState);
 
@@ -20,15 +20,15 @@ function RootContextProvider(props) {
                 const data = res.data;
                 dispatch({type: "STORE_VIDEOS", data})
             });
-    }, []);
+    }, [baseUrlVideo]);
 
     const fetchVideoById = useCallback(id => {
-        axios.get(baseUrlVideo + id)
+        axios.get(`${baseUrlVideo}/${id}`)
             .then(res => {
                 const data = res.data;
                 dispatch({type: "STORE_ACT_VIDEO", data})
             });
-    }, []);
+    }, [baseUrlVideo]);
 
     return (
         <RootContext.Provider value={{state, dispatch, fetchAllVideos, fetchVideoById}}>

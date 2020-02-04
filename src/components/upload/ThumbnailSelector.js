@@ -1,11 +1,11 @@
 import React, {useContext, useEffect, useState} from 'react';
 import styled from "styled-components";
 import Skeleton from "@material-ui/lab/Skeleton";
-import axios from "axios";
 import Fab from "@material-ui/core/Fab";
 import {Refresh} from "@material-ui/icons";
 import {makeStyles} from "@material-ui/core";
 import {ThemeContext} from "../../contexts/ThemeContext";
+import {getThumbnails} from "../../util/axios-handler";
 
 const ThumbnailContainer = styled.div`
     width: 100%;
@@ -61,7 +61,7 @@ function ThumbnailSelector({file, selectHandler, selected}) {
     const {theme} = useContext(ThemeContext);
 
     useEffect(() => {
-        if (file) getThumbnails(file);
+        if (file) getThumbnailPreviews(file);
     }, [file]);
 
 
@@ -82,17 +82,17 @@ function ThumbnailSelector({file, selectHandler, selected}) {
     });
     const classes = useStyles();
 
-    const getThumbnails = (file) => {
+    const getThumbnailPreviews = (file) => {
         const data = new FormData();
         data.append("video", file);
-        axios.post("/create/thumbnails", data)
-            .then(res => setThumbnailPreviews(res.data));
+        getThumbnails(data)
+            .then(res => setThumbnailPreviews(res));
     };
 
     const refresh = (e) => {
         setThumbnailPreviews(initState);
         selectHandler(e, null);
-        getThumbnails(file)
+        getThumbnailPreviews(file)
     };
 
     const thumbnails = thumbnailPreviews.map((url, i) => url ?
