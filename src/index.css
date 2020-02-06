@@ -126,7 +126,7 @@ a, a:hover {
 
 @media (max-width: 768px) {
     .upload-form-cont {
-        width: 95%;
+        width: 95% !important;
     }
 }
 
@@ -142,7 +142,7 @@ a, a:hover {
     }
 
     .drop-container {
-        width: 100%;
+        width: 100% !important;
         height: 40%;
     }
 
@@ -197,13 +197,13 @@ a, a:hover {
     }
 
     .menu-item {
-        justify-content: center;
-        border-left: 0;
+        justify-content: center !important;
+        border-left: 0 !important;
         border-bottom-width: 5px;
         border-bottom-style: solid;
     }
 
     .menu-item .MuiSvgIcon-root {
-        margin: 0 20px 0 0;
+        margin: 0 20px 0 0 !important;
     }
 }
