@@ -1,8 +1,7 @@
-import React, {createRef, useContext} from 'react';
+import React, {createRef} from 'react';
 import CloudUploadIcon from '@material-ui/icons/CloudUpload';
 import Dropzone from "react-dropzone";
 import styled from "styled-components";
-import {ThemeContext} from "../../contexts/ThemeContext";
 
 const DropContainer = styled.div`
     box-sizing: border-box;
@@ -14,10 +13,14 @@ const DropContainer = styled.div`
     width: 35%;
     border-width: 2px; 
     border-style: dashed;
-    color: ${props => props.syntax};
+    color: ${props => props.theme.syntax};
     border-color: ${props => getBorderColor(props)};
     background-color: ${props => getBackgroundColor(props)};
     transition: all .5s;
+    & .MuiSvgIcon-root {
+      font-size: 60px;
+      color: ${props => props.theme.button};
+    }
 `;
 
 const Text = styled.div`
@@ -31,10 +34,10 @@ const Text = styled.div`
 
 const BrowseButton  = styled.div`
     cursor: pointer;
-    color: ${props => props.background};
+    color: ${props => props.theme.background};
     font-weight: bold;
     padding: 10px 30px;
-    background-color: ${props => props.button};
+    background-color: ${props => props.theme.button};
     border-radius: 8px;
     border: none;
     transition: all .5s;
@@ -55,7 +58,6 @@ const getBackgroundColor = (props) => {
 function FileInputZone({handleDrop, file}) {
 
     const dropZoneRef = createRef();
-    const {theme} = useContext(ThemeContext);
 
     const openDialog = () => {
         if (dropZoneRef.current) {
@@ -81,15 +83,15 @@ function FileInputZone({handleDrop, file}) {
             ref={dropZoneRef}
         >
             {({getRootProps, getInputProps, isDragActive, isDragAccept, isDragReject}) => (
-                <DropContainer {...getRootProps({isDragActive, isDragAccept, isDragReject})}
-                               className={"drop-container"}
-                               {...theme}
+                <DropContainer
+                    {...getRootProps({isDragActive, isDragAccept, isDragReject})}
+                    className={"drop-container"}
                 >
-                    <CloudUploadIcon style={{fontSize: "60px", color: theme.button}}/>
+                    <CloudUploadIcon/>
                     {!isDragActive && text}
                     {isDragAccept && <Text>Drop here!</Text>}
                     {isDragReject && <Text>You can't upload this type or multiple file!</Text>}
-                    <BrowseButton {...theme} onClick={openDialog}>Browse</BrowseButton>
+                    <BrowseButton onClick={openDialog}>Browse</BrowseButton>
                     <input id={"input"} {...getInputProps()}/>
                 </DropContainer>
             )}

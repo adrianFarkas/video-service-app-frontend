@@ -1,5 +1,4 @@
-import React, {useContext} from 'react';
-import {ThemeContext} from "../../contexts/ThemeContext";
+import React from 'react';
 import SubPage from "./SubPage";
 import styled from "styled-components";
 
@@ -14,13 +13,11 @@ const Content = styled.div`
 `;
 
 function VideoList({name, page}) {
-    const {theme} = useContext(ThemeContext);
 
     return (
         <SubPage
             title={"My Videos"}
             show={page === name}
-            theme={theme}
         >
             <Content>
                 Under Development

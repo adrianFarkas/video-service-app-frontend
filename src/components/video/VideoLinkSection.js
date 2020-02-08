@@ -28,7 +28,6 @@ const VideoLinkGrid = styled.div`
 
 function VideoLinkSection() {
     const {state: {videos}} = useContext(RootContext);
-
     const videoCards = videos.map((video, i) => <VideoLinkCard key={i} video={video}/>);
 
     return (

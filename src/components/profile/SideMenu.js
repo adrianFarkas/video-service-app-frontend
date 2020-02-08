@@ -4,7 +4,6 @@ import VideoLibraryIcon from "@material-ui/icons/VideoLibrary";
 import SettingsIcon from "@material-ui/icons/Settings";
 import HelpIcon from '@material-ui/icons/Help';
 import styled from "styled-components";
-import {ThemeContext} from "../../contexts/ThemeContext";
 import MenuItem from "./MenuItem";
 import {UserContext} from "../../contexts/UserContext";
 import {getUserName} from "../../util/util";
@@ -16,7 +15,7 @@ const Wrapper = styled.div`
 `;
 
 const Menu = styled.div`
-    background-color: ${props => props.background};
+    background-color: ${props => props.theme.cardBg};
     position: fixed;
     width: 300px;
     top: 63px;
@@ -26,7 +25,7 @@ const Menu = styled.div`
 
 const UserDetails = styled.div`
     padding: 20px;
-    color: ${props => props.color};
+    color: ${props => props.theme.syntax};
 `;
 
 const ProfilePicture = styled.div`
@@ -35,8 +34,8 @@ const ProfilePicture = styled.div`
     margin: 20px auto;
     position: relative;
     border-radius: 50%;
-    color: ${props => props.color};
-    border: 2px solid ${props => props.color};
+    color: ${props => props.theme.syntax};
+    border: 2px solid ${props => props.theme.syntax};
     transition: all .5s;
 `;
 
@@ -73,14 +72,14 @@ const ChangeImg = styled.div`
     transition: opacity .5s;
     :hover {
         opacity: 1;
-        background: ${props => props.transparentBackground};
+        background: ${props => props.theme.transparentBackground};
     }
     & .MuiSvgIcon-root {
       font-size: 50px;
     }
     @media (max-width: 768px) {
-        background: ${props => props.cardBg};
-        border: 2px solid ${props => props.syntax};
+        background: ${props => props.theme.cardBg};
+        border: 2px solid ${props => props.theme.syntax};
     }
 `;
 
@@ -96,7 +95,6 @@ const Name = styled.div`
 `;
 
 function SideMenu(props) {
-    const {theme} = useContext(ThemeContext);
     const {userData} = useContext(UserContext);
     const [open, setOpen] = useState(false);
 
@@ -107,20 +105,19 @@ function SideMenu(props) {
             <NoImage>{userData.firstName.charAt(0)}</NoImage>
     );
 
-
     return (
         <Wrapper id={"profile-menu-wrapper"}>
-            <Menu id={"profile-menu"} className={"transition"} background={theme.cardBg}>
-                <UserDetails id={"profile-user"} color={theme.syntax}>
-                    <ProfilePicture id={"profile-picture"} color={theme.syntax}>
+            <Menu id={"profile-menu"} className={"transition"}>
+                <UserDetails id={"profile-user"}>
+                    <ProfilePicture id={"profile-picture"}>
                         {image}
-                        <ChangeImg id={"change-picture"} {...theme} onClick={() => setOpen(true)}>
+                        <ChangeImg id={"change-picture"} onClick={() => setOpen(true)}>
                             <AddAPhotoIcon/>
                         </ChangeImg>
                     </ProfilePicture>
                     <Name>{getUserName(userData)}</Name>
                 </UserDetails>
-                <MenuItems id={"menu-items"} {...theme}>
+                <MenuItems id={"menu-items"}>
                     <MenuItem  name={"videos"} to={"/profile/videos"} text={"My Videos"} IconComponent={VideoLibraryIcon} />
                     <MenuItem name={"settings"} to={"/profile/settings"} text={"Settings"} IconComponent={SettingsIcon} />
                     <MenuItem to={"/profile"} text={"Lorem"} IconComponent={HelpIcon} />

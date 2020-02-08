@@ -1,6 +1,6 @@
 import React, {useContext} from 'react';
 import {ThemeContext} from "../../contexts/ThemeContext";
-import styled from "styled-components";
+import styled, {ThemeProvider} from "styled-components";
 import Theme from "./Theme";
 import {themes} from "../../theme";
 import BaseModal from "./BaseModal";
@@ -21,16 +21,17 @@ function ThemeSelector({open, handleClose}) {
     const {theme} = useContext(ThemeContext);
 
     return (
-        <BaseModal
-            theme={theme}
-            open={open}
-            handleClose={handleClose}
-            title={"Select your theme"}
-        >
-            <Themes>
-                {Object.values(themes).map((v, i) => <Theme key={i} {...v}/>)}
-            </Themes>
-        </BaseModal>
+        <ThemeProvider theme={theme}>
+            <BaseModal
+                open={open}
+                handleClose={handleClose}
+                title={"Select your theme"}
+            >
+                <Themes>
+                    {Object.values(themes).map((v, i) => <Theme key={i} {...v}/>)}
+                </Themes>
+            </BaseModal>
+        </ThemeProvider>
     );
 }
 

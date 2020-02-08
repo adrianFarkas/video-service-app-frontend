@@ -23,9 +23,9 @@ const Wrapper = styled.div`
 const Selector = styled.div`
     overflow: auto;
     max-height: 85vh;
-    border: 2px solid ${props => props.syntax};
-    background-color: ${props => props.transparentBackground};
-    color: ${props => props.syntax};
+    border: 2px solid ${props => props.theme.syntax};
+    background-color: ${props => props.theme.transparentBackground};
+    color: ${props => props.theme.syntax};
     padding: 15px;
     border-radius: 10px;
     position: relative;
@@ -44,14 +44,14 @@ const Head = styled.div`
     justify-content: space-between;
     margin-bottom: 20px;
     padding-bottom: 15px;
-    color: ${props => props.syntax};
-    border-bottom: 1px solid ${props => props.transparentSyntax};
+    color: ${props => props.theme.syntax};
+    border-bottom: 1px solid ${props => props.theme.transparentSyntax};
     & .MuiButtonBase-root {
-      color: ${props => props.syntax};
+      color: ${props => props.theme.syntax};
     }
 `;
 
-function BaseModal({theme, title, open, handleClose, children}) {
+function BaseModal({title, open, handleClose, children}) {
     return (
         <CustomModal
             open={open}
@@ -64,8 +64,8 @@ function BaseModal({theme, title, open, handleClose, children}) {
         >
             <Zoom in={open}>
                 <Wrapper>
-                    <Selector className={"transition"} {...theme}>
-                        <Head className={"transition"} {...theme}>
+                    <Selector className={"transition"}>
+                        <Head className={"transition"}>
                             <Title>{title}</Title>
                             <IconButton onClick={handleClose}>
                                 <CloseIcon/>

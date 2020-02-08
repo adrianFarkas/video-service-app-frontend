@@ -1,10 +1,11 @@
 import React, {useContext, useEffect} from 'react';
 import {RootContext} from "../contexts/RootContext";
 import Video from "../components/video/Video";
-import styled from "styled-components";
+import styled, {ThemeProvider} from "styled-components";
 import CommentForm from "../components/comment/CommentForm";
 import CommentSection from "../components/comment/CommentSection";
 import VideoDetails from "../components/video/VideoDetails";
+import {ThemeContext} from "../contexts/ThemeContext";
 
 const Container = styled.div`
     width: 95%;
@@ -27,20 +28,23 @@ function Watch(props) {
     const videoId = props.match.params.id;
 
     const {fetchVideoById} = useContext(RootContext);
+    const {theme} = useContext(ThemeContext);
 
     useEffect(() => {
         fetchVideoById(videoId);
     }, [videoId, fetchVideoById]);
 
     return (
-        <Container>
-            <VideoSection>
-                <Video/>
-                <VideoDetails/>
-                <CommentForm/>
-                <CommentSection videoId={videoId}/>
-            </VideoSection>
-        </Container>
+        <ThemeProvider theme={theme}>
+            <Container>
+                <VideoSection>
+                    <Video/>
+                    <VideoDetails/>
+                    <CommentForm/>
+                    <CommentSection videoId={videoId}/>
+                </VideoSection>
+            </Container>
+        </ThemeProvider>
     );
 }
 

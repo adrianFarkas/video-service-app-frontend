@@ -2,12 +2,31 @@ import React, {useState} from 'react';
 import FileInputZone from "./FileInputZone";
 import TextField from "@material-ui/core/TextField";
 import styled from "styled-components";
-import {makeStyles} from "@material-ui/core";
 import {withRouter} from "react-router-dom";
 import ThumbnailSelector from "./ThumbnailSelector";
 import Progress from "../util/Progress";
 import {upload} from "../../util/axios-handler";
 import {dataUrlToFile} from "../../util/util";
+
+const CustomTextField = styled(TextField)`
+    width: 100%;
+    & label, label.Mui-focused, .MuiInputBase-root {
+        color: ${props => props.theme.syntax};
+        transition: all .5s;
+    }
+    & .MuiOutlinedInput-root {
+        & fieldset {
+            border-color: ${props => props.theme.syntax};
+            transition: all .5s;
+        }
+        &:hover fieldset {
+            border-color: ${props => props.theme.syntax};
+        }
+        &.Mui-focused fieldset {
+            border-color: ${props => props.theme.syntax};
+        }
+    }
+`;
 
 const SubmitButton = styled.button`
     padding: 10px 40px;
@@ -20,35 +39,12 @@ const SubmitButton = styled.button`
     background-color: ${props => props.disabled ? props.theme.disabled : props.theme.button};
 `;
 
-function UploadForm({theme, history}) {
+function UploadForm({history}) {
     const [videoFile, setVideoFile] = useState(null);
     const [selectedImageUrl, setImageUrl] = useState(null);
     const [texts, setTexts] = useState({title: "", description: ""});
     const [isUploading, setUploading] = useState(false);
     const [uploadStatus, setUploadStatus] = useState(0);
-
-    const useStyles = makeStyles({
-        root: {
-            width: "100%",
-            "& label, label.Mui-focused, .MuiInputBase-root": {
-                color: theme.authFormContent,
-                transition: "all .5s"
-            },
-            '& .MuiOutlinedInput-root': {
-                '& fieldset': {
-                    borderColor: theme.authFormContent,
-                    transition: "all .5s"
-                },
-                '&:hover fieldset': {
-                    borderColor: theme.authFormContent,
-                },
-                '&.Mui-focused fieldset': {
-                    borderColor: theme.authFormContent,
-                },
-            },
-        }
-    });
-    const classes = useStyles();
 
     const isReadyForUpload = !(videoFile && selectedImageUrl
         && texts.title !== "" && texts.description !== "");
@@ -89,18 +85,16 @@ function UploadForm({theme, history}) {
                         file={videoFile}
                     />
                     <div className={"upload-text-cont"}>
-                        <TextField
+                        <CustomTextField
                             id="title"
-                            className={classes.root}
                             label="Title"
                             name="title"
                             variant="outlined"
                             onChange={changeText}
                             value={texts.title}
                         />
-                        <TextField
+                        <CustomTextField
                             id="description"
-                            className={classes.root}
                             label="Description"
                             name="description"
                             multiline
@@ -119,7 +113,6 @@ function UploadForm({theme, history}) {
                 <SubmitButton
                     className={"transition"}
                     type={"submit"}
-                    theme={theme}
                     disabled={isReadyForUpload}
                 >
                     Upload

@@ -17,7 +17,7 @@ const Container = styled.div`
     width: 100%;
     box-sizing: border-box;
     padding: 20px;
-    color: ${props => props.syntax};
+    color: ${props => props.theme.syntax};
 `;
 
 const Title = styled.div`
@@ -25,10 +25,10 @@ const Title = styled.div`
     font-size: 35px;
 `;
 
-function SubPage({theme, show, title, children}) {
+function SubPage({show, title, children}) {
     return (
         <Wrapper show={show}>
-            <Container {...theme}>
+            <Container>
                 <Title>{title}</Title>
                 {children}
             </Container>

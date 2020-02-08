@@ -1,7 +1,6 @@
-import React, {useContext} from 'react';
+import React from 'react';
 import styled from "styled-components";
 import {Link, useParams} from "react-router-dom";
-import {ThemeContext} from "../../contexts/ThemeContext";
 
 const CustomLink = styled(Link)`
   display: flex;
@@ -24,12 +23,12 @@ const Item = styled.div`
     cursor: pointer;
     transition: all .3s ease-in-out;
     border-left: 5px solid;
-    color: ${props => props.selected ? props.cardBg : props.syntax};
-    border-color: ${props => props.transparentSyntax};
-    background: ${props => props.selected && props.transparentSyntax};
+    color: ${props => props.selected ? props.theme.cardBg : props.theme.syntax};
+    border-color: ${props => props.theme.transparentSyntax};
+    background: ${props => props.selected && props.theme.transparentSyntax};
     :hover {
-        background: ${props => props.transparentSyntax};
-        color: ${props => props.cardBg};
+        background: ${props => props.theme.transparentSyntax};
+        color: ${props => props.theme.cardBg};
     }
     & .MuiSvgIcon-root {
       margin: 0 20px;
@@ -38,13 +37,12 @@ const Item = styled.div`
 
 
 function MenuItem({name, text, to, IconComponent}) {
-    const {theme} = useContext(ThemeContext);
     const {page} = useParams();
 
     const selected = name && name === page;
     return (
         <CustomLink to={to}>
-            <Item selected={selected} {...theme} className={"menu-item"}>
+            <Item selected={selected} className={"menu-item"}>
                 {IconComponent && <IconComponent/>}
                 {text}
             </Item>

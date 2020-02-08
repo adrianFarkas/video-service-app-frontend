@@ -1,7 +1,6 @@
-import React, {useContext} from 'react';
+import React from 'react';
 import styled from "styled-components";
 import {Link} from "react-router-dom"
-import {ThemeContext} from "../../contexts/ThemeContext";
 import {Img} from "../../styled-components/styled"
 import UserAvatar from "../util/UserAvatar";
 import {makeStyles} from "@material-ui/styles";
@@ -23,7 +22,7 @@ const LinkCard = styled(Link)`
 const Details = styled.div`
     padding: 5px 10px;
     display: flex;
-    color: ${props => props.syntax};
+    color: ${props => props.theme.syntax};
 `;
 
 const Texts = styled.div`
@@ -33,7 +32,7 @@ const Texts = styled.div`
 const User = styled.div`
     margin-top: 10px;
     display: block;
-    color: ${props => props.color};
+    color: ${props => props.theme.syntax};
 `;
 
 const Text = styled.div`
@@ -52,8 +51,6 @@ const Title = styled(Text)`
 `;
 
 function VideoLinkCard(props) {
-    const {theme} = useContext(ThemeContext);
-
     const {id, title, thumbnailLink, author, creationDate} = props.video;
 
     const useStyle = makeStyles( {
@@ -68,9 +65,9 @@ function VideoLinkCard(props) {
     const classes = useStyle();
 
     return (
-        <LinkCard theme={theme} to={"/video/" + id} className={"link-card"}>
+        <LinkCard to={"/video/" + id} className={"link-card"}>
             <Img src={thumbnailLink == null ? "/img/empty_img.png" : thumbnailLink}/>
-            <Details {...theme} className={"transition"}>
+            <Details className={"transition"}>
                 <UserAvatar className={classes.root} user={author} />
                 <Texts>
                     <Tooltip title={title} placement="bottom" classes={{tooltip: classes.tooltip}}>
@@ -78,7 +75,6 @@ function VideoLinkCard(props) {
                     </Tooltip>
                     <User
                         className={"transition"}
-                        color={theme.syntax}
                         to={"/"}
                     >
                         {getUserName(author)}

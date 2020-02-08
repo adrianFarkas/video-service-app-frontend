@@ -1,6 +1,5 @@
-import React, {useContext} from 'react';
+import React from 'react';
 import SubPage from "./SubPage";
-import {ThemeContext} from "../../contexts/ThemeContext";
 import styled from "styled-components";
 
 const Content = styled.div`
@@ -14,13 +13,11 @@ const Content = styled.div`
 `;
 
 function Settings({name, page}) {
-    const {theme} = useContext(ThemeContext);
 
     return (
         <SubPage
             title={"Settings"}
             show={page === name}
-            theme={theme}
         >
             <Content>
                 Under Development

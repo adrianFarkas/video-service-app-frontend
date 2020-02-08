@@ -13,10 +13,11 @@ function PopupAlert({open, handleClose}) {
 
     const useStyle = makeStyles({
         root: {
-            "& .MuiTypography-root": {
+            "& .MuiSnackbarContent-root": {
                 background: theme.background,
                 border: `2px solid ${theme.syntax}`,
                 padding: "5px 20px",
+                flexWrap: "unset",
             }
         },
         icon: {

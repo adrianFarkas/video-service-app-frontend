@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import IconButton from "@material-ui/core/IconButton";
 
 export const Container = styled.div`
     width: 80%;
@@ -23,4 +24,11 @@ export const VidRow = styled.div`
 export const Img = styled.img`
     width: 100%;
     height: auto;
+`;
+
+export const CustomIconButton = styled(IconButton)`
+    color: ${props => props.theme.syntax} !important;
+    &:disabled {
+      color: ${props => props.theme.disabled} !important;
+    }
 `;

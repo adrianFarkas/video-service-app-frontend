@@ -1,5 +1,5 @@
 import React, {useCallback, useContext, useEffect, useState} from 'react';
-import styled from "styled-components";
+import styled, {ThemeProvider} from "styled-components";
 import DoneIcon from '@material-ui/icons/Done';
 import CloseIcon from '@material-ui/icons/Close';
 import {ThemeContext} from "../contexts/ThemeContext";
@@ -23,17 +23,18 @@ const Card = styled.div`
   flex-direction: column;
   align-items: center;
   text-align: center;
-  border: 2px solid ${props => props.syntax};
-  background: ${props => props.cardBg};
-  color: ${props => props.syntax};
+  border: 2px solid ${props => props.theme.syntax};
+  background: ${props => props.theme.cardBg};
+  color: ${props => props.theme.syntax};
   border-radius: 20px;
 `;
 
 const Icon = styled.div`
   width: 100px;
   height: 100px;
-  border: 2px solid ${props => props.syntax};
-  background: ${props => `linear-gradient(30deg, ${props.syntax} , ${props.cardBg})`};
+  border: 2px solid ${props => props.theme.syntax};
+  background: ${props => `linear-gradient(30deg, ${props.theme.syntax} , ${props.theme.cardBg})`};
+  background: ${props => `linear-gradient(30deg, ${props.theme.syntax} , ${props.theme.cardBg})`};
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -61,10 +62,10 @@ const Login = styled(Link)`
 
 const Loading = styled(Loader)`
     border-radius: 20px;
-  & .MuiCircularProgress-root {
-    width: 60px !important;
-    height: 60px !important;
-  }
+    & .MuiCircularProgress-root {
+        width: 60px !important;
+        height: 60px !important;
+    }
 `;
 
 function Verify({location, history}) {
@@ -75,7 +76,7 @@ function Verify({location, history}) {
     const query = new URLSearchParams(location.search);
     const confirmationToken = query.get("token");
 
-    const counter = useCallback(() =>  {
+    const counter = useCallback(() => {
         let sec = 5;
         const interval = setInterval(() => {
             sec -= 1;
@@ -98,7 +99,7 @@ function Verify({location, history}) {
     if (!verified)
         return (
             <Container>
-                <Card {...theme}>
+                <Card>
                     <Loading/>
                 </Card>
             </Container>
@@ -106,7 +107,7 @@ function Verify({location, history}) {
 
     const content = verified.success ? (
         <div>
-            <Icon {...theme}>
+            <Icon>
                 <DoneIcon/>
             </Icon>
             <h1>Verified!</h1>
@@ -114,7 +115,7 @@ function Verify({location, history}) {
         </div>
     ) : (
         <div>
-            <Icon {...theme}>
+            <Icon>
                 <CloseIcon/>
             </Icon>
             <h1>Failed!</h1>
@@ -123,14 +124,16 @@ function Verify({location, history}) {
     );
 
     return (
-        <Container>
-            <Card {...theme}>
-                {content}
-                <Login to={"/sign-in"} theme={theme}>Go to Login</Login>
-                <div>or</div>
-                <div>wait {seconds}sec</div>
-            </Card>
-        </Container>
+        <ThemeProvider theme={theme}>
+            <Container>
+                <Card>
+                    {content}
+                    <Login to={"/sign-in"}>Go to Login</Login>
+                    <div>or</div>
+                    <div>wait {seconds}sec</div>
+                </Card>
+            </Container>
+        </ThemeProvider>
     );
 }
 

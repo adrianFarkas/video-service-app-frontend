@@ -1,11 +1,8 @@
 import React, {useContext, useState} from 'react';
-import {ThemeContext} from "../../contexts/ThemeContext";
 import styled from "styled-components";
 import {RootContext} from "../../contexts/RootContext";
-import IconButton from "@material-ui/core/IconButton";
 import ThumbUpIcon from '@material-ui/icons/ThumbUp';
 import ThumbDownIcon from '@material-ui/icons/ThumbDown';
-import {makeStyles} from "@material-ui/core";
 import {Link} from "react-router-dom";
 import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
@@ -14,12 +11,13 @@ import UserAvatar from "../util/UserAvatar";
 import {getUserName} from "../../util/util";
 import {deleteRate, sendRate} from "../../util/axios-handler";
 import useRates from "../../hooks/useRates";
+import {CustomIconButton} from "../../styled-components/styled";
 
 const BasicDetails = styled.div`
     margin-top: 15px;
     padding: 0 5px 8px;
-    border-bottom: 1px solid ${props => props.transparentSyntax};
-    color: ${props => props.syntax};
+    border-bottom: 1px solid ${props => props.theme.transparentSyntax};
+    color: ${props => props.theme.syntax};
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
@@ -44,8 +42,8 @@ const Rating = styled.div`
 
 const DescriptionContainer = styled.div`
     padding: 15px 5px 10px;
-    border-bottom: 1px solid ${props => props.transparentSyntax};
-    color: ${props => props.syntax};
+    border-bottom: 1px solid ${props => props.theme.transparentSyntax};
+    color: ${props => props.theme.syntax};
 `;
 
 const User = styled.div`
@@ -62,46 +60,30 @@ const Description = styled.div`
 `;
 
 const Name = styled(Link)`
-    margin: 6px 0;
+    margin: 6px 0 6px 10px;
     font-size: 15px;
     font-weight: bold;
 `;
 
+const RateButton = styled(CustomIconButton)`
+    padding: 10px !important;
+    box-shadow: ${props => props.active === "true" && 
+        `inset 0 0 40px ${props.theme.transparentSyntax}`
+    };
+`;
+
+const MoreButton = styled(CustomIconButton)`
+    margin-left: 44px !important;
+    margin-top: 5px !important;
+`;
+
 function VideoDetails() {
 
-    const {theme} = useContext(ThemeContext);
     const {state} = useContext(RootContext);
     const {isLoggedIn} = useContext(UserContext);
     const {id, title, description, creationDate, author} = state.selectedVideo;
     const [showMore, setShowMore] = useState(false);
     const [rates, setRates, userRate, setUserRate] = useRates(id, isLoggedIn);
-
-    const useStyle = makeStyles({
-        iconBtn: {
-            color: theme.syntax,
-            "&:disabled": {
-                color: theme.disabled,
-            }
-        },
-        thumbUp: {
-            padding: "10px",
-            boxShadow: userRate === "UP" &&
-                `inset 0 0 40px ${theme.transparentSyntax}`,
-        },
-        thumbDown: {
-            padding: "10px",
-            boxShadow: userRate === "DOWN" &&
-                `inset 0 0 40px ${theme.transparentSyntax}`,
-        },
-        toggler: {
-            marginLeft: "44px",
-            marginTop: "5px",
-        },
-        avatar: {
-            marginRight: "10px",
-        }
-    });
-    const classes = useStyle();
 
     const handleRates = (e) => {
         const name = e.currentTarget.name;
@@ -120,45 +102,44 @@ function VideoDetails() {
 
     return (
         <div>
-            <BasicDetails {...theme} className={"transition"}>
+            <BasicDetails className={"transition"}>
                 <Title>{title}</Title>
                 <CreationDate>{new Date(creationDate).toDateString()}</CreationDate>
                 <Rating>
-                    <IconButton
-                        className={`${classes.iconBtn} ${classes.thumbUp}`}
+                    <RateButton
                         disabled={!isLoggedIn}
                         name={"UP"}
+                        active={(userRate === "UP").toString()}
                         onClick={handleRates}
                     >
                         <ThumbUpIcon />
-                    </IconButton>
+                    </RateButton>
                     <div>{rates.UP}</div>
-                    <IconButton
-                        className={`${classes.iconBtn} ${classes.thumbDown}`}
+                    <RateButton
                         disabled={!isLoggedIn}
                         name={"DOWN"}
+                        active={(userRate === "DOWN").toString()}
                         onClick={handleRates}
                     >
                         <ThumbDownIcon/>
-                    </IconButton>
+                    </RateButton>
                     <div>{rates.DOWN}</div>
                 </Rating>
             </BasicDetails>
-            <DescriptionContainer {...theme} className={"transition"}>
+            <DescriptionContainer className={"transition"}>
                 <User>
-                    <UserAvatar className={classes.avatar} user={author && author}/>
+                    <UserAvatar user={author && author}/>
                     <Name to={"/"}>{getUserName(author)}</Name>
                 </User>
                 <Description more={showMore}>
                     {description}
                 </Description>
-                    <IconButton
-                        className={`${classes.iconBtn} ${classes.toggler}`}
+                    <MoreButton
                         size="small"
                         onClick={() => setShowMore(!showMore)}
                     >
                        {!showMore ? <KeyboardArrowDownIcon/> : <KeyboardArrowUpIcon/>}
-                    </IconButton>
+                    </MoreButton>
             </DescriptionContainer>
         </div>
     );

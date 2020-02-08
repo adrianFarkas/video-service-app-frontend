@@ -5,7 +5,6 @@ import MenuItem from "@material-ui/core/MenuItem";
 import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
 import CommentForm from "./CommentForm";
-import {ThemeContext} from "../../contexts/ThemeContext";
 import UserAvatar from "../util/UserAvatar";
 import {UserContext} from "../../contexts/UserContext";
 import {getUserName} from "../../util/util";
@@ -13,9 +12,9 @@ import {CommentContext} from "../../contexts/CommentContext";
 
 const CommentContainer = styled.div`
     padding: 10px 5px;
-    border-bottom: 1px solid ${props => props.transparentSyntax};
+    border-bottom: 1px solid ${props => props.theme.transparentSyntax};
     display: flex;
-    color: ${props => props.syntax}
+    color: ${props => props.theme.syntax}
 `;
 
 const Text = styled.div`
@@ -54,7 +53,6 @@ const Cancel = styled.div`
 function Comment({data}) {
     const {id, comment, creationDate, author} = data;
     const [editMode, setEdiMode] = useState(false);
-    const {theme} = useContext(ThemeContext);
     const {userData} = useContext(UserContext);
     const {deleteComment} = useContext(CommentContext);
 
@@ -77,14 +75,14 @@ function Comment({data}) {
                 buttonText={"Edit"}
                 handleClick={handleEditMode}
             />
-            <Cancel color={theme.syntax} onClick={handleEditMode}>Cancel</Cancel>
+            <Cancel onClick={handleEditMode}>Cancel</Cancel>
         </div>
         :
         <Text>{comment}</Text>
         ;
 
     return (
-        <CommentContainer {...theme} className={"transition"}>
+        <CommentContainer className={"transition"}>
             <UserAvatar user={author && author}/>
             <Main>
                 <Name>{getUserName(author)}</Name>
@@ -93,7 +91,6 @@ function Comment({data}) {
             </Main>
             <Menu displayable={isMenuDisplayable}>
                 <EditMenu
-                    color={theme.syntax}
                     comment={comment}
                 >
                     <MenuItem onClick={handleEditMode}><EditIcon fontSize={"small"}/>Edit</MenuItem>

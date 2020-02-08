@@ -1,6 +1,5 @@
-import React, {useContext} from 'react';
+import React from 'react';
 import styled from "styled-components";
-import {ThemeContext} from "../../contexts/ThemeContext";
 
 const LoadingContainer = styled.div`
     display: ${props => !props.open ? "none" : "flex"};
@@ -10,7 +9,7 @@ const LoadingContainer = styled.div`
     align-items: center;
     flex-direction: column;
     position: fixed;
-    background: ${props => props.transparentBackground};
+    background: ${props => props.theme.transparentBackground};
     border-radius: 10px;
     z-index: 5;
     top: 0;
@@ -24,7 +23,7 @@ const Texts = styled.div`
     margin: 30px 0;
     padding: 15px;
     font-size: 20px;
-    color: ${props => props.color}
+    color: ${props => props.theme.syntax}
 `;
 
 const Svg = styled.svg`
@@ -33,7 +32,7 @@ const Svg = styled.svg`
 `;
 
 const Circle = styled.circle`
-    stroke: ${props => props.color};
+    stroke: ${props => props.theme.transparentSyntax};
     stroke-width: 6px;
     fill: none;
     stroke-dasharray: 565;
@@ -44,7 +43,7 @@ const Circle = styled.circle`
 `;
 
 const Track = styled(Circle)`
-    stroke: ${props => props.color};
+    stroke: ${props => props.theme.cardBg};
     stroke-dasharray: none;
 `;
 
@@ -56,7 +55,7 @@ const Percent = styled.div`
 
 const Value = styled.div`
     position: absolute;
-    color: ${props => props.color};
+    color: ${props => props.theme.syntax};
     top: 0;
     left: 0;
     width: 100%;
@@ -68,20 +67,19 @@ const Value = styled.div`
 `;
 
 function Progress({open, children, value}) {
-    const {theme} = useContext(ThemeContext);
 
     return (
-        <LoadingContainer open={open} {...theme}>
+        <LoadingContainer open={open}>
             <Percent>
                 <Svg xmlns="http://www.w3.org/2000/svg">
-                    <Track color={theme.cardBg} cx="50%" cy="50%" r="45%"/>
-                    <Circle color={theme.transparentSyntax} value={value} cx="50%" cy="50%" r="45%"/>
+                    <Track cx="50%" cy="50%" r="45%"/>
+                    <Circle value={value} cx="50%" cy="50%" r="45%"/>
                 </Svg>
-                <Value color={theme.syntax}>
+                <Value>
                     {value ? value : 0}%
                 </Value>
             </Percent>
-            <Texts color={theme.syntax} show={children}>
+            <Texts show={children}>
                 {children}
             </Texts>
         </LoadingContainer>
