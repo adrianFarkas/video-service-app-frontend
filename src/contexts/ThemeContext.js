@@ -1,6 +1,7 @@
 import React, {createContext, useState} from 'react';
 import {def, themes} from "../theme";
 import Cookies from "universal-cookie";
+import {ThemeProvider} from "styled-components";
 
 export const ThemeContext = createContext();
 
@@ -12,13 +13,15 @@ function ThemeContextProvider(props) {
     const changeTheme = (name, theme) => {
         const expire = new Date();
         expire.setFullYear(expire.getFullYear() + 1);
-        cookie.set("theme", name, { path: '/', expires: expire});
+        cookie.set("theme", name, {path: '/', expires: expire});
         setTheme(theme);
     };
 
     return (
         <ThemeContext.Provider value={{theme, changeTheme}}>
-            {props.children}
+            <ThemeProvider theme={theme}>
+                {props.children}
+            </ThemeProvider>
         </ThemeContext.Provider>
     );
 }

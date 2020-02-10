@@ -1,7 +1,6 @@
-import React, {useContext} from 'react';
-import styled, {ThemeProvider} from "styled-components";
+import React from 'react';
+import styled from "styled-components";
 import UploadForm from "../components/upload/UploadForm";
-import {ThemeContext} from "../contexts/ThemeContext";
 
 const UploadContainer = styled.div`
     width: 80%;
@@ -23,15 +22,12 @@ const Title = styled.div`
 `;
 
 function Upload() {
-    const {theme} = useContext(ThemeContext);
 
     return (
-        <ThemeProvider theme={theme}>
-            <UploadContainer className={"upload-form-cont transition"}>
-                <Title className={"transition"}>Video uploading</Title>
-                <UploadForm/>
-            </UploadContainer>
-        </ThemeProvider>
+        <UploadContainer className={"upload-form-cont transition"}>
+            <Title className={"transition"}>Video uploading</Title>
+            <UploadForm/>
+        </UploadContainer>
     );
 }
 

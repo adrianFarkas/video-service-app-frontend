@@ -1,8 +1,7 @@
 import React, {useCallback, useContext, useEffect, useState} from 'react';
-import styled, {ThemeProvider} from "styled-components";
+import styled from "styled-components";
 import DoneIcon from '@material-ui/icons/Done';
 import CloseIcon from '@material-ui/icons/Close';
-import {ThemeContext} from "../contexts/ThemeContext";
 import {Link} from "react-router-dom";
 import Loader from "../components/util/Loader";
 import {UserContext} from "../contexts/UserContext";
@@ -69,7 +68,6 @@ const Loading = styled(Loader)`
 `;
 
 function Verify({location, history}) {
-    const {theme} = useContext(ThemeContext);
     const {sendVerification} = useContext(UserContext);
     let [seconds, setSeconds] = useState(5);
     let [verified, setVerified] = useState(null);
@@ -124,16 +122,14 @@ function Verify({location, history}) {
     );
 
     return (
-        <ThemeProvider theme={theme}>
-            <Container>
-                <Card>
-                    {content}
-                    <Login to={"/sign-in"}>Go to Login</Login>
-                    <div>or</div>
-                    <div>wait {seconds}sec</div>
-                </Card>
-            </Container>
-        </ThemeProvider>
+        <Container>
+            <Card>
+                {content}
+                <Login to={"/sign-in"}>Go to Login</Login>
+                <div>or</div>
+                <div>wait {seconds}sec</div>
+            </Card>
+        </Container>
     );
 }
 

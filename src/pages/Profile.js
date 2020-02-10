@@ -1,10 +1,9 @@
-import React, {useContext} from 'react';
-import styled, {ThemeProvider} from "styled-components";
+import React from 'react';
+import styled from "styled-components";
 import VideoList from "../components/profile/VideoList";
 import Settings from "../components/profile/Settings";
 import SideMenu from "../components/profile/SideMenu";
 import {useParams} from "react-router";
-import {ThemeContext} from "../contexts/ThemeContext";
 
 const Container = styled.div` 
     margin-top: 2px;
@@ -23,18 +22,15 @@ const Content = styled.div`
 
 function Profile(props) {
     const {page} = useParams();
-    const {theme} = useContext(ThemeContext);
 
     return (
-        <ThemeProvider theme={theme}>
-            <Container>
-                <SideMenu/>
-                <Content>
-                    <VideoList name={"videos"} page={page}/>
-                    <Settings name={"settings"} page={page}/>
-                </Content>
-            </Container>
-        </ThemeProvider>
+        <Container>
+            <SideMenu/>
+            <Content>
+                <VideoList name={"videos"} page={page}/>
+                <Settings name={"settings"} page={page}/>
+            </Content>
+        </Container>
     );
 }
 
